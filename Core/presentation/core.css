@@ -1,0 +1,319 @@
+body, th, td, label, input, button, select, span, a {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-weight: normal;
+  font-size: .90em;
+}
+
+form {
+    margin: 0px;
+    padding: 0px;
+}
+
+label {
+  color: #666666;
+}
+
+table.tableData {
+    border-collapse: collapse;
+}
+
+table.tableData th {
+  background-color: #C5C7DA;
+  color: #666666;
+  font-weight: bold;
+  padding: .4em;
+  text-align: left;
+  border: 2px solid silver;
+}
+
+table.tableData th a {
+  text-decoration: none;
+}
+
+table.tableData td {
+  padding: .4em;
+  border: 2px solid silver;
+}
+
+a {
+  color: #3D4583;
+}
+
+a:hover {
+  color: #00008b;
+}
+
+input[readonly], input:read-only {
+	background-color: #E8E8E8;
+}
+
+textarea[readonly], textarea:read-only {
+	background-color: #E8E8E8;
+}
+
+.page {
+    display:inline-block;
+    width:auto;
+}
+
+.menuBar {
+	background: #C5C7DA;
+	padding: 0px;
+	margin: 0px;
+	height: 35px;
+    border-radius: .3em;
+	list-style-type: none;
+}
+
+.menuBar li {
+    float:left;
+}
+
+.menuBar li a {
+	display: block;
+	padding: 9px 20px;
+	text-decoration: none;
+}
+
+.menuBar li a:hover {
+    font-weight: bold;
+}
+
+.menuBar ul {
+	position: absolute;
+	left: -9999px;
+	top: -9999px;
+	list-style-type: none;
+}
+
+.menuBar li:hover {
+    position: relative; 
+    background: #E8E8E8;
+}
+
+.menuBar li:hover ul {
+	left: 0px;
+	top: 34px;
+	background: #E8E8E8;
+	padding: 0px;
+}
+
+.menuBar li:hover ul li a {
+	display: block;
+	padding: 5px;
+	width: 168px;
+	text-indent: 15px;
+	background-color: #E8E8E8;
+	color: #3D4583;
+}
+
+.menuBar li:hover ul li a:hover {
+    background: #CCCCCC;
+    font-weight: bold;
+}
+
+.popupMenu {
+	background: #C5C7DA;
+	padding: 0;
+	margin: 5px;
+	list-style-type: none;
+	height: 25px;
+    border: 1px solid silver;
+    border-radius: .3em;
+}
+
+.popupMenu a {
+	color: #3D4583;
+	display: block;
+	padding: 5px;
+	text-decoration: none;
+}
+
+.popupMenu a:hover {
+    font-weight: bold;
+}
+
+.popupMenu ul {
+	position: absolute;
+	left: -9999px;
+	top: -9999px;
+	list-style-type: none;
+    border: 1px solid silver;
+    border-radius: .8em;
+}
+
+.popupMenu:hover {
+    position: relative; 
+    background: #E8E8E8;
+}
+
+.popupMenu:hover ul {
+	left: 0px;
+	top: 10px;
+	background: #E8E8E8;
+	padding: 0px;
+    border-radius: .3em;
+}
+
+.popupMenu:hover ul li a {
+	padding: 5px;
+	display: block;
+	width: auto;
+    white-space: nowrap;
+	background-color: #E8E8E8;
+    border-radius: .3em;
+}
+
+.popupMenu:hover ul li a:hover {
+    background: #CCCCCC;
+    font-weight: bold;
+}
+
+.breadcrumbTrail {
+  padding: .2em;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  background-color: #C5C7DA;
+  border-radius: .3em;
+  border: 1px solid silver;
+  width:100%;
+}
+
+.breadcrumbTrail ul {
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumbTrail ul li {
+  display: inline;
+}
+
+.breadcrumb {
+  font-weight: normal;
+  padding: .2em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.breadcrumb:hover {
+  color: #3D4583;
+  font-weight: bold;
+}
+
+.breadcrumbSelected {
+  padding: .2em;
+  text-align: center;
+  background-color: #C5C7DA;
+  color: #3D4583;
+  font-weight: bold;
+}
+
+.breadcrumbSeparator {
+  width: 0;
+  height: 0;
+  display: inline-block;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #3D4583;
+}
+
+.group {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.groupLink {
+  display: block;
+  padding: .2em;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.groupView {
+  padding: .2em;
+  border-style: solid;
+  border-color: #C5C7DA;
+  border-width: .2em;
+  border-radius: .5em;
+}
+
+.pagingButton {
+  background-color: #F4F4F4;
+  border-color: silver;
+  border-style: solid;
+  border-width: .1em;
+  color: #3D4583;
+  margin: .1em;
+  padding: .2em .4em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: .2em;
+}
+
+.pagingButton:hover {
+  background: #CCCCCC;
+  border-style: double;
+  font-weight: bold;
+}
+
+.pagingButton:active {
+  border-style: double;
+  font-weight:bold;
+}
+
+.multipleSelectList {
+  min-width: 20em;
+}
+
+.associateList {
+  min-height: 20em;
+  min-width: 20em;
+}
+
+.associateButton {
+  vertical-align: top;
+}
+
+.actionImage {
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+.info, .success, .warning, .error {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: .90em;
+  border: 2px solid;
+  border-radius: .5em;  
+  padding: .1em 1.2em .1em .1em;
+  margin: .5em;
+  display: inline-block;
+  min-width: 25em;
+}
+
+.info {
+  border-color: #00529B;
+  color: #00529B;
+  background-color: #BDE5F8;
+}
+
+.confirm {
+  border-color: #4F8A10;
+  color: #4F8A10;
+  background-color: #DFF2BF;;
+}
+
+.warning {
+  border-color: #9F6000;
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+
+.error {
+  border-color: #D8000C;
+  color: #D8000C;
+  background-color: #FFE1E1;  
+}
+

@@ -1,0 +1,7 @@
+Name: com/bws/jdistil/security/app/
+Specification-Title: JDistil Security Module Application Classes
+Specification-Version: 
+Specification-Vendor: JDistil
+Implementation-Title: com.bws.jdistil.security.app
+Implementation-Version: 
+Implementation-Vendor: JDistil

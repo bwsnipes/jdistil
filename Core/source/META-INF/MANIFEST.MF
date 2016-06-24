@@ -1,0 +1,8 @@
+Name: com/bws/jdistil/core/
+Specification-Title: JDistil Core Classes
+Specification-Version: 
+Specification-Vendor: JDistil
+Implementation-Title: com.bws.jdistil.core
+Implementation-Version: 
+Implementation-Vendor: JDistil
+

@@ -1,0 +1,83 @@
+<project name="codes" default="build" basedir="..">
+
+  <description>
+    Builds the codes library.
+  </description>
+
+	<dirname property="home.dir" file="${ant.file}" />
+ 
+  <property file="${home.dir}/build.properties"/>
+
+  <target name="build">
+
+    <delete includeEmptyDirs="true">
+      <fileset dir="${ant.build.dir}" includes="**/*"/>
+      <fileset dir="${ant.dist.dir}" includes="**/*"/>
+      <fileset dir="${ant.doc.dir}" includes="**/*"/>
+    </delete>
+
+    <zip destfile="${ant.dist.dir}/jdistil-codes-${build.version}-src.zip">
+      <fileset dir=".">
+	      <include name="COPYING*" />
+	      <include name="${codes.source.dir}/**" />
+	      <include name="${codes.sql.dir}/**" />
+	      <include name="${ant.dir}/**" />
+	      <exclude name="${ant.build.dir}/*" />
+	      <exclude name="${ant.dist.dir}/*" />
+	      <exclude name="${ant.doc.dir}/*" />
+      </fileset>
+    </zip>
+
+    <path id="codes.classpath">
+      <fileset dir="${java.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${j2ee.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${java.mail.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${core.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+    </path>
+
+    <javac target="1.6" source="1.6" debug="true" debuglevel="lines,vars,source" srcdir="${codes.source.dir}" destdir="${ant.build.dir}">
+      <classpath refid="codes.classpath"/>
+    </javac>
+
+    <copy todir="${ant.build.dir}/META-INF" >
+      <fileset dir="${codes.source.dir}/META-INF">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
+    <manifest file="${ant.build.dir}/META-INF/MANIFEST.MF" mode="update" flattenAttributes="true">
+      <section name="com/bws/jdistil/codes/">
+        <attribute name="Specification-Version" value="${build.version}" />
+        <attribute name="Implementation-Version" value="${build.version}" />
+      </section>
+    </manifest>
+
+    <copy todir="${ant.build.dir}" >
+      <fileset dir=".">
+        <include name="COPYING*"/>
+      </fileset>
+    </copy>
+
+    <zip destfile="${ant.dist.dir}/jdistil-codes-${build.version}.jar">
+      <fileset dir="${ant.build.dir}"/>
+    </zip>
+
+  	<javadoc sourcepath="${codes.source.dir}" destdir="${ant.doc.dir}">
+      <classpath refid="codes.classpath"/>
+	</javadoc>
+		
+    <jar destfile="${ant.dist.dir}/jdistil-codes-${build.version}-doc.jar">
+      <fileset dir="${ant.doc.dir}"/>
+    </jar>
+
+  </target>
+
+</project>

@@ -1,0 +1,7 @@
+Name: com/bws/jdistil/codes/
+Specification-Title: JDistil Codes Module Classes
+Specification-Version: 
+Specification-Vendor: JDistil
+Implementation-Title: com.bws.jdistil.codes
+Implementation-Version: 
+Implementation-Vendor: JDistil

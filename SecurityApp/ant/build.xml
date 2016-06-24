@@ -1,0 +1,139 @@
+<project name="security-app" default="build" basedir="..">
+
+  <description>
+    Builds the security web application.
+  </description>
+
+	<dirname property="home.dir" file="${ant.file}" />
+ 
+  <property file="${home.dir}/build.properties"/>
+
+  <target name="build">
+
+    <delete includeEmptyDirs="true">
+      <fileset dir="${ant.build.dir}" includes="**/*"/>
+      <fileset dir="${ant.dist.dir}" includes="**/*"/>
+      <fileset dir="${ant.doc.dir}" includes="**/*"/>
+    </delete>
+
+    <zip destfile="${ant.dist.dir}/jdistil-security-app-${build.version}-src.zip">
+      <fileset dir=".">
+	      <include name="COPYING*" />
+	      <include name="${security.app.source.dir}/**" />
+	      <include name="${security.app.properties.dir}/**" />
+	      <include name="${security.app.web.dir}/**" />
+	      <exclude name="${security.app.web.dir}/WEB-INF/classes/**" />
+	      <exclude name="${security.app.web.dir}/WEB-INF/lib/**" />
+	      <include name="${ant.dir}/**" />
+	      <exclude name="${ant.build.dir}/*" />
+	      <exclude name="${ant.dist.dir}/*" />
+	      <exclude name="${ant.doc.dir}/*" />
+      </fileset>
+    </zip>
+
+    <mkdir dir="${ant.build.dir}/WEB-INF"/>
+    <mkdir dir="${ant.build.dir}/WEB-INF/classes"/>
+    <mkdir dir="${ant.build.dir}/WEB-INF/lib"/>
+
+    <path id="security.app.classpath">
+      <fileset dir="${java.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${j2ee.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${java.mail.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${core.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${codes.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${security.lib.dir}">
+        <include name="**/*.jar"/>
+      </fileset>
+    </path>
+
+    <javac target="1.6" source="1.6" debug="true" debuglevel="lines,vars,source" srcdir="${security.app.source.dir}" destdir="${ant.build.dir}/WEB-INF/classes">
+      <classpath refid="security.app.classpath"/>
+    </javac>
+
+    <copy todir="${ant.build.dir}">
+      <fileset dir="${security.app.web.dir}">
+        <include name="**/*.css"/>
+        <include name="**/*.js"/>
+        <include name="**/*.jsp"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${ant.build.dir}/WEB-INF/classes/META-INF">
+      <fileset dir="${security.app.web.dir}/META-INF">
+        <include name="MANIFEST.MF"/>
+      </fileset>
+    </copy>
+
+    <manifest file="${ant.build.dir}/WEB-INF/classes/META-INF/MANIFEST.MF" mode="update" flattenAttributes="true">
+      <section name="com/bws/jdistil/security/app/">
+        <attribute name="Specification-Version" value="${build.version}" />
+        <attribute name="Implementation-Version" value="${build.version}" />
+      </section>
+    </manifest>
+
+    <copy todir="${ant.build.dir}/WEB-INF">
+      <fileset dir="${security.app.web.dir}/WEB-INF">
+        <include name="web.xml"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${ant.build.dir}/WEB-INF/classes">
+      <fileset dir="${security.app.properties.dir}">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${ant.build.dir}/WEB-INF/lib">
+      <fileset dir="${core.lib.dir}">
+        <include name="jdistil-core-${build.version}.jar"/>
+      </fileset>
+      <fileset dir="${codes.lib.dir}">
+        <include name="jdistil-codes-${build.version}.jar"/>
+      </fileset>
+      <fileset dir="${security.lib.dir}">
+        <include name="jdistil-security-${build.version}.jar"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${ant.build.dir}" >
+      <fileset dir=".">
+        <include name="COPYING*"/>
+      </fileset>
+    </copy>
+
+    <zip destfile="${ant.dist.dir}/jdistil-security-app-${build.version}.jar">
+      <fileset dir="${ant.build.dir}/WEB-INF/classes">
+      	<exclude name="**/*.properties"/>	
+      </fileset>
+      <fileset dir="${ant.build.dir}">
+        <include name="COPYING*"/>
+      </fileset>
+    </zip>
+
+  	<zip destfile="${ant.dist.dir}/jdistil-security-app-${build.version}.war">
+      <fileset dir="${ant.build.dir}"/>
+    </zip>
+
+    <copy file="${ant.dist.dir}/jdistil-security-app-${build.version}.war" todir="${java.deploy.dir}"/>
+
+  	<javadoc sourcepath="${security.app.source.dir}" destdir="${ant.doc.dir}">
+      <classpath refid="security.app.classpath"/>
+		</javadoc>
+		
+    <jar destfile="${ant.dist.dir}/jdistil-security-app-${build.version}-doc.jar">
+      <fileset dir="${ant.doc.dir}"/>
+    </jar>
+
+  </target>
+
+</project>
