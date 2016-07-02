@@ -49,7 +49,9 @@ public class EditRole extends EditDataObject<Integer, Role> {
   */
   public void populateReferenceData(ProcessContext processContext) throws ProcessException {
   
-    // Load tasks
+  	super.populateReferenceData(processContext);
+
+  	// Load tasks
     loadReferenceData(TaskManager.class, AttributeNames.TASKS, processContext.getRequest());
     loadReferenceData(GroupManager.class, AttributeNames.GROUPS, processContext.getRequest());
   }

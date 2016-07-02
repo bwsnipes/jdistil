@@ -18,6 +18,7 @@
  */
 package com.bws.jdistil.core.tag.basic;
 
+import com.bws.jdistil.core.configuration.FieldIds;
 import com.bws.jdistil.core.servlet.http.Controller;
 import com.bws.jdistil.core.util.StringUtil;
 
@@ -96,7 +97,7 @@ public class Form extends Component {
     // Convert page ID and action ID as string
     String targetPageId = StringUtil.convertNull(pageId);
     String targetActionId = StringUtil.convertNull(actionId);
-
+    
     // Create and populate page attributes
     StringBuffer pageAttributes = new StringBuffer();
     appendAttribute("type", "hidden", pageAttributes);
@@ -113,9 +114,24 @@ public class Form extends Component {
       // Write form as HTML form
       jspWriter.println("<form" + attributes + ">");
 
-      // Write page ID and action ID as hidden fields
+      // Write transaction page ID and action ID as hidden fields
       jspWriter.println("<input" + pageAttributes + "/>");
       jspWriter.println("<input" + actionAttributes + "/>");
+
+      // Attempt to retrieve transaction token
+      String transactionToken = (String)pageContext.getSession().getAttribute(FieldIds.TRANSACTION_TOKEN_ID);
+
+      if (!StringUtil.isEmpty(transactionToken)) {
+      	
+        // Create and populate transaction token attributes
+        StringBuffer transactionTokenAttributes = new StringBuffer();
+        appendAttribute("type", "hidden", transactionTokenAttributes);
+        appendAttribute("name", FieldIds.TRANSACTION_TOKEN_ID, transactionTokenAttributes);
+        appendAttribute("value", transactionToken, transactionTokenAttributes);
+
+        // Write transaction token ID if defined
+        jspWriter.println("<input" + transactionTokenAttributes + "/>");
+      }
     }
     catch (IOException ioException) {
 

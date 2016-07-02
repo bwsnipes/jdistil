@@ -19,7 +19,9 @@
 package com.bws.jdistil.core.process.model;
 
 import java.util.Locale;
+import java.util.UUID;
 
+import com.bws.jdistil.core.configuration.FieldIds;
 import com.bws.jdistil.core.datasource.DataObject;
 import com.bws.jdistil.core.datasource.IDataManager;
 import com.bws.jdistil.core.message.Messages;
@@ -211,7 +213,12 @@ public class EditDataObject<I, T extends DataObject<I>> extends Processor {
   */
   protected void populateReferenceData(ProcessContext processContext) throws ProcessException {
 
-    // Do nothing by default
+    // Create transaction token
+    String transactionToken = UUID.randomUUID().toString();
+    
+    // Store transaction token in the session
+    HttpSession session = processContext.getRequest().getSession(true);
+    session.setAttribute(FieldIds.TRANSACTION_TOKEN_ID, transactionToken);
   }
 
 }

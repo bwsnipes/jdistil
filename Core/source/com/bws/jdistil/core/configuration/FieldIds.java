@@ -27,6 +27,7 @@ public class FieldIds {
   public static final String PARENT_FIELD_ID = "CRF1";	
   public static final String PARENT_ACTION_ID = "CRF2";
   public static final String PARENT_PAGE_ID = "CRF3";
+  public static final String TRANSACTION_TOKEN_ID = "CRF4";
   
   protected FieldIds() {
     super();

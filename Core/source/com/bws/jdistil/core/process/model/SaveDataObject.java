@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 
 import javax.servlet.http.HttpSession;
 
+import com.bws.jdistil.core.configuration.FieldIds;
 import com.bws.jdistil.core.datasource.DataObject;
 import com.bws.jdistil.core.datasource.IDataManager;
 import com.bws.jdistil.core.message.Messages;
@@ -139,6 +140,9 @@ public class SaveDataObject<I, T extends DataObject<I>> extends Processor {
   @SuppressWarnings("unchecked")
 	public void process(ProcessContext processContext) throws ProcessException {
 
+  	// Check security token
+  	checkSecurityToken(processContext);
+  	
     // Check for errors before attempting to save
     if (!processContext.getErrorMessages().isEmpty()) {
 
@@ -220,4 +224,22 @@ public class SaveDataObject<I, T extends DataObject<I>> extends Processor {
     }
   }
 
+  protected void checkSecurityToken(ProcessContext processContext) throws ProcessException {
+  	
+    // Attempt to retrieve transaction token from the session
+    HttpSession session = processContext.getRequest().getSession(true);
+    String transactionToken = (String)session.getAttribute(FieldIds.TRANSACTION_TOKEN_ID);
+  	
+  	// Clean up transaction token
+    session.removeAttribute(FieldIds.TRANSACTION_TOKEN_ID);
+
+    // Get submitted transaction token
+  	String submittedTransactionToken = ParameterExtractor.getString(processContext.getRequest(), FieldIds.TRANSACTION_TOKEN_ID);
+
+  	if (StringUtil.isEmpty(transactionToken) || StringUtil.isEmpty(submittedTransactionToken) || !submittedTransactionToken.equals(transactionToken)) {
+
+  		throw new ProcessException("Action Security Violation: Invalid transaction token.");
+    }
+  }
+  
 }
