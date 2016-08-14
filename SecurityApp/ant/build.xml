@@ -1,14 +1,18 @@
-<project name="security-app" default="build" basedir="..">
+<project name="security-app" default="security-app" basedir="..">
 
   <description>
     Builds the security web application.
   </description>
 
-	<dirname property="home.dir" file="${ant.file}" />
+  <dirname property="home.dir" file="${ant.file}" />
  
   <property file="${home.dir}/build.properties"/>
 
-  <target name="build">
+  <target name="security-app">
+
+    <mkdir dir ="${ant.build.dir}"/>
+    <mkdir dir ="${ant.dist.dir}"/>
+    <mkdir dir ="${ant.doc.dir}"/>
 
     <delete includeEmptyDirs="true">
       <fileset dir="${ant.build.dir}" includes="**/*"/>

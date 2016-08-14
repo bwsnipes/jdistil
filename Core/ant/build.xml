@@ -1,4 +1,4 @@
-<project name="core" default="build" basedir="..">
+<project name="core" default="core" basedir="..">
 
   <description>
     Builds the core library.
@@ -8,8 +8,12 @@
  
   <property file="${home.dir}/build.properties"/>
 
-  <target name="build">
+  <target name="core">
 
+    <mkdir dir ="${ant.build.dir}"/>
+    <mkdir dir ="${ant.dist.dir}"/>
+    <mkdir dir ="${ant.doc.dir}"/>
+    
     <delete includeEmptyDirs="true">
       <fileset dir="${ant.build.dir}" includes="**/*"/>
       <fileset dir="${ant.dist.dir}" includes="**/*"/>

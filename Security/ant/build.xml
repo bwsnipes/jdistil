@@ -1,15 +1,19 @@
-<project name="security" default="build" basedir="..">
+<project name="security" default="security" basedir="..">
 
   <description>
     Builds the security library.
   </description>
 
-	<dirname property="home.dir" file="${ant.file}" />
+  <dirname property="home.dir" file="${ant.file}" />
  
   <property file="${home.dir}/build.properties"/>
 
-  <target name="build">
+  <target name="security">
 
+    <mkdir dir ="${ant.build.dir}"/>
+    <mkdir dir ="${ant.dist.dir}"/>
+    <mkdir dir ="${ant.doc.dir}"/>
+  
     <delete includeEmptyDirs="true">
       <fileset dir="${ant.build.dir}" includes="**/*"/>
       <fileset dir="${ant.dist.dir}" includes="**/*"/>
