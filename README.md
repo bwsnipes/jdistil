@@ -21,7 +21,7 @@ JDistil further simplifies application development by providing two open source 
    - Application Fragment Wizard - Generates domain model based application resources representing an application fragment.
    - Fragment Relationship Wizard - Updates application resources to establish a relationship between two application fragments.
 
-**Application Stack**
+####Application Stack
 ![Diagram](http://www.jdistil.com/images/application-stack.png)
 
 For additional information including video demonstrations please visit www.jdistil.com
