@@ -24,4 +24,4 @@ JDistil further simplifies application development by providing two open source 
 **Application Stack**
 ![Diagram](http://www.jdistil.com/images/application-stack.png)
 
-For additional information and video demonstrations please visit www.jdistil.com
+For additional information including video demonstrations please visit www.jdistil.com
