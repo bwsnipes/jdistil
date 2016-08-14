@@ -8,6 +8,7 @@
   - Extendible action and field level validation.
   - Extendible user authentication.
   - Extendible action and field level authorization.
+  - Extendible CRUD based processing models.
   - Support for internationalization (i18n).
   - Independence from third party libraries.
 
