@@ -21,6 +21,7 @@ package com.bws.jdistil.core.process.model;
 import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.AttributeNames;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
+import com.bws.jdistil.core.configuration.FieldIds;
 import com.bws.jdistil.core.datasource.DataObject;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.FilterCriteria;
@@ -36,8 +37,10 @@ import com.bws.jdistil.core.util.StringUtil;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -315,7 +318,12 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
   */
   protected void populateReferenceData(ProcessContext processContext) throws ProcessException {
   
-    // Do nothing by default
+    // Create transaction token
+    String transactionToken = UUID.randomUUID().toString();
+    
+    // Store transaction token in the session
+    HttpSession session = processContext.getRequest().getSession(true);
+    session.setAttribute(FieldIds.TRANSACTION_TOKEN_ID, transactionToken);
   }
   
   /**
