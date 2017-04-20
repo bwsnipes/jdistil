@@ -1,5 +1,7 @@
 # JDistil
 
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0) 
+
 [JDistil](http://www.jdistil.com) is an open source, independent, full stack, lightweight and extensible framework focused on simplifying application development and reducing the amount of time required to build Java web applications. The framework is built using simple design principles and supports the functionality commonly required by data centric applications. The following key features are included in the core framework. 
   - Action based MVC model.
   - Code based application configuration.
