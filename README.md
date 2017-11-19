@@ -20,9 +20,9 @@ JDistil further simplifies application development by providing two open source 
     - Security - Administration and component support for user authentication and role based authorization.
 
   - Code Generation
-   - Project Facet - Enriches an Eclipse dynamic web project by adding all required JDistil resources.
-   - Application Fragment Wizard - Generates domain model based application resources representing an application fragment.
-   - Fragment Relationship Wizard - Updates application resources to establish a relationship between two application fragments.
+    - Project Facet - Enriches an Eclipse dynamic web project by adding all required JDistil resources.
+    - Application Fragment Wizard - Generates domain model based application resources representing an application fragment.
+    - Fragment Relationship Wizard - Updates application resources to establish a relationship between two application fragments.
 
 #### Application Stack
 ![Diagram](http://www.jdistil.com/images/application-stack.png)
