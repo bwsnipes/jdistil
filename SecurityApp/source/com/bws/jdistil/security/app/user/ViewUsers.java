@@ -44,7 +44,7 @@ public class ViewUsers extends ViewDataObjects<Integer, User> {
   /**
     Filter criteria definition.
   */
-  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition();
+  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(User.class);
   
   /**
     Set of retrieve data action IDs.

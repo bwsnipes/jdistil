@@ -21,14 +21,14 @@ package com.bws.jdistil.core.datasource;
 import com.bws.jdistil.core.util.StringUtil;
 
 /**
-  Defines an order criterion based on a field ID and order direction.
+  Defines an order criterion based on a property name and order direction.
 */
 public class OrderCriterion {
 
   /**
-    Field ID.
+    Property name.
   */
-  private String fieldId = null;
+  private String propertyName = null;
 
   /**
     Order direction.
@@ -36,20 +36,20 @@ public class OrderCriterion {
   private String direction = null;
 
   /**
-    Creates a new OrderCriterion object using a field ID and order direction.
-    @param fieldId - Field ID.
+    Creates a new OrderCriterion object using a property name and order direction.
+    @param propertyName - Property name.
     @param direction - Order direction.
   */
-  protected OrderCriterion(String fieldId, String direction) {
+  protected OrderCriterion(String propertyName, String direction) {
     super();
 
     // Validate properties
-    if (StringUtil.isEmpty(fieldId)) {
-      throw new IllegalArgumentException("Invalid null field ID.");
+    if (StringUtil.isEmpty(propertyName)) {
+      throw new IllegalArgumentException("Invalid null property name.");
     }
 
     // Set properties
-    this.fieldId = fieldId;
+    this.propertyName = propertyName;
 
     // Set direction if specified
     if (!StringUtil.isEmpty(direction)) {
@@ -58,11 +58,11 @@ public class OrderCriterion {
   }
 
   /**
-    Returns the field ID.
-    @return String - Field ID.
+    Returns the property name.
+    @return String - Property name.
   */
-  public String getFieldId() {
-    return fieldId;
+  public String getPropertyName() {
+    return propertyName;
   }
 
   /**

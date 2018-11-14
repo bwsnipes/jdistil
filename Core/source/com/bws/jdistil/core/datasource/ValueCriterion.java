@@ -21,14 +21,14 @@ package com.bws.jdistil.core.datasource;
 import com.bws.jdistil.core.util.StringUtil;
 
 /**
-  Defines a value criterion based on a field ID, operator, and field value.
+  Defines a value criterion based on a property name, operator, and property value.
 */
 public class ValueCriterion {
 
   /**
-    Field ID.
+    Property name.
   */
-  private String fieldId = null;
+  private String propertyName = null;
 
   /**
     Operator.
@@ -36,42 +36,42 @@ public class ValueCriterion {
   private String operator = null;
 
   /**
-    Field value.
+    Property value.
   */
-  private Object fieldValue = null;
+  private Object propertyValue = null;
 
   /**
-    Creates a new ValueCriterion object using a field ID, operator, and field value.
-    @param fieldId - Field ID.
+    Creates a new ValueCriterion object using a property name, operator, and property value.
+    @param propertyName - Property name.
     @param operator - Operator.
-    @param fieldValue - Field value.
+    @param propertyValue - Property value.
   */
-  protected ValueCriterion(String fieldId, String operator, Object fieldValue) {
+  protected ValueCriterion(String propertyName, String operator, Object propertyValue) {
     super();
 
     // Validate properties
-    if (StringUtil.isEmpty(fieldId)) {
-      throw new IllegalArgumentException("Invalid null field ID.");
+    if (StringUtil.isEmpty(propertyName)) {
+      throw new IllegalArgumentException("Invalid null property name.");
     }
     if (StringUtil.isEmpty(operator)) {
       throw new IllegalArgumentException("Invalid null operator.");
     }
-    if (fieldValue == null) {
-      throw new IllegalArgumentException("Invalid null field value.");
+    if (propertyValue == null) {
+      throw new IllegalArgumentException("Invalid null property value.");
     }
 
     // Set properties
-    this.fieldId = fieldId;
+    this.propertyName = propertyName;
     this.operator = operator;
-    this.fieldValue = fieldValue;
+    this.propertyValue = propertyValue;
   }
 
   /**
-    Returns the field ID.
-    @return String - Field ID.
+    Returns the property name.
+    @return String - Property name.
   */
-  public String getFieldId() {
-    return fieldId;
+  public String getPropertyName() {
+    return propertyName;
   }
 
   /**
@@ -83,11 +83,11 @@ public class ValueCriterion {
   }
 
   /**
-    Returns the field value.
-    @return Object - Field value.
+    Returns the property value.
+    @return Object - Property value.
   */
-  public Object getFieldValue() {
-    return fieldValue;
+  public Object getPropertyValue() {
+    return propertyValue;
   }
 
 }

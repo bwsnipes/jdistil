@@ -443,20 +443,14 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   	// Initialize return value
   	ValueCondition valueCondition = null;
   	
-  	// Get data object class
-  	Class<?> dataObjectClass = dataObjectBinding.getDataObjectClass();
-  	
-    // Get field ID
-    String fieldId = valueCriterion.getFieldId();
-
-    // Get property name associated with field ID
-    String propertyName = Introspector.getPropertyName(dataObjectClass, fieldId);
+    // Get property name
+    String propertyName = valueCriterion.getPropertyName();
 
     if (propertyName != null) {
 
     	// Get operator and field value
       String operator = valueCriterion.getOperator();
-      Object fieldValue = valueCriterion.getFieldValue();
+      Object fieldValue = valueCriterion.getPropertyValue();
     	
     	// Get column binding by property name
       ColumnBinding columnBinding = dataObjectBinding.getColumnBindingByPropertyName(propertyName);
@@ -525,14 +519,8 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   	// Initialize return value
   	OrderCondition orderCondition = null;
   	
-  	// Get data object class
-  	Class<?> dataObjectClass = dataObjectBinding.getDataObjectClass();
-  	
-    // Get field ID
-    String fieldId = orderCriterion.getFieldId();
-
-    // Get property name associated with field ID
-    String propertyName = Introspector.getPropertyName(dataObjectClass, fieldId);
+    // Get property name
+    String propertyName = orderCriterion.getPropertyName();
 
     if (propertyName != null) {
 

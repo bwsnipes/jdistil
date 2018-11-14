@@ -49,15 +49,15 @@ public class FilterCriteria {
 
   /**
     Adds a new value criterion.
-    @param fieldId - Field ID.
+    @param propertyName - Property name.
     @param operator - Operator.
-    @param fieldValue - Field value.
+    @param propertyValue - Property value.
   */
-  public void addValueCriterion(String fieldId, String operator, Object fieldValue) {
+  public void addValueCriterion(String propertyName, String operator, Object propertyValue) {
   
     // Create and store search condition
-    if (!StringUtil.isEmpty(fieldId) && !StringUtil.isEmpty(operator) && fieldValue != null) {
-      valueCriteria.add(new ValueCriterion(fieldId, operator, fieldValue));
+    if (!StringUtil.isEmpty(propertyName) && !StringUtil.isEmpty(operator) && propertyValue != null) {
+      valueCriteria.add(new ValueCriterion(propertyName, operator, propertyValue));
     }
   }
   
@@ -79,10 +79,10 @@ public class FilterCriteria {
   
   /**
     Adds a new order criterion using the default ascending order direction.
-    @param fieldId - Field ID.
+    @param propertyName - Property name.
   */
-  public void addOrderCriterion(String fieldId) {
-    addOrderCriterion(fieldId, null);
+  public void addOrderCriterion(String propertyName) {
+    addOrderCriterion(propertyName, null);
   }
   
   /**
@@ -95,14 +95,14 @@ public class FilterCriteria {
 
   /**
     Adds a new order criterion.
-    @param fieldId - Field ID.
+    @param propertyName - Property name.
     @param direction - Order direction.
   */
-  public void addOrderCriterion(String fieldId, String direction) {
+  public void addOrderCriterion(String propertyName, String direction) {
   
     // Create and store search condition
-    if (!StringUtil.isEmpty(fieldId)) {
-      orderCriteria.add(new OrderCriterion(fieldId, direction));
+    if (!StringUtil.isEmpty(propertyName)) {
+      orderCriteria.add(new OrderCriterion(propertyName, direction));
     }
   }
   

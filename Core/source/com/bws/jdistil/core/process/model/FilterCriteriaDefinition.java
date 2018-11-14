@@ -20,10 +20,12 @@ package com.bws.jdistil.core.process.model;
 
 import com.bws.jdistil.core.datasource.FilterCriteria;
 import com.bws.jdistil.core.servlet.ParameterExtractor;
+import com.bws.jdistil.core.util.Introspector;
 import com.bws.jdistil.core.util.StringUtil;
 
 import java.util.Collections;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -33,6 +35,11 @@ import javax.servlet.http.HttpServletRequest;
 public class FilterCriteriaDefinition {
 
   /**
+    Data object class.
+  */
+  private Class<?> dataObjectClass = null;
+
+	/**
     Indicates whether or not filter data is required.
   */
   private boolean isFilterDataRequired = false;
@@ -50,8 +57,15 @@ public class FilterCriteriaDefinition {
   /**
     Creates a new FilterCriteriaDefinition object.
   */
-  public FilterCriteriaDefinition() {
+  public FilterCriteriaDefinition(Class<?> dataObjectClass) {
     super();
+    
+    // Validate required parameters
+    if (dataObjectClass == null) {
+      throw new IllegalArgumentException("Invalid null data object class.");
+    }
+
+    this.dataObjectClass = dataObjectClass;
   }
 
   /**
@@ -127,6 +141,9 @@ public class FilterCriteriaDefinition {
           String operator = valueCriterionDefinition.getDefaultOperator();
           Object fieldValue = valueCriterionDefinition.getDefaultFieldValue();
           
+          // Get property name associated with field ID
+          String propertyName = Introspector.getPropertyName(dataObjectClass, targetFieldId);
+          
           // Set operator and field value using parameter value
           if (!StringUtil.isEmpty(operatorId)) {
             operator = ParameterExtractor.getString(request, operatorId);
@@ -137,7 +154,7 @@ public class FilterCriteriaDefinition {
 
           // Add value criterion if a value was specified
           if (fieldValue != null) {
-            filterCriteria.addValueCriterion(targetFieldId, operator, fieldValue);
+            filterCriteria.addValueCriterion(propertyName, operator, fieldValue);
           }
         }
       }
@@ -149,23 +166,26 @@ public class FilterCriteriaDefinition {
         String directionId = orderCriterionDefinition.getDirectionId();
 
         // Initialize field ID
-        String fieldId = orderCriterionDefinition.getDefaultDirection();
+        String fieldId = targetFieldId;
         
         // Set field ID using parameter value
         if (!StringUtil.isEmpty(targetFieldId)) {
           fieldId = ParameterExtractor.getString(request, targetFieldId);
         }
         
+        // Get property name associated with field ID
+        String propertyName = Introspector.getPropertyName(dataObjectClass, fieldId);
+        
         // Initialize order direction using default value
         String direction = orderCriterionDefinition.getDefaultDirection();
         
-        // Set operator using parameter value
+        // Set direction using parameter value
         if (!StringUtil.isEmpty(directionId)) {
           direction = ParameterExtractor.getString(request, directionId);
         }
         
         // Add value criterion
-        filterCriteria.addOrderCriterion(fieldId, direction);
+        filterCriteria.addOrderCriterion(propertyName, direction);
       }
     }
     

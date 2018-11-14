@@ -47,7 +47,7 @@ public class ViewCodes extends ViewDataObjects<Integer, Code> {
   /**
     Filter criteria definition.
   */
-  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition();
+  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(Code.class);
   
   /**
     Set of retrieve data action IDs.

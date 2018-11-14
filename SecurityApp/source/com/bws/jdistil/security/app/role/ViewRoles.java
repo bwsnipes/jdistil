@@ -36,7 +36,7 @@ public class ViewRoles extends ViewDataObjects<Integer, Role> {
   /**
     Filter criteria definition.
   */
-  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition();
+  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(Role.class);
   
   static {
   
