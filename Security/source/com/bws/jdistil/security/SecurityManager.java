@@ -93,17 +93,26 @@ public class SecurityManager extends DefaultSecurityManager {
     
     // Create action manager
     ActionManager actionManager = (ActionManager)actionManagerFactory.create();
-    
-    // Retrieve all actions   
-    List<Action> actions = actionManager.find();
-    
-    if (actions != null) {
+
+    try {
+    	
+      // Retrieve all actions   
+      List<Action> actions = actionManager.find();
       
-      for (Action action : actions) {
-      	
-        // Add action keyed by secure ID
-        securedActions.put(action.getSecureId(), action);
+      if (actions != null) {
+        
+        for (Action action : actions) {
+        	
+          // Add action keyed by secure ID
+          securedActions.put(action.getSecureId(), action);
+        }
       }
+    }
+    finally {
+    	
+    	if (actionManagerFactory != null) {
+      	actionManagerFactory.recycle(actionManager);
+    	}
     }
   }
   
@@ -119,16 +128,25 @@ public class SecurityManager extends DefaultSecurityManager {
     // Create field manager
     FieldManager fieldManager = (FieldManager)fieldManagerFactory.create();
     
-    // Retrieve all fields   
-    List<Field> fields = fieldManager.find();
-    
-    if (fields != null) {
+    try {
+    	
+      // Retrieve all fields   
+      List<Field> fields = fieldManager.find();
       
-      for (Field field : fields) {
-      	
-        // Add field keyed by secure ID
-        securedFields.put(field.getSecureId(), field);
+      if (fields != null) {
+        
+        for (Field field : fields) {
+        	
+          // Add field keyed by secure ID
+          securedFields.put(field.getSecureId(), field);
+        }
       }
+    }
+    finally {
+
+    	if (fieldManagerFactory != null) {
+      	fieldManagerFactory.recycle(fieldManager);
+    	}
     }
   }
   

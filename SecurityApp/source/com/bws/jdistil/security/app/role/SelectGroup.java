@@ -148,7 +148,9 @@ public class SelectGroup extends Processor {
     finally {
       
       // Recycle field manager
-      fieldManagerFactory.recycle(fieldManager);
+    	if (fieldManagerFactory != null) {
+        fieldManagerFactory.recycle(fieldManager);
+    	}
     }
     
     return fields;

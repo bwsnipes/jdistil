@@ -165,7 +165,9 @@ public class ChangePassword extends Processor {
 	  	    finally {
 	  	  
 	  	      // Recycle data manager
-	  	      userManagerFactory.recycle(userManager);
+	  	    	if (userManagerFactory != null) {
+		  	      userManagerFactory.recycle(userManager);
+	  	    	}
 	  	    }
   			}
   			else {

@@ -186,7 +186,9 @@ public class Controller extends HttpServlet {
     finally {
 
       // Recycle security manager
-      securityManagerFactory.recycle(securityManager);
+    	if (securityManagerFactory != null) {
+        securityManagerFactory.recycle(securityManager);
+    	}
     }
   }
 
@@ -313,7 +315,10 @@ public class Controller extends HttpServlet {
       validator.process(processContext);
     }
     finally {
-      validatorFactory.recycle(validator);
+    	
+    	if (validatorFactory != null) {
+        validatorFactory.recycle(validator);
+    	}
     }
   }
 
@@ -329,17 +334,20 @@ public class Controller extends HttpServlet {
       // Get processor factories
       List<IFactory> factories = action.getProcessorFactories();
 
-      for (IFactory factory : factories) {
+      if (factories != null) {
+      	
+        for (IFactory factory : factories) {
 
-        // Create processor
-        IProcessor processor = (IProcessor)factory.create();
+          // Create processor
+          IProcessor processor = (IProcessor)factory.create();
 
-        // Invoke process
-        try {
-          processor.process(processContext);
-        }
-        finally {
-          factory.recycle(processor);
+          // Invoke process
+          try {
+            processor.process(processContext);
+          }
+          finally {
+            factory.recycle(processor);
+          }
         }
       }
     }

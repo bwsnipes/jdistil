@@ -207,7 +207,9 @@ public class Logon extends Processor {
     finally {
   
       // Recycle data manager
-      userManagerFactory.recycle(userManager);
+    	if (userManagerFactory != null) {
+        userManagerFactory.recycle(userManager);
+    	}
     }
 		
     return user;
