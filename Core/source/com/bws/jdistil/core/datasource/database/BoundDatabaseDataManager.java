@@ -487,28 +487,28 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
           // Create value condition
           valueCondition = new ValueCondition(tableName, columnName, operator, type, fieldValue);
         }
+        else {
+        	
+        	// Get dependent bindings
+        	Collection<DependentBinding> dependentBindings = dataObjectBinding.getDependentBindings();
+        	
+        	if (dependentBindings != null) {
+        		
+        		for (DependentBinding dependentBinding : dependentBindings) {
+        			
+        			// Get dependent data object binding
+        			DataObjectBinding dependentDataObjectBinding = dependentBinding.getDataObjectBinding();
+        			
+        			// Use dependent bindings to recursively attempt to obtain value condition 
+        			valueCondition = getValueCondition(dependentDataObjectBinding, valueCriterion);
+        			
+        			if (valueCondition != null) {
+        				break;
+        			}
+        		}
+        	}
+        }
       }
-    }
-    else {
-    	
-    	// Get dependent bindings
-    	Collection<DependentBinding> dependentBindings = dataObjectBinding.getDependentBindings();
-    	
-    	if (dependentBindings != null) {
-    		
-    		for (DependentBinding dependentBinding : dependentBindings) {
-    			
-    			// Get dependent data object binding
-    			DataObjectBinding dependentDataObjectBinding = dependentBinding.getDataObjectBinding();
-    			
-    			// Use dependent bindings to recursively attempt to obtain value condition 
-    			valueCondition = getValueCondition(dependentDataObjectBinding, valueCriterion);
-    			
-    			if (valueCondition != null) {
-    				break;
-    			}
-    		}
-    	}
     }
 
   	return valueCondition;
@@ -584,28 +584,28 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
           // Create order condition
           orderCondition = new OrderCondition(tableName, columnName, direction);
         }
+        else {
+        	
+        	// Get dependent bindings
+        	Collection<DependentBinding> dependentBindings = dataObjectBinding.getDependentBindings();
+        	
+        	if (dependentBindings != null) {
+        		
+        		for (DependentBinding dependentBinding : dependentBindings) {
+        			
+        			// Get dependent data object binding
+        			DataObjectBinding dependentDataObjectBinding = dependentBinding.getDataObjectBinding();
+        			
+        			// Use dependent bindings to recursively attempt to obtain order condition 
+        			orderCondition = getOrderCondition(dependentDataObjectBinding, orderCriterion);
+        			
+        			if (orderCondition != null) {
+        				break;
+        			}
+        		}
+        	}
+        }
       }
-    }
-    else {
-    	
-    	// Get dependent bindings
-    	Collection<DependentBinding> dependentBindings = dataObjectBinding.getDependentBindings();
-    	
-    	if (dependentBindings != null) {
-    		
-    		for (DependentBinding dependentBinding : dependentBindings) {
-    			
-    			// Get dependent data object binding
-    			DataObjectBinding dependentDataObjectBinding = dependentBinding.getDataObjectBinding();
-    			
-    			// Use dependent bindings to recursively attempt to obtain order condition 
-    			orderCondition = getOrderCondition(dependentDataObjectBinding, orderCriterion);
-    			
-    			if (orderCondition != null) {
-    				break;
-    			}
-    		}
-    	}
     }
 
   	return orderCondition;
@@ -919,8 +919,8 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       if (dependentBinding.isCollection()) {
 
         // Retrieve dependent data objects
-		@SuppressWarnings("unchecked")
-		Collection<DataObject<?>> dependentDataObjects = (Collection<DataObject<?>>)Introspector.getPropertyValue(dataObject, propertyName);
+    		@SuppressWarnings("unchecked")
+    		Collection<DataObject<?>> dependentDataObjects = (Collection<DataObject<?>>)Introspector.getPropertyValue(dataObject, propertyName);
 
         if (dependentDataObjects != null) {
 
