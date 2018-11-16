@@ -28,13 +28,16 @@ CREATE TABLE bws_category
 (
    category_id	INTEGER			NOT NULL,
    name					VARCHAR(20)	NOT NULL,
-   is_deleted		CHAR(1)			NOT NULL
+   is_deleted		CHAR(1)			NOT NULL,
+   domain_id    INTEGER			NOT NULL
 )
 ;
 
 ALTER TABLE bws_category ADD CONSTRAINT pk_category
    PRIMARY KEY (category_id)
 ;
+
+CREATE INDEX idx_category_1 ON bws_category (domain_id);
 
 --
 -- Code table.
@@ -46,7 +49,8 @@ CREATE TABLE bws_code
    is_default		CHAR(1)			NOT NULL,
    category_id	INTEGER			NOT NULL,
    version			INTEGER			NOT NULL,
-   is_deleted		CHAR(1)			NOT NULL
+   is_deleted		CHAR(1)			NOT NULL,
+   domain_id    INTEGER			NOT NULL
 )
 ;
 
@@ -55,5 +59,7 @@ ALTER TABLE bws_code ADD CONSTRAINT pk_code
 ;
 
 ALTER TABLE bws_code ADD CONSTRAINT fk_code_1
-   FOREIGN KEY (category_id) REFERENCES bws_category(category_id)
+   FOREIGN KEY (category_id) REFERENCES bws_category (category_id)
 ;
+
+CREATE INDEX idx_code_1 ON bws_code (domain_id);

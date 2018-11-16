@@ -35,6 +35,7 @@ public class AttributeNames extends com.bws.jdistil.core.configuration.Attribute
   public static final String TASK = "TASK";
   public static final String USERS = "USERS";
   public static final String USER = "USER";
+  public static final String DOMAIN = "DOMAIN";
 
   protected AttributeNames() {
     super();

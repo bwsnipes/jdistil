@@ -36,6 +36,15 @@ public class DefaultSecurityManager implements ISecurityManager {
   }
 
   /**
+    Returns a user's domain.
+    @param session - Current session.
+    @return IDomain - User's domain.
+  */
+  public IDomain getDomain(HttpSession session) throws SecurityException {
+  	return null;
+  }
+
+  /**
     Returns a value indicating whether or not a user has been authenticated.
     @param session - Current session.
     @return boolean - Authenticated indicator.

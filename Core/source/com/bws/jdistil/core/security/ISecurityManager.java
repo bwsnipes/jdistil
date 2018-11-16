@@ -27,19 +27,18 @@ import javax.servlet.http.HttpSession;
 public interface ISecurityManager {
 
   /**
+    Returns a user's domain.
+    @param session - Current session.
+    @return IDomain - User's domain.
+  */
+  public IDomain getDomain(HttpSession session) throws SecurityException;
+  
+  /**
     Returns a value indicating whether or not a user has been authenticated.
     @param session - Current session.
     @return boolean - Authenticated indicator.
   */
   public boolean isAuthenticated(HttpSession session) throws SecurityException;
-
-  /**
-    Sets the user's authentication status for the current session.
-    @param isAuthenticated - Authentication status.
-    @param session - Current session.
-  */
-  public void setAuthenticated(boolean isAuthenticated, HttpSession session)
-      throws SecurityException;
 
   /**
     Indicates whether or not authorization is required for a given action ID.

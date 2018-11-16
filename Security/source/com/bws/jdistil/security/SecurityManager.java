@@ -22,6 +22,7 @@ import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.factory.IFactory;
 import com.bws.jdistil.core.security.DefaultSecurityManager;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.security.SecurityException;
 import com.bws.jdistil.security.configuration.AttributeNames;
 import com.bws.jdistil.security.role.Action;
@@ -148,6 +149,19 @@ public class SecurityManager extends DefaultSecurityManager {
       	fieldManagerFactory.recycle(fieldManager);
     	}
     }
+  }
+  
+  /**
+    Returns a domain associated with the current user.
+    @param session - Current session.
+    @return Domain - User's domain.
+  */
+  public IDomain getDomain(HttpSession session) throws SecurityException {
+
+  	// Get domain associated with the current user
+  	IDomain domain = (IDomain)session.getAttribute(AttributeNames.DOMAIN);
+
+  	return domain;
   }
   
   /**

@@ -24,6 +24,7 @@ import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.FilterCriteria;
 import com.bws.jdistil.core.datasource.OrderCriterion;
 import com.bws.jdistil.core.datasource.ValueCriterion;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.util.Instantiator;
 import com.bws.jdistil.core.util.Introspector;
 
@@ -61,15 +62,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     Creates a new BoundDatabaseDataManager object.
   */
   public BoundDatabaseDataManager() {
-    this(null);
-  }
-
-  /**
-    Creates a new BoundDatabaseDataManager object using a datasource name.
-    @param dataSourceName Data source name.
-  */
-  public BoundDatabaseDataManager(String dataSourceName) {
-    super(dataSourceName);
+    super();
 
     // Establish data object binding
     dataObjectBinding = getDataObjectBinding();
@@ -109,8 +102,9 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
   /**
     Validates a given data object for use with the data object manager.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#isValidDataObject
+    @see DatabaseDataManager#isValidDataObject(DataObject)
   */
+  @Override
   protected boolean isValidDataObject(T dataObject) {
 
     // Initialize return value
@@ -134,9 +128,10 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   /**
     Populates the ID using the database sequencer which deals only with integer type IDs.
     This method must be overridden to handle data objects with non-integer IDs.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#initializeId
+    @see DatabaseDataManager#initializeId(DataObject, IDomain)
   */
-  protected void initializeId(DataObject<?> dataObject) throws DataSourceException {
+  @Override
+  protected void initializeId(DataObject<?> dataObject, IDomain domain) throws DataSourceException {
 
     // Get table name
     String tableName = dataObjectBinding.getTableName();
@@ -164,53 +159,59 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
   /**
     Returns a prepared statement used to check for duplicate data objects.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getDuplicateSql
+    @see DatabaseDataManager#getDuplicateSql(DataObject, Connection, IDomain)
   */
-  protected PreparedStatement getDuplicateSql(T dataObject, Connection connection)
+  @Override
+  protected PreparedStatement getDuplicateSql(T dataObject, Connection connection, IDomain domain)
       throws DataSourceException {
 
     // Create SQL statements starting with current data object and binding
-    return getDuplicateSql(dataObject, dataObjectBinding, connection);
+    return getDuplicateSql(dataObject, dataObjectBinding, connection, domain);
   }
 
   /**
     Populates a list of prepared statements used to create a given data object.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getCreateSql
+    @see DatabaseDataManager#getCreateSql(DataObject, Connection, IDomain, List)
   */
-  protected void getCreateSql(T dataObject, Connection connection,
+  @Override
+  protected void getCreateSql(T dataObject, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Create SQL statements starting with current data object and binding
-    getCreateSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getCreateSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
   }
 
   /**
     Populates a list of prepared statements used to update a given data object.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getUpdateSql
+    @see DatabaseDataManager#getUpdateSql(DataObject, Connection, IDomain, List)
   */
-  protected void getUpdateSql(T dataObject, Connection connection,
+  @Override
+  protected void getUpdateSql(T dataObject, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Create SQL statements starting with current data object and binding
-    getUpdateSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getUpdateSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
   }
 
   /**
     Populates a list of prepared statements used to delete a given data object.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getDeleteSql
+    @see DatabaseDataManager#getDeleteSql(DataObject, Connection, IDomain, List)
   */
-  protected void getDeleteSql(T dataObject, Connection connection,
+  @Override
+  protected void getDeleteSql(T dataObject, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Create SQL statements starting with current data object and binding
-    getDeleteSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getDeleteSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
   }
 
   /**
     Populates a list of prepared statements used to find a given data object.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getFindSql
+    @see DatabaseDataManager#getFindSql(Object, Connection, IDomain, List)
   */
-  protected void getFindSql(I id, Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+  @Override
+  protected void getFindSql(I id, Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) 
+  		throws DataSourceException {
 
     // Get table name
     String tableName = dataObjectBinding.getTableName();
@@ -226,25 +227,28 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     ValueCondition valueCondition = new ValueCondition(tableName, columnName, Operators.EQUALS, columnType, id);
 
     // Get SQL statements
-    getFindSql(valueCondition, null, connection, sqlStatements);
+    getFindSql(valueCondition, null, connection, domain, sqlStatements);
   }
 
   /**
     Populates a list of prepared statements used to find all data objects.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getFindSql
+    @see DatabaseDataManager#getFindSql(Connection, IDomain, List)
   */
-  protected void getFindSql(Connection connection, List<PreparedStatement> sqlStatements)
+  @Override
+  protected void getFindSql(Connection connection, IDomain domain, List<PreparedStatement> sqlStatements)
       throws DataSourceException {
 
     // Get SQL statements
-    this.getFindSql(null, null, connection, sqlStatements);
+    this.getFindSql(null, null, connection, domain, sqlStatements);
   }
 
   /**
     Populates a list of prepared statements used to find a list of data objects.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getFindSql
+    @see DatabaseDataManager#getFindSql(List, Connection, IDomain, List)
   */
-  protected void getFindSql(List<I> ids, Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+  @Override
+  protected void getFindSql(List<I> ids, Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) 
+  		throws DataSourceException {
 
     // Get table name
     String tableName = dataObjectBinding.getTableName();
@@ -274,16 +278,16 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     }
 
     // Get SQL statements
-    getFindSql(valueConditions, null, connection, sqlStatements);
+    getFindSql(valueConditions, null, connection, domain, sqlStatements);
   }
 
   /**
     Returns a list of prepared statements used to find a list of data objects using search criteria.
-    @param filterCriteria Filter criteria.
-    @param connection Database connection.
-    @param sqlStatements List of prepared statements.
+    @see DatabaseDataManager#getFindSql(FilterCriteria, Connection, IDomain, List)
   */
-  protected void getFindSql(FilterCriteria filterCriteria, Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+  @Override
+  protected void getFindSql(FilterCriteria filterCriteria, Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) 
+  		throws DataSourceException {
     
   	// Set method name
   	String methodName = "getFindSql";
@@ -350,16 +354,15 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     }
     
     // Retrieve find SQL
-    getFindSql(valueConditions, orderConditions, connection, sqlStatements);
+    getFindSql(valueConditions, orderConditions, connection, domain, sqlStatements);
   }
   
   /**
     Returns a prepared statement used to find data object IDs using search criteria.
-    @param filterCriteria Filter criteria.
-    @param connection Database connection.
-    @return PreparedStatement Prepared statement.
+    @see DatabaseDataManager#getFindIdSql(FilterCriteria, Connection, IDomain)
   */
-  protected PreparedStatement getFindIdSql(FilterCriteria filterCriteria, Connection connection)
+  @Override
+  protected PreparedStatement getFindIdSql(FilterCriteria filterCriteria, Connection connection, IDomain domain)
       throws DataSourceException {
     
   	// Set method name
@@ -426,7 +429,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       }
     }
   
-    return getFindIdSql(valueConditions, orderConditions, connection);
+    return getFindIdSql(valueConditions, orderConditions, connection, domain);
   }
   
   /**
@@ -613,12 +616,13 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   
   /**
     Populates a list of prepared statements used to find all data object IDs.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getFindIdSql
+    @see DatabaseDataManager#getFindIdSql(Connection, IDomain)
   */
-  protected PreparedStatement getFindIdSql(Connection connection) throws DataSourceException {
+  @Override
+  protected PreparedStatement getFindIdSql(Connection connection, IDomain domain) throws DataSourceException {
   
     // Get SQL statement
-    return getFindIdSql(null, null, connection);
+    return getFindIdSql(null, null, connection, domain);
   }
   
   /**
@@ -626,9 +630,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @return PreparedStatement Prepared statement.
   */
-  private PreparedStatement getDuplicateSql(T dataObject, DataObjectBinding dataObjectBinding, Connection connection) throws DataSourceException {
+  private PreparedStatement getDuplicateSql(T dataObject, DataObjectBinding dataObjectBinding, Connection connection, IDomain domain)
+  		throws DataSourceException {
 
     // Initialize return value
     PreparedStatement sqlStatement = null;
@@ -701,11 +707,14 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
         }
       }
 
+      // Append domain condition
+      appendDomainCondition(tableName, domain, valueConditions);
+      
       // Create list of SQL statements
       List<PreparedStatement> sqlStatements = new ArrayList<PreparedStatement>();
 
       // Get SQL statements
-      getFindSql(valueConditions, null, connection, sqlStatements);
+      getFindSql(valueConditions, null, connection, domain, sqlStatements);
 
       // Only need the first statement directed at primary table
       sqlStatement = sqlStatements.get(0);
@@ -720,10 +729,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getCreateSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Set method name
     String methodName = "getCreateSql";
@@ -766,15 +776,16 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     // Set parameter values
     parameterIndex = setParameter(statement, dataObject.getId(), idColumnBinding, parameterIndex);
     parameterIndex = setParameters(statement, dataObject, columnBindings, parameterIndex);
+    parameterIndex = setParameter(statement, domain, parameterIndex);
 
     // Add statement to list
     sqlStatements.add(statement);
 
     // Get create associate SQL
-    getCreateAssociateSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getCreateAssociateSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
     // Get create dependent SQL
-    getCreateDependentSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getCreateDependentSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
   }
 
   /**
@@ -783,10 +794,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getCreateAssociateSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Set method name
     String methodName = "getCreateAssociateSql";
@@ -897,10 +909,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getCreateDependentSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Get dependent bindings
     Collection<DependentBinding> dependentBindings = dataObjectBinding.getDependentBindings();
@@ -933,7 +946,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
           	DataObject<?> dependentDataObject = values.next();
 
             // Initialize ID
-            initializeId(dependentDataObject);
+            initializeId(dependentDataObject, domain);
 
             // Get parent ID property name
             String parentIdPropertyName = parentIdcolumnBinding.getPropertyName();
@@ -942,7 +955,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
             Introspector.setPropertyValue(dependentDataObject, parentIdPropertyName, dataObject.getId());
             
             // Get create SQL data object
-            getCreateSql(dependentDataObject, dependentDataObjectBinding, connection, sqlStatements);
+            getCreateSql(dependentDataObject, dependentDataObjectBinding, connection, domain, sqlStatements);
           }
         }
       }
@@ -954,7 +967,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
         if (dependentDataObject != null) {
 
           // Initialize ID
-          initializeId(dependentDataObject);
+          initializeId(dependentDataObject, domain);
           
           // Get parent ID property name
           String parentIdPropertyName = parentIdcolumnBinding.getPropertyName();
@@ -963,7 +976,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
           Introspector.setPropertyValue(dependentDataObject, parentIdPropertyName, dataObject.getId());
             
           // Get create SQL data object
-          getCreateSql(dependentDataObject, dependentDataObjectBinding, connection, sqlStatements);
+          getCreateSql(dependentDataObject, dependentDataObjectBinding, connection, domain, sqlStatements);
         }
       }
     }
@@ -975,10 +988,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getUpdateSql(T dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Set method name
     String methodName = "getUpdateSql";
@@ -993,7 +1007,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
       // Get columns and condition
       String columns = getUpdateColumns(columnBindings);
-      String condition = getCondition(idColumnBinding);
+      String condition = getCondition(idColumnBinding, domain);
 
       // Get table name
       String tableName = dataObjectBinding.getTableName();
@@ -1023,22 +1037,23 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       // Set parameter values
       parameterIndex = setParameters(statement, dataObject, columnBindings, parameterIndex);
       parameterIndex = setParameter(statement, dataObject.getId(), idColumnBinding, parameterIndex);
+      parameterIndex = setParameter(statement, domain, parameterIndex);
 
       // Add statement to list
       sqlStatements.add(statement);
     }
 
     // Get delete associate SQL
-    getDeleteAssociateSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getDeleteAssociateSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
     // Get delete dependent SQL
-    getDeleteDependentSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getDeleteDependentSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
     // Get create associate SQL
-    getCreateAssociateSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getCreateAssociateSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
     // Get create dependent SQL
-    getCreateDependentSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getCreateDependentSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
   }
 
   /**
@@ -1047,31 +1062,32 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getDeleteSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Set method name
     String methodName = "getDeleteSql";
 
     // Attempt to apply virtual delete SQL first
-    getVirtualDeleteSql(dataObject, dataObjectBinding, connection, sqlStatements);
+    getVirtualDeleteSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
     // Perform hard delete if no SQL was added during virtual delete
     if (sqlStatements.size() == 0) {
 
       // Get delete associate SQL
-      getDeleteAssociateSql(dataObject, dataObjectBinding, connection, sqlStatements);
+      getDeleteAssociateSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
       // Get delete dependent SQL
-      getDeleteDependentSql(dataObject, dataObjectBinding, connection, sqlStatements);
+      getDeleteDependentSql(dataObject, dataObjectBinding, connection, domain, sqlStatements);
 
       // Get ID column binding
       IdColumnBinding idColumnBinding = dataObjectBinding.getIdColumnBinding();
 
       // Get condition
-      String condition = getCondition(idColumnBinding);
+      String condition = getCondition(idColumnBinding, domain);
 
       // Get table name
       String tableName = dataObjectBinding.getTableName();
@@ -1100,6 +1116,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
       // Set parameter values
       parameterIndex = setParameter(statement, dataObject.getId(), idColumnBinding, parameterIndex);
+      parameterIndex = setParameter(statement, domain, parameterIndex);
 
       // Add statement to list
       sqlStatements.add(statement);
@@ -1112,10 +1129,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getVirtualDeleteSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Set method name
     String methodName = "getVirtualDeleteSql";
@@ -1135,7 +1153,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       IdColumnBinding idColumnBinding = dataObjectBinding.getIdColumnBinding();
 
       // Get column and condition
-      String condition = getCondition(idColumnBinding);
+      String condition = getCondition(idColumnBinding, domain);
 
       // Get table name
       String tableName = dataObjectBinding.getTableName();
@@ -1165,6 +1183,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       // Set parameter values
       parameterIndex = setParameter(statement, Boolean.TRUE, columnBinding, parameterIndex);
       parameterIndex = setParameter(statement, dataObject.getId(), idColumnBinding, parameterIndex);
+      parameterIndex = setParameter(statement, domain, parameterIndex);
 
       // Add statement to list
       sqlStatements.add(statement);
@@ -1243,15 +1262,65 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   }
 
   /**
+    Returns a value condition including a domain specific condition.
+    @param domain Target domain.
+    @param originalValueCondition Original value condition.
+    @return IValueCondition Original value condition or a new value condition
+  */
+  private IValueCondition appendDomainCondition(String tableName, IDomain domain, IValueCondition originalValueCondition) {
+  
+    // Initialize return value
+    IValueCondition modifiedValueCondition = originalValueCondition;
+
+    if (isDomainAware()) {
+      
+    	// Get domain ID column name
+    	String columnName = getDomainIdColumnName();
+    	
+    	// Initialize domain ID
+    	Integer domainId = IDomain.DEFAULT_ID;
+    	
+    	// Use specified domain ID if provided
+    	if (domain != null) {
+    		domainId = domain.getId();
+    	}
+
+      if (originalValueCondition == null) {
+
+        // Create domain condition
+        IValueCondition domainCondition = new ValueCondition(tableName, columnName, Operators.EQUALS, DbUtil.INTEGER, domainId);
+
+        // Set return value to domain condition
+        modifiedValueCondition = domainCondition;
+      }
+      else if (!originalValueCondition.isColumnReferenced(tableName, columnName)) {
+      	
+        // Create domain condition
+        IValueCondition domainCondition = new ValueCondition(tableName, columnName, Operators.EQUALS, DbUtil.INTEGER, domainId);
+
+        // Create value conditions using original condition and append domain condition
+        ValueConditions valueConditions = new ValueConditions(originalValueCondition);
+        valueConditions.add(Operators.AND, domainCondition);
+
+        // Set return value to value conditions
+        modifiedValueCondition = valueConditions;
+      }
+    }
+
+    return modifiedValueCondition;
+  }
+
+  /**
     Populates a list of prepared statements used to delete associate data objects
     using a data object, data object binding, database connection and list of SQL statements.
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getDeleteAssociateSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Set method name
     String methodName = "getDeleteAssociateSql";
@@ -1306,10 +1375,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param dataObject Data object.
     @param dataObjectBinding Data object binding.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   private void getDeleteDependentSql(DataObject<?> dataObject, DataObjectBinding dataObjectBinding,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Get dependent bindings
   	Collection<DependentBinding> dependentBindings = dataObjectBinding.getDependentBindings();
@@ -1339,7 +1409,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
           	DataObject<?> dependentDataObject = values.next(); 
 
             // Get delete SQL data object
-            getDeleteSql(dependentDataObject, dependentDataObjectBinding, connection, sqlStatements);
+            getDeleteSql(dependentDataObject, dependentDataObjectBinding, connection, domain, sqlStatements);
           }
         }
       }
@@ -1350,7 +1420,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
         // Get delete SQL data object
         if (dependentDataObject != null) {
-          getDeleteSql(dependentDataObject, dependentDataObjectBinding, connection, sqlStatements);
+          getDeleteSql(dependentDataObject, dependentDataObjectBinding, connection, domain, sqlStatements);
         }
       }
     }
@@ -1362,13 +1432,14 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param valueCondition Value condition.
     @param orderCondition Order condition.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   protected void getFindSql(IValueCondition valueCondition, IOrderCondition orderCondition,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Get find SQL with no external joins
-    getFindSql(null, valueCondition, orderCondition, connection, sqlStatements);
+    getFindSql(null, valueCondition, orderCondition, connection, domain, sqlStatements);
   }
 
   /**
@@ -1378,10 +1449,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param valueCondition Value condition.
     @param orderCondition Order condition.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of SQL statements.
   */
   protected void getFindSql(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition,
-      Connection connection, List<PreparedStatement> sqlStatements) throws DataSourceException {
+      Connection connection, IDomain domain, List<PreparedStatement> sqlStatements) throws DataSourceException {
 
     // Get primary table name
     String primaryTableName = dataObjectBinding.getTableName();
@@ -1408,6 +1480,9 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     // Append virtual delete condition if one exists
     valueCondition = appendVirtualDeleteCondition(valueCondition);
 
+    // Append domain condition
+    valueCondition = appendDomainCondition(primaryTableName, domain, valueCondition);
+    
     // Initialize condition SQL
     String valueConditionSql = "";
     String orderConditionSql = "";
@@ -1945,15 +2020,30 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   }
   
   /**
-    Returns a list of data objects using a list joins and value condition.
+    Returns a list of data objects from the default domain using a list joins and value condition.
     @param joins List of joins.
     @param valueCondition Value condition.
     @param orderCondition Order condition.
     @return List List of data objects.
   */
-  protected List<T> find(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition) throws DataSourceException {
+  protected List<T> find(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition) 
+  		throws DataSourceException {
+  	
+  	return find(joins, valueCondition, orderCondition, null);
+  }
 
-    // Set method name variable
+  /**
+    Returns a list of data objects from a specified domain using a list joins and value condition.
+    @param joins List of joins.
+    @param valueCondition Value condition.
+    @param orderCondition Order condition.
+    @param domain Target domain.
+    @return List List of data objects.
+  */
+  protected List<T> find(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition, IDomain domain) 
+  		throws DataSourceException {
+
+  	// Set method name variable
     String methodName = "find";
 
     // Initialize return value
@@ -1970,10 +2060,10 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve find SQL
-      getFindSql(joins, valueCondition, orderCondition, connection, sqlStatements);
+      getFindSql(joins, valueCondition, orderCondition, connection, domain, sqlStatements);
 
       // Validate find SQL
       if (sqlStatements.size() <= 0) {
@@ -2020,7 +2110,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   }
 
   /**
-    Returns a list of data object IDs using a list joins and value condition.
+    Returns a list of data object IDs from the default domain using a list joins and value condition.
     @param joins List of joins.
     @param valueCondition Value condition.
     @param orderCondition Order condition.
@@ -2028,8 +2118,22 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   */
   protected List<I> findIds(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition)
       throws DataSourceException {
+  	
+  	return findIds(joins, valueCondition, orderCondition, null);
+  }
   
-    // Set method name variable
+  /**
+    Returns a list of data object IDs from a specified domain using a list joins and value condition.
+    @param joins List of joins.
+    @param valueCondition Value condition.
+    @param orderCondition Order condition.
+    @param domain Target domain.
+    @return List List of data object IDs.
+  */
+  protected List<I> findIds(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition, IDomain domain)
+      throws DataSourceException {
+
+  	// Set method name variable
     String methodName = "findIds";
   
     // Initialize return value
@@ -2042,10 +2146,10 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
   
       // Retrieve find SQL
-      sqlStatement = getFindIdSql(joins, valueCondition, orderCondition, connection);
+      sqlStatement = getFindIdSql(joins, valueCondition, orderCondition, connection, domain);
   
       // Validate find SQL
       if (sqlStatement == null) {
@@ -2093,13 +2197,14 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param valueCondition Value condition.
     @param orderCondition Order condition.
     @param connection Database connection.
+    @param domain Target domain.
     @return PreparedStatement Prepared statement.
   */
-  protected PreparedStatement getFindIdSql(IValueCondition valueCondition, IOrderCondition orderCondition, Connection connection)
+  protected PreparedStatement getFindIdSql(IValueCondition valueCondition, IOrderCondition orderCondition, Connection connection, IDomain domain)
       throws DataSourceException {
 
     // Get find SQL with no external joins
-    return getFindIdSql(null, valueCondition, orderCondition, connection);
+    return getFindIdSql(null, valueCondition, orderCondition, connection, domain);
   }
 
   /**
@@ -2109,10 +2214,11 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param valueCondition Value condition.
     @param orderCondition Order condition.
     @param connection Database connection.
+    @param domain Target domain.
     @return PreparedStatement Prepared statement.
   */
   protected PreparedStatement getFindIdSql(List<Join> joins, IValueCondition valueCondition, IOrderCondition orderCondition,
-      Connection connection) throws DataSourceException {
+      Connection connection, IDomain domain) throws DataSourceException {
 
     // Set method name
     String methodName = "getFindIdSql";
@@ -2145,6 +2251,9 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     // Append virtual delete condition if one exists
     valueCondition = appendVirtualDeleteCondition(valueCondition);
 
+    // Append domain condition
+    valueCondition = appendDomainCondition(primaryTableName, domain, valueCondition);
+    
     // Initialize condition SQL
     String valueConditionSql = "";
     String orderConditionSql = "";
@@ -2194,8 +2303,9 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   
   /**
     Returns a list of data object IDs using data from a result set object.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#createIds
+    @see DatabaseDataManager#createIds(ResultSet)
   */
+  @Override
   protected List<I> createIds(ResultSet resultSet) throws DataSourceException {
     
     // Set method name
@@ -2251,8 +2361,9 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
   /**
     Returns a data object using data from a list of result set objects.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#createDataObject
+    @see DatabaseDataManager#createDataObject(List)
   */
+  @Override
   protected T createDataObject(List<ResultSet> resultSets) throws DataSourceException {
 
     // Initialize return value
@@ -2271,8 +2382,9 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
 
   /**
     Returns a list of data objects using data from a list of result set objects.
-    @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#getFindSql
+    @see DatabaseDataManager#createDataObjects
   */
+  @Override
   protected List<T> createDataObjects(List<ResultSet> resultSets) throws DataSourceException {
 
     // Initialize return value
@@ -2289,7 +2401,6 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   /**
     Populates a list of data objects using a data object binding and data from a
     list of result set objects.
-   * @param <A>
     @param dataObjectBinding Data object binding.
     @param resultSets Result set iterator.
     @return List Data objects.
@@ -2776,8 +2887,14 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       // Build delimited columns
       for (ColumnBinding columnBinding : columnBindings) {
 
-        // Build columns
+        // Append column name
         columns = columns + "," + columnBinding.getColumnName();
+      }
+
+      if (isDomainAware()) {
+      	
+        // Append domain ID column
+        columns = columns + "," + getDomainIdColumnName();
       }
     }
 
@@ -2827,7 +2944,13 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
       // Build delimited parameters
       for (int index = 0; index < columnBindings.size(); index++) {
 
-        // Build parameters
+        // Append parameter
+        parameters = parameters + ",?";
+      }
+
+      if (isDomainAware()) {
+      	
+        // Append parameter
         parameters = parameters + ",?";
       }
     }
@@ -2902,6 +3025,40 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
   }
 
   /**
+    Creates and returns a condition string using a column binding and domain.
+    @param columnBinding Column binding.
+    @param domain Target domain.
+    @return String Condition string.
+  */
+  private String getCondition(ColumnBinding columnBinding, IDomain domain) {
+  
+    // Initialize return value
+    String condition = null;
+  
+    if (columnBinding != null) {
+    	
+      // Build condition using column binding
+      condition = columnBinding.getColumnName() + " = ?";
+    }
+    
+    if (isDomainAware()) {
+    	
+    	if (condition == null) {
+    		
+    		// Build condition using domain ID
+        condition = getDomainIdColumnName() + " = ?";
+    	}
+    	else {
+    		
+    		// Append condition usin domain ID
+        condition = condition + " and " + getDomainIdColumnName() + " = ?";
+    	}
+    }
+  
+    return condition;
+  }
+  
+  /**
     Sets parameter values of a given SQL statement using a value,
     column binding, and a starting parameter index.
     @param sqlStatement SQL statement.
@@ -2910,8 +3067,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     @param index Parameter index.
     @return int Next parameter index.
   */
-  private int setParameter(PreparedStatement statement, Object value,
-      ColumnBinding columnBinding, int index) throws DataSourceException {
+  private int setParameter(PreparedStatement statement, Object value, ColumnBinding columnBinding, int index) throws DataSourceException {
 
     // Set method name
     String methodName = "setParameter";
@@ -2988,4 +3144,46 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     return nextIndex;
   }
 
+  /**
+    Sets parameter values of a given SQL statement using a specified domain.
+    @param sqlStatement SQL statement.
+    @param domain Target domain.
+    @param index Parameter index.
+    @return int Next parameter index.
+  */
+  private int setParameter(PreparedStatement statement, IDomain domain, int index) throws DataSourceException {
+  
+    // Set method name
+    String methodName = "setParameter";
+  
+    // Initialize parameter index
+    int nextIndex = index;
+  
+    if (statement != null && isDomainAware()) {
+  
+    	// Initialize domain ID
+    	Integer domainId = IDomain.DEFAULT_ID;
+    	
+    	// Use specified domain ID if provided
+    	if (domain != null) {
+    		domainId = domain.getId();
+    	}
+    	
+      try {
+        // Set SQL parameter
+        DbUtil.setObject(statement, nextIndex++, DbUtil.INTEGER, domainId);
+      }
+      catch (SQLException sqlException) {
+  
+        // Post error message
+        Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database");
+        logger.logp(Level.SEVERE, getClass().getName(), methodName, "Setting SQL Parameter", sqlException);
+  
+        throw new DataSourceException(methodName + ": " + sqlException.getMessage());
+      }
+    }
+  
+    return nextIndex;
+  }
+  
 }

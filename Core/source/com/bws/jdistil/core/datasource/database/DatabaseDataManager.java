@@ -25,6 +25,7 @@ import com.bws.jdistil.core.datasource.DirtyUpdateException;
 import com.bws.jdistil.core.datasource.DuplicateException;
 import com.bws.jdistil.core.datasource.FilterCriteria;
 import com.bws.jdistil.core.datasource.IDataManager;
+import com.bws.jdistil.core.security.IDomain;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,29 +44,34 @@ import java.util.logging.Logger;
 */
 public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements IDataManager<I, T> {
 
-  /**
-    Data source name.
-  */
-  private String dataSourceName = null;
-
+	private static final String DEFAULT_DOMAIN_ID_COLUMN_NAME = "domain_id";
+	
   /**
     Creates a new DatabaseDataManager object.
   */
   public DatabaseDataManager() {
-    this(null);
+    super();
   }
 
   /**
-    Creates a new DatabaseDataManager object using a datasource name.
-    @param dataSourceName Data source name.
+    Returns a value indicating whether or not the data manager is domain aware.
+    A domain aware data manager will use the default or specified domain provided 
+    in method invocations to manage data object information.  
+    @return boolean Domain aware indicator.
   */
-  public DatabaseDataManager(String dataSourceName) {
-    super();
-
-    // Set properties
-    this.dataSourceName = dataSourceName;
+  protected boolean isDomainAware() {
+  	return true;
   }
-
+  
+  /**
+    Returns the underlying column name used to persist domain ID values. 
+    This method can be overridden to provide a different column name if needed.
+    @return String Domain ID column name.
+  */
+  protected String getDomainIdColumnName() {
+  	return DEFAULT_DOMAIN_ID_COLUMN_NAME;
+  }
+  
   /**
     Validates a given data object for use with the data object manager.
     @param dataObject Data object.
@@ -75,87 +81,97 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   /**
     Populates the ID before the data object can be inserted into the database.
     @param dataObject Data object.
+    @param domain Target domain.
   */
-  protected abstract void initializeId(DataObject<?> dataObject)
+  protected abstract void initializeId(DataObject<?> dataObject, IDomain domain)
       throws DataSourceException;
 
   /**
     Returns a list of prepared statements used to create a given data object.
     @param dataObject Data object.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getCreateSql(T dataObject, Connection connection,
+  protected abstract void getCreateSql(T dataObject, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException;
 
   /**
     Returns a list of prepared statements used to update a given data object.
     @param dataObject Data object.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getUpdateSql(T dataObject, Connection connection,
+  protected abstract void getUpdateSql(T dataObject, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException;
 
   /**
     Returns a list of prepared statements used to delete a given data object.
     @param dataObject Data object.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getDeleteSql(T dataObject, Connection connection,
+  protected abstract void getDeleteSql(T dataObject, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException;
 
   /**
     Returns a list of prepared statements used to find all data objects.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getFindSql(Connection connection, List<PreparedStatement> sqlStatements)
+  protected abstract void getFindSql(Connection connection, IDomain domain, List<PreparedStatement> sqlStatements)
       throws DataSourceException;
 
   /**
     Returns a prepared statement used to find all data object IDs.
     @param connection Database connection.
+    @param domain Target domain.
     @return PreparedStatement Prepared statement.
   */
-  protected abstract PreparedStatement getFindIdSql(Connection connection)
+  protected abstract PreparedStatement getFindIdSql(Connection connection, IDomain domain)
       throws DataSourceException;
   
   /**
     Returns a list of prepared statements used to find a given data object.
     @param id Data object ID.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getFindSql(I id, Connection connection,
+  protected abstract void getFindSql(I id, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException;
 
   /**
     Returns a list of prepared statements used to find a list of data objects.
     @param ids List of data object IDs.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getFindSql(List<I> ids, Connection connection,
+  protected abstract void getFindSql(List<I> ids, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException;
 
   /**
     Returns a list of prepared statements used to find a list of data objects using search criteria.
     @param filterCriteria Filter criteria.
     @param connection Database connection.
+    @param domain Target domain.
     @param sqlStatements List of prepared statements.
   */
-  protected abstract void getFindSql(FilterCriteria filterCriteria, Connection connection,
+  protected abstract void getFindSql(FilterCriteria filterCriteria, Connection connection, IDomain domain,
       List<PreparedStatement> sqlStatements) throws DataSourceException;
   
   /**
     Returns a prepared statement used to find data object IDs using search criteria.
     @param filterCriteria Filter criteria.
     @param connection Database connection.
+    @param domain Target domain.
     @return PreparedStatement Prepared statement.
   */
-  protected abstract PreparedStatement getFindIdSql(FilterCriteria filterCriteria, Connection connection)
+  protected abstract PreparedStatement getFindIdSql(FilterCriteria filterCriteria, Connection connection, IDomain domain)
       throws DataSourceException;
   
   /**
@@ -183,9 +199,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   
   /**
     Creates and eturns a database connection.
+    @param domain Target domain.
     @return Connection Database connection.
   */
-  protected Connection openConnection() throws DataSourceException {
+  protected Connection openConnection(IDomain domain) throws DataSourceException {
 
     // Set method name variable
     String methodName = "openConnection";
@@ -194,10 +211,11 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     Connection connection = null;
 
     // Open non-transaction based connection
-    if (dataSourceName == null) {
+    if (domain == null) {
       connection = DbUtil.openConnection();
     }
     else {
+    	String dataSourceName = domain.getDataSourceName();
       connection = DbUtil.openConnection(dataSourceName);
     }
 
@@ -246,9 +264,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     returned SQL statement.
     @param connection Database connection.
     @param dataObject Data object.
+    @param domain Target domain.
     @return PreparedStatement Prepared statement.
   */
-  protected PreparedStatement getDuplicateSql(T dataObject, Connection connection)
+  protected PreparedStatement getDuplicateSql(T dataObject, Connection connection, IDomain domain)
       throws DataSourceException {
 
     // Do not perform duplicate check by default
@@ -256,17 +275,17 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   }
 
   /**
-    Saves a new data object.
-    @param dataObject Data object.
-    @see com.bws.jdistil.core.datasource.IDataManager#save
+    Saves a new data object using a specified domain.
+    @param dataObject Data object to save.
+    @param domain Target domain.
   */
-  protected void create(T dataObject) throws DataSourceException {
+  protected void create(T dataObject, IDomain domain) throws DataSourceException {
 
     // Set method name variable
     String methodName = "create";
 
     // Check for duplicate
-    if (isDuplicate(dataObject)) {
+    if (isDuplicate(dataObject, domain)) {
       throw new DuplicateException();
     }
 
@@ -281,13 +300,13 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     
     try {
       // Open connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Initialize ID
-      initializeId(dataObject);
+      initializeId(dataObject, domain);
 
       // Retrieve create SQL
-      getCreateSql(dataObject, connection, sqlStatements);
+      getCreateSql(dataObject, connection, domain, sqlStatements);
 
       // Validate create SQL
       if (sqlStatements.size() <= 0) {
@@ -335,10 +354,12 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   }
 
   /**
-    Updates an existing data object.
-    @see com.bws.jdistil.core.datasource.IDataManager#save
+    Saves an existing data object using a specified domain.
+    @param dataObject Data object to save.
+    @param checkDirty Indicates whether or not to check for dirty data.
+    @param domain Target domain.
   */
-  protected void update(T dataObject, boolean checkDirty) throws DataSourceException {
+  protected void update(T dataObject, boolean checkDirty, IDomain domain) throws DataSourceException {
 
     // Set method name variable
     String methodName = "update";
@@ -358,7 +379,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     }
 
     // Check for duplicate
-    if (isDuplicate(dataObject)) {
+    if (isDuplicate(dataObject, domain)) {
       throw new DuplicateException();
     }
 
@@ -381,10 +402,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     
     try {
       // Open connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve update SQL
-      getUpdateSql(dataObject, connection, sqlStatements);
+      getUpdateSql(dataObject, connection, domain, sqlStatements);
 
       // Validate create SQL
       if (sqlStatements.size() <= 0) {
@@ -433,18 +454,38 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
   /**
     Saves a data object without checking for dirty data.
-    @see com.bws.jdistil.core.datasource.IDataManager#save
+		@see IDataManager#save(DataObject)
   */
+  @Override
   public void save(T dataObject) throws DataSourceException {
-    save(dataObject, false);
+    save(dataObject, false, null);
   }
 
   /**
-    Saves a data object and checks for dirty data based on a given indicator.
-    @see com.bws.jdistil.core.datasource.IDataManager#save
+    Saves a data object using a specified domain.
+		@see IDataManager#save(DataObject, IDomain)
   */
+  @Override
+  public void save(T dataObject, IDomain domain) throws DataSourceException {
+  	save(dataObject, false, domain);
+  }
+  
+  /**
+    Saves a data object and checks for dirty data based on a given indicator.
+		@see IDataManager#save(DataObject, boolean)
+  */
+  @Override
   public void save(T dataObject, boolean checkDirty) throws DataSourceException {
-
+  	save(dataObject, checkDirty, null);
+  }
+  
+  /**
+    Saves a data object and checks for dirty data using a specified domain.
+		@see IDataManager#save(DataObject, boolean, IDomain)
+  */
+  @Override
+  public void save(T dataObject, boolean checkDirty, IDomain domain) throws DataSourceException {
+  	
     // Set method name variable
     String methodName = "save";
 
@@ -456,21 +497,31 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     if (isNewDataObject(dataObject)) {
 
       // Create data object
-      create(dataObject);
+      create(dataObject, domain);
     }
     else {
 
       // Update data object
-      update(dataObject, checkDirty);
+      update(dataObject, checkDirty, domain);
     }
   }
 
   /**
-    Deletes a data object.
-    @see com.bws.jdistil.core.datasource.IDataManager#delete
+    Deletes a data object using the default domain.
+		@see IDataManager#delete(DataObject)
   */
+  @Override
   public void delete(T dataObject) throws DataSourceException {
-
+  	delete(dataObject, null);
+  }
+  
+  /**
+    Deletes a data object using a specified domain.
+		@see IDataManager#delete(DataObject, IDomain)
+  */
+  @Override
+  public void delete(T dataObject, IDomain domain) throws DataSourceException {
+  	
     // Set method name variable
     String methodName = "delete";
 
@@ -487,10 +538,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     
     try {
       // Open connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve remove SQL
-      getDeleteSql(dataObject, connection, sqlStatements);
+      getDeleteSql(dataObject, connection, domain, sqlStatements);
 
       // Validate delete SQL
       if (sqlStatements.size() <= 0) {
@@ -539,10 +590,20 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
   /**
     Returns all data objects.
-    @see com.bws.jdistil.core.datasource.IDataManager#find
+		@see IDataManager#find()
   */
+  @Override
   public List<T> find() throws DataSourceException {
+  	return find((IDomain)null);
+  }
 
+  /**
+    Returns all data objectsusing a specified domain.
+		@see IDataManager#find(IDomain)
+  */
+  @Override
+  public List<T> find(IDomain domain) throws DataSourceException {
+  
     // Set method name variable
     String methodName = "find";
 
@@ -560,10 +621,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve find SQL
-      getFindSql(connection, sqlStatements);
+      getFindSql(connection, domain, sqlStatements);
 
       // Validate find SQL
       if (sqlStatements.size() <= 0) {
@@ -611,11 +672,21 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
   /**
     Returns all data object IDs.
-    @see com.bws.jdistil.core.datasource.IDataManager#findIds
+		@see IDataManager#findIds()
   */
+  @Override
   public List<I> findIds() throws DataSourceException {
-  
-    // Set method name variable
+  	return findIds((IDomain)null);
+  }
+
+  /**
+    Returns all data object IDs.
+		@see IDataManager#findIds(IDomain)
+  */
+  @Override
+  public List<I> findIds(IDomain domain) throws DataSourceException {
+
+  	// Set method name variable
     String methodName = "findIds";
   
     // Initialize return value
@@ -630,10 +701,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
   
       // Retrieve find SQL
-      sqlStatement = getFindIdSql(connection);
+      sqlStatement = getFindIdSql(connection, domain);
   
       // Validate find SQL
       if (sqlStatement == null) {
@@ -679,10 +750,20 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   
   /**
     Returns a data object using a given data object ID.
-    @see com.bws.jdistil.core.datasource.IDataManager#find
+		@see IDataManager#find(Object)
   */
+  @Override
   public T find(I id) throws DataSourceException {
+  	return find(id, null);
+  }
 
+  /**
+    Returns a data object using a given data object ID.
+		@see IDataManager#find(Object, IDomain)
+  */
+  @Override
+  public T find(I id, IDomain domain) throws DataSourceException {
+  	
     // Set method name variable
     String methodName = "find";
 
@@ -700,10 +781,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve find SQL
-      getFindSql(id, connection, sqlStatements);
+      getFindSql(id, connection, domain, sqlStatements);
 
       // Validate find SQL
       if (sqlStatements.size() <= 0) {
@@ -751,11 +832,20 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
   /**
     Returns a list of data objects using a list of data object IDs.
-    Order of data objects is maintained based on the order of data object IDs.
-    @see com.bws.jdistil.core.datasource.IDataManager#find
+		@see IDataManager#find(List)
   */
+  @Override
   public List<T> find(List<I> ids) throws DataSourceException {
+  	return find(ids, null);
+  }
 
+  /**
+    Returns a list of data objects using a list of data object IDs.
+		@see IDataManager#find(List, IDomain)
+  */
+  @Override
+  public List<T> find(List<I> ids, IDomain domain) throws DataSourceException {
+  	
     // Set method name variable
     String methodName = "find";
 
@@ -778,10 +868,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve find SQL
-      getFindSql(ids, connection, sqlStatements);
+      getFindSql(ids, connection, domain, sqlStatements);
 
       // Validate find SQL
       if (sqlStatements.size() <= 0) {
@@ -834,10 +924,19 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
   /**
     Returns a list of data objects based on specified search criteria information.
-    @param filterCriteria Filter criteria.
-    @return List List of data objects.
+		@see IDataManager#find(FilterCriteria)
   */
+  @Override
   public List<T> find(FilterCriteria filterCriteria) throws DataSourceException {
+  	return find(filterCriteria, null);
+  }
+
+  /**
+    Returns a list of data objects based on specified filter criteria information.
+		@see IDataManager#find(FilterCriteria, IDomain)
+  */
+  @Override
+  public List<T> find(FilterCriteria filterCriteria, IDomain domain) throws DataSourceException {
   
     // Set method name variable
     String methodName = "find";
@@ -856,10 +955,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve find SQL
-      getFindSql(filterCriteria, connection, sqlStatements);
+      getFindSql(filterCriteria, connection, domain, sqlStatements);
 
       // Validate find SQL
       if (sqlStatements.size() <= 0) {
@@ -907,11 +1006,20 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   
   /**
     Returns a list of data object IDs based on specified search criteria information.
-    @param filterCriteria Filter criteria.
-    @return List List of data object IDs.
+		@see IDataManager#findIds(FilterCriteria)
   */
+  @Override
   public List<I> findIds(FilterCriteria filterCriteria) throws DataSourceException {
-  
+  	return findIds(filterCriteria, null);
+  }
+
+  /**
+    Returns a list of data object IDs based on specified search criteria information.
+    @see IDataManager#findIds(FilterCriteria, IDomain)
+  */
+  @Override
+  public List<I> findIds(FilterCriteria filterCriteria, IDomain domain) throws DataSourceException {
+  	
     // Set method name variable
     String methodName = "findIds";
   
@@ -927,10 +1035,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
   
       // Retrieve find SQL
-      sqlStatement = getFindIdSql(filterCriteria, connection);
+      sqlStatement = getFindIdSql(filterCriteria, connection, domain);
   
       // Validate find SQL
       if (sqlStatement == null) {
@@ -977,8 +1085,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   /**
     Returns a value indicating whether or not a given data object already exists.
     @param dataObject Data object.
+    @param domain Target domain.
+    @return boolean Duplicate data object indicator.
   */
-  protected boolean isDuplicate(T dataObject) throws DataSourceException {
+  protected boolean isDuplicate(T dataObject, IDomain domain) throws DataSourceException {
 
     // Set method name variable
     String methodName = "isDuplicate";
@@ -993,10 +1103,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
     try {
       // Retrieve database connection
-      connection = openConnection();
+      connection = openConnection(domain);
 
       // Retrieve find SQL
-      sqlStatement = getDuplicateSql(dataObject, connection);
+      sqlStatement = getDuplicateSql(dataObject, connection, domain);
 
       // Only perform duplicate check if SQL is provided
       if (sqlStatement != null) {
