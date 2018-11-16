@@ -67,6 +67,11 @@ public class User extends DataObject<Integer> implements IListItem, Comparable<U
   private String lastName = null;
   
   /**
+    Domain admin indicator.
+  */
+  private Boolean isDomainAdmin = Boolean.FALSE;
+  
+  /**
     Deleted indicator.
   */
   private Boolean isDeleted = Boolean.FALSE;
@@ -231,6 +236,23 @@ public class User extends DataObject<Integer> implements IListItem, Comparable<U
   public void setIsDeleted(Boolean newIsDeleted) {
     updateModifiedStatus(isDeleted, newIsDeleted);
     isDeleted = newIsDeleted;
+  }
+  
+  /**
+    Returns the domain admin indicator.
+    @return Boolean Domain admin indicator.
+  */
+  public Boolean getIsDomainAdmin() {
+    return isDomainAdmin;
+  }
+  
+  /**
+    Sets the domain admin indicator.
+    @param newIsDomainAdmin New domain admin indicator.
+  */
+  public void setIsDomainAdmin(Boolean newIsDomainAdmin) {
+    updateModifiedStatus(isDomainAdmin, newIsDomainAdmin);
+    isDomainAdmin = newIsDomainAdmin;
   }
   
   /**

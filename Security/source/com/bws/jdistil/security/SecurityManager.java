@@ -165,6 +165,19 @@ public class SecurityManager extends DefaultSecurityManager {
   }
   
   /**
+    Returns a value indicating whether or not a user is a domain admin.
+    @param session - Current session.
+    @return boolean - Domain administrator indicator.
+  */
+  public boolean isDomainAdmin(HttpSession session) throws SecurityException {
+
+  	// Get current user
+		User user = (User)session.getAttribute(AttributeNames.USER);
+		
+		return user != null && user.getIsDomainAdmin();
+  }
+  
+  /**
    	Indicates whether or not the current user has been authenticated.
    	@param session Current session.
   */

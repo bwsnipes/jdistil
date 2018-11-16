@@ -26,16 +26,17 @@
 --
 CREATE TABLE bws_user
 (
-   user_id				INTEGER			NOT NULL,
-   logon_id				VARCHAR(20)	NOT NULL,
-   salt						VARCHAR(30)	NOT NULL,
-   password				VARCHAR(30)	NOT NULL,
-   first_name			VARCHAR(20)	NOT NULL,
-   middle_initial	CHAR(1)			NULL,
-   last_name			VARCHAR(20)	NOT NULL,
-   is_deleted			CHAR(1)			NOT NULL,
-   version				INTEGER			NOT NULL,
-   domain_id      INTEGER			NOT NULL
+   user_id				  INTEGER			NOT NULL,
+   logon_id				  VARCHAR(20)	NOT NULL,
+   salt						  VARCHAR(30)	NOT NULL,
+   password				  VARCHAR(30)	NOT NULL,
+   first_name			  VARCHAR(20)	NOT NULL,
+   middle_initial	  CHAR(1)			NULL,
+   last_name			  VARCHAR(20)	NOT NULL,
+   is_domain_admin  CHAR(1)			NOT NULL,
+   is_deleted			  CHAR(1)			NOT NULL,
+   version				  INTEGER			NOT NULL,
+   domain_id        INTEGER			NOT NULL
 )
 ;
 

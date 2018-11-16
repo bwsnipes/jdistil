@@ -65,6 +65,7 @@ public class UserManager extends BoundDatabaseDataManager<Integer, User> {
     columnBindings.add(new ColumnBinding("first_name", DbUtil.STRING, false, false, "FirstName"));
     columnBindings.add(new ColumnBinding("middle_initial", DbUtil.STRING, false, false, "MiddleInitial"));
     columnBindings.add(new ColumnBinding("last_name", DbUtil.STRING, false, false, "LastName"));
+    columnBindings.add(new ColumnBinding("is_domain_admin", DbUtil.BOOLEAN, false, false, "IsDomainAdmin"));
     columnBindings.add(new ColumnBinding("is_deleted", DbUtil.BOOLEAN, false, true, "IsDeleted"));
     columnBindings.add(new ColumnBinding("version", DbUtil.LONG, false, false, "Version"));
 

@@ -173,6 +173,7 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     saveUser.addField(FieldIds.USER_MIDDLE_INITIAL, false);
     saveUser.addField(FieldIds.USER_LAST_NAME, true);
     saveUser.addField(FieldIds.USER_LOGON_ID, true);
+    saveUser.addField(FieldIds.USER_IS_DOMAIN_ADMIN, false);
     saveUser.addField(FieldIds.USER_AUTHENTICATION_NEW_PASSWORD, false);
     saveUser.addField(FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD, false);
     saveUser.addField(FieldIds.USER_ROLE_IDS, false);

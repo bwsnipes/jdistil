@@ -86,6 +86,12 @@
 		        <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD %>" /></td>
 		        <td><core:password fieldId="<%= FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD %>" attributeName="<%= AttributeNames.USER %>" maxlength="10" /></td>
 		      </tr>
+		      <core:domainAdmin>
+			      <tr>
+			        <td><core:label fieldId="<%= FieldIds.USER_IS_DOMAIN_ADMIN %>" /></td>
+			        <td><core:check fieldId="<%= FieldIds.USER_IS_DOMAIN_ADMIN %>" attributeName="<%= AttributeNames.USER %>" /></td>
+			      </tr>
+			    </core:domainAdmin>
 				</table>
 				<br/>
 				<table>

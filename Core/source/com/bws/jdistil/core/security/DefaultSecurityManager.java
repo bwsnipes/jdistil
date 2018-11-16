@@ -45,6 +45,15 @@ public class DefaultSecurityManager implements ISecurityManager {
   }
 
   /**
+    Returns a value indicating whether or not a user is a domain admin.
+    @param session - Current session.
+    @return boolean - Domain administrator indicator.
+  */
+  public boolean isDomainAdmin(HttpSession session) throws SecurityException {
+  	return false;
+  }
+
+  /**
     Returns a value indicating whether or not a user has been authenticated.
     @param session - Current session.
     @return boolean - Authenticated indicator.

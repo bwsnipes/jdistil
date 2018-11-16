@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.crypto.SecretKey;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 import com.bws.jdistil.core.configuration.ConfigurationManager;
@@ -35,6 +36,8 @@ import com.bws.jdistil.core.process.ProcessException;
 import com.bws.jdistil.core.process.ProcessMessage;
 import com.bws.jdistil.core.process.model.SaveDataObject;
 import com.bws.jdistil.core.security.Cryptographer;
+import com.bws.jdistil.core.security.ISecurityManager;
+import com.bws.jdistil.core.security.SecurityException;
 import com.bws.jdistil.core.servlet.ParameterExtractor;
 import com.bws.jdistil.core.util.Descriptions;
 import com.bws.jdistil.core.util.StringUtil;
@@ -167,6 +170,9 @@ public class SaveUser extends SaveDataObject<Integer, User> {
   		}
 		}
   	
+		// Check domain admin permission
+		checkDomainAdminPermission(user, processContext);
+		
   	// Invoke inherited save method
   	@SuppressWarnings("unchecked")
 		boolean isSuccess = super.saveDataObject(dataManagerClass, (T)user, doDirtyUpdateCheck, attributeId, processContext);
@@ -174,4 +180,28 @@ public class SaveUser extends SaveDataObject<Integer, User> {
 		return isSuccess;
 	}
 	
+  private void checkDomainAdminPermission(User user, ProcessContext processContext) throws ProcessException {
+  	
+  	String methodName = "checkDomainAdminPermission";
+  	
+  	try {
+  		
+      // Get current session
+      HttpSession session = processContext.getRequest().getSession(true);
+      
+      // Get security manager
+      ISecurityManager securityManager = processContext.getSecurityManager();
+  		
+  		if (securityManager == null || !securityManager.isDomainAdmin(session)) {
+  			user.setIsDomainAdmin(false);
+  		}
+  	}
+  	catch (SecurityException securityException) {
+  		
+      Logger logger = Logger.getLogger("com.bws.jdistil.security.app.user");
+      logger.logp(Level.SEVERE, getClass().getName(), methodName, "Saving User", securityException);
+  
+      throw new ProcessException(methodName + ":" + securityException.getMessage());
+  	}
+  }
 }

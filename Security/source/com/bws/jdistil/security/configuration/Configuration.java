@@ -72,6 +72,7 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     Field userMiddleName = new Field(FieldIds.USER_MIDDLE_INITIAL, Field.STRING, "Middle Initial", null);
     Field userLastName = new Field(FieldIds.USER_LAST_NAME, Field.STRING, "Last Name", null);
     Field userLogonId = new Field(FieldIds.USER_LOGON_ID, Field.STRING, "Logon ID", null);
+    Field userIsDomainAdmin = new Field(FieldIds.USER_IS_DOMAIN_ADMIN, Field.BOOLEAN, "IsDomainAdmin", null);
     Field userRoleIds = new Field(FieldIds.USER_ROLE_IDS, Field.INTEGER, "Roles", null);
     Field userVersion = new Field(FieldIds.USER_VERSION, Field.LONG, "Version", null);
   
@@ -96,6 +97,7 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     fields.add(userMiddleName);
     fields.add(userLastName);
     fields.add(userLogonId);
+    fields.add(userIsDomainAdmin);
     fields.add(userRoleIds);
     fields.add(userVersion);
   }
@@ -148,6 +150,7 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     userBinding.addFieldBinding(FieldIds.USER_FIRST_NAME, "FirstName");
     userBinding.addFieldBinding(FieldIds.USER_MIDDLE_INITIAL, "MiddleInitial");
     userBinding.addFieldBinding(FieldIds.USER_LAST_NAME, "LastName");
+    userBinding.addFieldBinding(FieldIds.USER_IS_DOMAIN_ADMIN, "IsDomainAdmin");
     userBinding.addFieldBinding(FieldIds.USER_ROLE_IDS, "RoleIds", true);
     userBinding.addFieldBinding(FieldIds.USER_VERSION, "Version");
     

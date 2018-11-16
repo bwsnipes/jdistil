@@ -45,6 +45,11 @@ public class Constants {
   public static final String DATASOURCE_NAME = "datasource.name";
 
   /**
+    Constant defining the multiple tenant property key.
+  */
+  public static final String MULTIPLE_TENANTS = "multiple.tenants";
+  
+  /**
     Constant defining the SMTP host name property key.
   */
   public static final String SMTP_HOST_NAME = "smtp.host.name";

@@ -46,6 +46,7 @@ public class FieldIds extends com.bws.jdistil.core.configuration.FieldIds {
   public static final String USER_LOGON_ID = "SCF20";
   public static final String USER_ROLE_IDS = "SCF21";
   public static final String USER_VERSION = "SCF22";
+  public static final String USER_IS_DOMAIN_ADMIN = "SCF23";
   
   protected FieldIds() {
     super();

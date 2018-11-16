@@ -458,7 +458,7 @@ insert into bws_id_lookup values ('bws_user', 'user_id', 1);
 
 insert into bws_id_lookup values ('bws_role', 'role_id', 1);
 
-insert into bws_user values (1, 'admin', 'yt9n1+eaIeTwJeqwWTFaXQ==', 'ochRLLNNPQvr484xcXEhew==', 'admin', null, 'admin', '0', 1, 0);
+insert into bws_user values (1, 'admin', 'yt9n1+eaIeTwJeqwWTFaXQ==', 'ochRLLNNPQvr484xcXEhew==', 'admin', null, 'admin', '1', '0', 1, 0);
 
 insert into bws_role values (1, 'admin', '0', 1, 0);
 
