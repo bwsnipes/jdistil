@@ -11,6 +11,7 @@
   - Extendible user authentication.
   - Extendible action and field level authorization.
   - Extendible CRUD based processing models.
+  - Support for multitenancy domains.
   - Support for internationalization (i18n).
   - Independence from third party libraries.
 
