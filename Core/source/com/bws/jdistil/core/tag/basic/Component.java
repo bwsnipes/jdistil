@@ -18,19 +18,25 @@
  */
 package com.bws.jdistil.core.tag.basic;
 
-import com.bws.jdistil.core.security.ISecurityManager;
-import com.bws.jdistil.core.security.SecurityManagerFactory;
-import com.bws.jdistil.core.util.StringUtil;
-
-import javax.servlet.jsp.tagext.BodyTagSupport;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.DynamicAttributes;
-import javax.servlet.jsp.tagext.TryCatchFinally;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.tagext.BodyTagSupport;
+import javax.servlet.jsp.tagext.DynamicAttributes;
+import javax.servlet.jsp.tagext.TryCatchFinally;
+
+import com.bws.jdistil.core.process.ProcessContext;
+import com.bws.jdistil.core.security.IDomain;
+import com.bws.jdistil.core.security.ISecurityManager;
+import com.bws.jdistil.core.security.SecurityException;
+import com.bws.jdistil.core.security.SecurityManagerFactory;
+import com.bws.jdistil.core.servlet.http.Controller;
+import com.bws.jdistil.core.util.StringUtil;
 
 /**
   Abstract base component containing attributes common to all UI components.
@@ -102,9 +108,7 @@ public abstract class Component extends BodyTagSupport implements DynamicAttribu
     dynamicAttributes.clear();
 
     // Recycle local security manager
-    if (localSecurityManager != null) {
-      SecurityManagerFactory.getInstance().recycle(localSecurityManager);
-    }
+    SecurityManagerFactory.getInstance().recycle(localSecurityManager);
   }
 
   /**
@@ -141,6 +145,50 @@ public abstract class Component extends BodyTagSupport implements DynamicAttribu
     return securityManager;
   }
 
+  /**
+    Gets the current user's domain.
+    @return IDomain Current user's domain.
+  */
+  protected IDomain getCurrentDomain() throws JspException {
+  
+    // Set method name
+    String methodName = "getCurrentDomain";
+
+    // Initialize return value
+  	IDomain domain = null;
+  	
+    // Get process context
+    ProcessContext processContext = (ProcessContext)pageContext.getRequest().getAttribute(Controller.PROCESS_CONTEXT);
+  	
+  	if (processContext != null) {
+  	
+  		// Get security manager
+  		ISecurityManager securityManager = getSecurityManager();
+  		
+  		if (securityManager != null) {
+  			
+  	    // Get current session
+  	    HttpSession session = processContext.getRequest().getSession(true);
+
+  	    try {
+    	    // Get current domain
+    			domain = securityManager.getDomain(session);
+  	    	
+  	    }
+        catch (SecurityException securityException) {
+  
+          // Post error message
+          Logger logger = Logger.getLogger("com.bws.jdistil.core.tag.data");
+          logger.logp(Level.SEVERE, getClass().getName(), methodName, "Get Current Domain", securityException);
+  
+          throw new JspException(methodName + ":" + securityException.getMessage());
+        }
+  		}
+  	}
+  	
+  	return domain;
+  }
+  
   /**
     Returns a dynamic attribute value using a specified attribute name.
     @param localName - Attribute name.

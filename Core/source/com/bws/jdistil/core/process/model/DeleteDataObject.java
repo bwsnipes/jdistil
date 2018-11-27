@@ -33,6 +33,7 @@ import com.bws.jdistil.core.process.IProcessor;
 import com.bws.jdistil.core.process.ProcessContext;
 import com.bws.jdistil.core.process.ProcessException;
 import com.bws.jdistil.core.process.Processor;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.servlet.ParameterExtractor;
 import com.bws.jdistil.core.util.StringUtil;
 
@@ -105,6 +106,9 @@ public class DeleteDataObject<I, T extends DataObject<I>> extends Processor {
     // Create data manager
     dataManager = (IDataManager<I, T>)dataManagerFactory.create();
 
+    // Get current domain
+    IDomain domain = getCurrentDomain(processContext);
+    
     try {
 
       // Get data object ID
@@ -113,11 +117,11 @@ public class DeleteDataObject<I, T extends DataObject<I>> extends Processor {
       if (id != null) {
   
         // Retrieve data object
-        T dataObject = dataManager.find(id);
+        T dataObject = dataManager.find(id, domain);
   
         // Delete data object if found
         if (dataObject != null) {
-          dataManager.delete(dataObject);
+          dataManager.delete(dataObject, domain);
         }
       }
       
@@ -135,9 +139,7 @@ public class DeleteDataObject<I, T extends DataObject<I>> extends Processor {
     finally {
 
       // Recycle data manager
-      if (dataManagerFactory != null) {
-        dataManagerFactory.recycle(dataManager);
-      }
+      dataManagerFactory.recycle(dataManager);
     }
   }
 

@@ -136,11 +136,11 @@ public class Controller extends HttpServlet {
       // Check for logged on user if a user is required
       if (isAuthorizationRequired && !securityManager.isAuthenticated(session)) {
 
-        // Get login page
-        Page loginPage = ConfigurationManager.getLogonPage();
+        // Get logon action
+        Action logonAction = ConfigurationManager.getLogonAction();
 
-        // Navigate to logon page
-        callPage(loginPage, processContext);
+        // Execute logon action
+        invoke(logonAction, processContext);
       }
       else {
       	
@@ -155,13 +155,13 @@ public class Controller extends HttpServlet {
 
         // Execute action
         invoke(action, processContext);
-
-        // Get next page
-        Page nextPage = processContext.getNextPage();
-
-        // Navigate to the next page
-        callPage(nextPage, processContext);
       }
+
+      // Get next page
+      Page nextPage = processContext.getNextPage();
+      
+      // Navigate to logon page
+      callPage(nextPage, processContext);
     }
     catch (Exception exception) {
       
@@ -172,26 +172,65 @@ public class Controller extends HttpServlet {
       // Add exception content to process context messages
       addErrorMessages(processContext, exception);
 
-      // Get error page
-      Page errorPage = ConfigurationManager.getErrorPage();
+      // Get error action
+      Action errorAction = ConfigurationManager.getErrorAction();
 
-      // Display error page
-      if (errorPage == null) {
-        displayDefaultErrorPage(processContext);
+      if (errorAction != null) {
+      	
+        // Display errors using custom error handling process
+      	displayErrorPage(errorAction, processContext);      	
       }
       else {
-        callPage(errorPage, processContext);
+      	
+      	// Display errors using default error page
+        displayDefaultErrorPage(processContext);
       }
     }
     finally {
 
       // Recycle security manager
-    	if (securityManagerFactory != null) {
-        securityManagerFactory.recycle(securityManager);
-    	}
+      securityManagerFactory.recycle(securityManager);
     }
   }
 
+  /**
+   * Displays application errors using a custom error handling process.
+   * @param errorAction Error action to invoke.
+   * @param processContext Process context.
+   * @throws IOException
+   */
+  private void displayErrorPage(Action errorAction, ProcessContext processContext) throws IOException {
+  	
+  	// Set method name
+  	String methodName = "displayErrorPage";
+  	
+  	try {
+  		
+      // Execute action
+      invoke(errorAction, processContext);
+      
+      // Get next page
+      Page nextPage = processContext.getNextPage();
+      
+      // Navigate to error page
+      callPage(nextPage, processContext);
+  	}
+  	catch (ProcessException processException) {
+  		
+      // Post error message
+      Logger logger = Logger.getLogger("com.bws.jdistil.core.servlet.http");
+      logger.logp(Level.SEVERE, getClass().getName(), methodName, "Calling Page", processException);
+  		
+      // Display errors using default error page
+  		displayDefaultErrorPage(processContext);
+  	}
+  }
+  
+  /**
+   * Adds exception details to process context error messages.
+   * @param processContext Process context.
+   * @param exception Exception to include in error messages.
+   */
   private void addErrorMessages(ProcessContext processContext, Exception exception) {
   
   	if (exception != null) {
@@ -315,10 +354,9 @@ public class Controller extends HttpServlet {
       validator.process(processContext);
     }
     finally {
-    	
-    	if (validatorFactory != null) {
-        validatorFactory.recycle(validator);
-    	}
+
+    	// Recycle validator
+      validatorFactory.recycle(validator);
     }
   }
 
@@ -354,11 +392,11 @@ public class Controller extends HttpServlet {
   }
 
   /**
-    Calls a specified page using a request and response.
-    @param page - Page object.
-    @param processContext - Process context.
+   * Calls a specified page using a request and response. 
+   * @param page - Page object. 
+   * @param processContext - Process context. 
   */
-  protected void callPage(Page page, ProcessContext processContext) {
+  protected void callPage(Page page, ProcessContext processContext) throws ProcessException {
 
     // Set method name
     String methodName = "callPage";
@@ -381,12 +419,16 @@ public class Controller extends HttpServlet {
 	      // Post error message
 	      Logger logger = Logger.getLogger("com.bws.jdistil.core.servlet.http");
 	      logger.logp(Level.SEVERE, getClass().getName(), methodName, "Calling Page", ioException);
+	      
+	      throw new ProcessException("Error calling page: " + ioException.getLocalizedMessage());
 	    }
 	    catch (ServletException servletException) {
 	
 	      // Post error message
 	      Logger logger = Logger.getLogger("com.bws.jdistil.core.servlet.http");
 	      logger.logp(Level.SEVERE, getClass().getName(), methodName, "Calling Page", servletException);
+
+	      throw new ProcessException("Error calling page: " + servletException.getLocalizedMessage());
 	    }
     }
   }

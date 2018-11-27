@@ -215,7 +215,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
       connection = DbUtil.openConnection();
     }
     else {
-    	String dataSourceName = domain.getDataSourceName();
+    	String dataSourceName = domain.getDatasourceName();
       connection = DbUtil.openConnection(dataSourceName);
     }
 
@@ -319,7 +319,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
       }
 
       // Commit all SQL statements
-      connection.commit();
+      DbUtil.commit(connection);
     }
     catch (CoreException coreException) {
 
@@ -370,7 +370,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     if (checkDirty) {
 
       // Find data object
-      T currentDataObject = find(id);
+      T currentDataObject = find(id, domain);
 
       // Only update data if same version
       if (!isSameVersion(dataObject, currentDataObject)) {
@@ -418,7 +418,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
       }
 
       // Commit all SQL statements
-      connection.commit();
+      DbUtil.commit(connection);
     }
     catch (CoreException coreException) {
 
@@ -554,7 +554,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
       }
 
       // Commit all SQL statements
-      connection.commit();
+      DbUtil.commit(connection);
     }
     catch (CoreException coreException) {
 

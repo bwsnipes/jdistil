@@ -51,7 +51,7 @@ public class EditUser extends EditDataObject<Integer, User> {
   	super.populateReferenceData(processContext);
 
   	// Load reference data
-    loadReferenceData(RoleManager.class, AttributeNames.ROLES, processContext.getRequest());
+    loadReferenceData(RoleManager.class, AttributeNames.ROLES, processContext);
   }
   
 }

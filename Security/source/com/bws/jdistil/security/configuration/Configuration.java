@@ -23,6 +23,7 @@ import java.util.Set;
 import com.bws.jdistil.core.configuration.Field;
 import com.bws.jdistil.core.configuration.ObjectBinding;
 import com.bws.jdistil.security.configuration.FieldIds;
+import com.bws.jdistil.security.domain.Domain;
 import com.bws.jdistil.security.role.Action;
 import com.bws.jdistil.security.role.Group;
 import com.bws.jdistil.security.role.Role;
@@ -52,6 +53,11 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     super.registerFields(fields);
     
     // Create fields
+  	Field domainId = new Field(FieldIds.DOMAIN_ID, Field.INTEGER, "Domain", null);
+    Field domainVersion = new Field(FieldIds.DOMAIN_VERSION, Field.LONG, "Version", null);
+    Field domainName = new Field(FieldIds.DOMAIN_NAME, Field.STRING, "Name", null);
+    Field isDefaultDatasource = new Field(FieldIds.DOMAIN_IS_DEFAULT_DATASOURCE, Field.BOOLEAN, "Default Datasource", null);
+    Field domainJndiName = new Field(FieldIds.DOMAIN_DATASOURCE_NAME, Field.STRING, "Datasource Name", null);
     Field actionId = new Field(FieldIds.ACTION_ID, Field.INTEGER, "Action", null);
     Field actionSecureId = new Field(FieldIds.ACTION_SECURE_ID, Field.STRING, "Secure ID", null);
     Field groupId = new Field(FieldIds.GROUP_ID, Field.INTEGER, "Group", null);
@@ -71,12 +77,17 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     Field userFirstName = new Field(FieldIds.USER_FIRST_NAME, Field.STRING, "First Name", null);
     Field userMiddleName = new Field(FieldIds.USER_MIDDLE_INITIAL, Field.STRING, "Middle Initial", null);
     Field userLastName = new Field(FieldIds.USER_LAST_NAME, Field.STRING, "Last Name", null);
+    Field userIsDomainAdmin = new Field(FieldIds.USER_IS_DOMAIN_ADMIN, Field.BOOLEAN, "Domain Admin", null);
     Field userLogonId = new Field(FieldIds.USER_LOGON_ID, Field.STRING, "Logon ID", null);
-    Field userIsDomainAdmin = new Field(FieldIds.USER_IS_DOMAIN_ADMIN, Field.BOOLEAN, "IsDomainAdmin", null);
     Field userRoleIds = new Field(FieldIds.USER_ROLE_IDS, Field.INTEGER, "Roles", null);
     Field userVersion = new Field(FieldIds.USER_VERSION, Field.LONG, "Version", null);
   
     // Register fields
+    fields.add(domainId);
+    fields.add(domainVersion);
+    fields.add(domainName);
+    fields.add(isDefaultDatasource);
+    fields.add(domainJndiName);
     fields.add(actionId);
     fields.add(actionSecureId);
     fields.add(groupId);
@@ -96,8 +107,8 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     fields.add(userFirstName);
     fields.add(userMiddleName);
     fields.add(userLastName);
-    fields.add(userLogonId);
     fields.add(userIsDomainAdmin);
+    fields.add(userLogonId);
     fields.add(userRoleIds);
     fields.add(userVersion);
   }
@@ -110,6 +121,14 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
   public void registerObjectBindings(Set<ObjectBinding> objectBindings) {
     
     super.registerObjectBindings(objectBindings);
+    
+    // Create domain binding
+    ObjectBinding domainBinding = new ObjectBinding(Domain.class);    
+    domainBinding.addFieldBinding(FieldIds.DOMAIN_ID, "Id");
+    domainBinding.addFieldBinding(FieldIds.DOMAIN_NAME, "Name");
+    domainBinding.addFieldBinding(FieldIds.DOMAIN_IS_DEFAULT_DATASOURCE, "IsDefaultDatasource");
+    domainBinding.addFieldBinding(FieldIds.DOMAIN_DATASOURCE_NAME, "DatasourceName");
+    domainBinding.addFieldBinding(FieldIds.DOMAIN_VERSION, "Version");
     
     // Create action binding
     ObjectBinding actionBinding = new ObjectBinding(Action.class);
@@ -155,6 +174,7 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
     userBinding.addFieldBinding(FieldIds.USER_VERSION, "Version");
     
     // Register object bindings
+    objectBindings.add(domainBinding);
     objectBindings.add(actionBinding);
     objectBindings.add(groupBinding);
     objectBindings.add(fieldBinding);

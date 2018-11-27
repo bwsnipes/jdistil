@@ -53,7 +53,7 @@ public class ListField extends ValueComponent {
   /**
     Items attribute name.
   */
-  private String itemsAttributeName = null;
+  protected String itemsAttributeName = null;
 
   /**
     List filter.
@@ -370,7 +370,7 @@ public class ListField extends ValueComponent {
    * @return List List of list item objects.
    */
   @SuppressWarnings("unchecked")
-	protected List<IListItem> getItems() throws UiException {
+	protected List<IListItem> getItems() throws UiException, JspException {
 
     // Initialize return value
     List<IListItem> items = null;

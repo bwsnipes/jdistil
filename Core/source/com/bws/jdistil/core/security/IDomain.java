@@ -47,9 +47,9 @@ public interface IDomain {
   public String getName();
 
   /**
-	  Returns the data source name.
-	  @return String Data source name.
+	  Returns the datasource name.
+	  @return String Datasource name.
 	*/
-	public String getDataSourceName();
+	public String getDatasourceName();
 
 }

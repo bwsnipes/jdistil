@@ -23,6 +23,8 @@ package com.bws.jdistil.security.configuration;
 */
 public class AttributeNames extends com.bws.jdistil.core.configuration.AttributeNames {
   
+	public static final String DOMAIN = "DOMAIN";
+	public static final String DOMAINS = "DOMAINS";
   public static final String ACTION = "ACTION";
   public static final String ACTIONS = "ACTIONS";
   public static final String GROUP = "GROUP";
@@ -35,7 +37,6 @@ public class AttributeNames extends com.bws.jdistil.core.configuration.Attribute
   public static final String TASK = "TASK";
   public static final String USERS = "USERS";
   public static final String USER = "USER";
-  public static final String DOMAIN = "DOMAIN";
 
   protected AttributeNames() {
     super();

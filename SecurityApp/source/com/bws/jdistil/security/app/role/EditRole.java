@@ -52,8 +52,8 @@ public class EditRole extends EditDataObject<Integer, Role> {
   	super.populateReferenceData(processContext);
 
   	// Load tasks
-    loadReferenceData(TaskManager.class, AttributeNames.TASKS, processContext.getRequest());
-    loadReferenceData(GroupManager.class, AttributeNames.GROUPS, processContext.getRequest());
+    loadReferenceData(TaskManager.class, AttributeNames.TASKS, processContext);
+    loadReferenceData(GroupManager.class, AttributeNames.GROUPS, processContext);
   }
   
 }

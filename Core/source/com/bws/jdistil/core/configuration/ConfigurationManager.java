@@ -228,63 +228,63 @@ public class ConfigurationManager {
   }
   
 	/**
-	  Returns the welcome page.
-	  @return Page Login page.
+	  Returns the welcome action.
+	  @return Action Login action.
 	*/
-	public static Page getWelcomePage() {
+	public static Action getWelcomeAction() {
 	
 	  // Initialize return value
-	  Page welcomePage = null;
+	  Action welcomeAction = null;
 	
-	  // Get welcome page ID
-	  String welcomePageId = ResourceUtil.getString(Constants.WELCOME_PAGE_ID);
+	  // Get welcome action ID
+	  String welcomeActionId = ResourceUtil.getString(Constants.WELCOME_ACTION_ID);
 	
-	  // Get welcome page ID
-	  if (!StringUtil.isEmpty(welcomePageId)) {
-	    welcomePage = getPage(welcomePageId);
+	  // Get welcome action ID
+	  if (!StringUtil.isEmpty(welcomeActionId)) {
+	    welcomeAction = getAction(welcomeActionId);
 	  }
 	
-	  return welcomePage;
+	  return welcomeAction;
 	}
 	
 	/**
-    Returns the logon page.
-    @return Page Logon page.
+    Returns the logon action.
+    @return Action Logon action.
   */
-  public static Page getLogonPage() {
+  public static Action getLogonAction() {
 
     // Initialize return value
-    Page logonPage = null;
+    Action logonAction = null;
 
-    // Get logon page ID
-    String logonPageId = ResourceUtil.getString(Constants.LOGON_PAGE_ID);
+    // Get logon action ID
+    String logonActionId = ResourceUtil.getString(Constants.LOGON_ACTION_ID);
 
-    // Get logon page ID
-    if (!StringUtil.isEmpty(logonPageId)) {
-      logonPage = getPage(logonPageId);
+    // Get logon action ID
+    if (!StringUtil.isEmpty(logonActionId)) {
+      logonAction = getAction(logonActionId);
     }
 
-    return logonPage;
+    return logonAction;
   }
 
   /**
-    Returns the error page.
-    @return Page Error page.
+    Returns the error action.
+    @return Action Error action.
   */
-  public static Page getErrorPage() {
+  public static Action getErrorAction() {
 
     // Initialize return value
-    Page errorPage = null;
+    Action errorAction = null;
 
-    // Get error page ID
-    String errorPageId = ResourceUtil.getString(Constants.ERROR_PAGE_ID);
+    // Get error action ID
+    String errorActionId = ResourceUtil.getString(Constants.ERROR_ACTION_ID);
 
-    // Get error page ID
-    if (!StringUtil.isEmpty(errorPageId)) {
-      errorPage = getPage(errorPageId);
+    // Get error action ID
+    if (!StringUtil.isEmpty(errorActionId)) {
+      errorAction = getAction(errorActionId);
     }
 
-    return errorPage;
+    return errorAction;
   }
 
   /**

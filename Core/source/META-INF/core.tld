@@ -1089,11 +1089,4 @@
     </attribute>
   </tag>
 
-  <tag>
-    <name>domainAdmin</name>
-    <tagclass>com.bws.jdistil.core.tag.security.DomainAdmin</tagclass>
-    <bodycontent>JSP</bodycontent>
-    <dynamic-attributes>false</dynamic-attributes>
-  </tag>
-
 </taglib>

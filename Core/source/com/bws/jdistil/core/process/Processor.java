@@ -23,8 +23,9 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.configuration.Page;
 import com.bws.jdistil.core.datasource.DataObject;
@@ -34,6 +35,8 @@ import com.bws.jdistil.core.datasource.DuplicateException;
 import com.bws.jdistil.core.datasource.IDataManager;
 import com.bws.jdistil.core.factory.IFactory;
 import com.bws.jdistil.core.message.Messages;
+import com.bws.jdistil.core.security.IDomain;
+import com.bws.jdistil.core.security.ISecurityManager;
 
 /**
   Abstract processor class providing various utility methods.
@@ -48,6 +51,48 @@ public abstract class Processor implements IProcessor {
     super();
   }
 
+  /**
+    Gets the current user's domain.
+    @param processContext Process context.
+    @return IDomain Current user's domain.
+  */
+  protected IDomain getCurrentDomain(ProcessContext processContext) throws ProcessException {
+  
+  	// Set method name
+  	String methodName = "getCurrentDomain";
+  	
+  	// Initialize return value
+  	IDomain domain = null;
+  	
+  	if (processContext != null) {
+  	
+  		// Get security manager
+  		ISecurityManager securityManager = processContext.getSecurityManager();
+  		
+  		if (securityManager != null) {
+  			
+  			try {
+  				
+    	    // Get current session
+    	    HttpSession session = processContext.getRequest().getSession(true);
+
+    	    // Get current domain
+    			domain = securityManager.getDomain(session);
+  			}
+  		  catch (com.bws.jdistil.core.security.SecurityException securityException) {
+  		  	
+  		    // Post error message
+  		    Logger logger = Logger.getLogger("com.bws.jdistil.core.process");
+  		    logger.logp(Level.SEVERE, getClass().getName(), methodName, "Get Current Domain", securityException);
+  		
+  		    throw new ProcessException(methodName + ":" + securityException.getMessage());
+  		  }
+  		}
+  	}
+  	
+  	return domain;
+  }
+  
   /**
     Sets the next page using a specified page ID and process context.
     @param nextPageId Next page ID.
@@ -92,30 +137,60 @@ public abstract class Processor implements IProcessor {
       finally {
 
         // Recycle procesor
-        if (processorFactory != null) {
-          processorFactory.recycle(processor);
-        }
+        processorFactory.recycle(processor);
       }
     }
   }
 
+  /**
+   * Forwards the current process to all processors defined for the specified action.
+   * @param action Action used to forward processing.
+   * @param processContext Process context.
+   * @throws ProcessException
+   */
+  protected void forward(Action action, ProcessContext processContext) throws ProcessException {
+
+    if (action != null) {
+
+      // Get processor factories
+      List<IFactory> factories = action.getProcessorFactories();
+
+      if (factories != null) {
+      	
+        for (IFactory factory : factories) {
+
+          // Create processor
+          IProcessor processor = (IProcessor)factory.create();
+
+          // Invoke process
+          try {
+            processor.process(processContext);
+          }
+          finally {
+            factory.recycle(processor);
+          }
+        }
+      }
+    }
+  }
+  
   /**
 	  Loads a data object as reference data into the request attributes
 	  using a data manager, data object ID, attribute name, and process context.
 	  @param dataManagerClass Data manager class.
 	  @param dataObjectId Data object ID.
 	  @param attributeName Attribute name used to store reference data.
-	  @param request HTTP servlet request.
+    @param processContext Process context.
 	*/
-	protected <I, T extends DataObject<I>> void loadReferenceData(Class<? extends IDataManager<I, T>> dataManagerClass, I dataObjectId, String attributeName, HttpServletRequest request) 
-	    throws ProcessException {
+	protected <I, T extends DataObject<I>> void loadReferenceData(Class<? extends IDataManager<I, T>> dataManagerClass, 
+			I dataObjectId, String attributeName, ProcessContext processContext) throws ProcessException {
 	  
 	  // Retrieve data objects
-	  T dataObject = findDataObject(dataManagerClass, dataObjectId);
+	  T dataObject = findDataObject(dataManagerClass, dataObjectId, processContext);
 	  
 	  // Add data object to request attributes
 	  if (dataObject != null) {
-	    request.setAttribute(attributeName, dataObject);
+	    processContext.getRequest().setAttribute(attributeName, dataObject);
 	  }
 	}
 	
@@ -124,17 +199,17 @@ public abstract class Processor implements IProcessor {
 	  using a data manager, attribute name, and process context.
 	  @param dataManagerClass Data manager class.
 	  @param attributeName Attribute name used to store reference data.
-	  @param request HTTP servlet request.
+    @param processContext Process context.
 	*/
-	protected <I, T extends DataObject<I>> void loadReferenceData(Class<? extends IDataManager<I, T>> dataManagerClass, String attributeName, HttpServletRequest request) 
-	    throws ProcessException {
+	protected <I, T extends DataObject<I>> void loadReferenceData(Class<? extends IDataManager<I, T>> dataManagerClass, 
+			String attributeName, ProcessContext processContext) throws ProcessException {
 	  
 	  // Retrieve data objects
-	  List<T> dataObjects = findDataObjects(dataManagerClass);
+	  List<T> dataObjects = findDataObjects(dataManagerClass, processContext);
 	  
 	  // Add data objects to request attributes
 	  if (dataObjects != null) {
-	    request.setAttribute(attributeName, dataObjects);
+	    processContext.getRequest().setAttribute(attributeName, dataObjects);
 	  }
 	}
 	
@@ -142,10 +217,11 @@ public abstract class Processor implements IProcessor {
 	  Retrieves a data object using a specified ID.
 	  @param dataManagerClass Data manager class.
 	  @param id Data object ID.
+    @param processContext Process context.
 	  @return T Data object.
 	*/
 	@SuppressWarnings("unchecked")
-	protected <I, T extends DataObject<I>> T findDataObject(Class<? extends IDataManager<I, T>> dataManagerClass, I id) throws ProcessException {
+	protected <I, T extends DataObject<I>> T findDataObject(Class<? extends IDataManager<I, T>> dataManagerClass, I id, ProcessContext processContext) throws ProcessException {
 	
 	  // Set method name
 	  String methodName = "findDataObject";
@@ -162,9 +238,12 @@ public abstract class Processor implements IProcessor {
 	  // Create data manager
 	  dataManager = (IDataManager<I, T>)dataManagerFactory.create();
 	
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+		
 	  try {
 	    // Retrieve data object
-	    dataObject = dataManager.find(id);
+	    dataObject = dataManager.find(id, domain);
 	  }
 	  catch (DataSourceException dataSourceException) {
 	
@@ -177,9 +256,7 @@ public abstract class Processor implements IProcessor {
 	  finally {
 	
 	    // Recycle data manager
-	    if (dataManagerFactory != null) {
-	      dataManagerFactory.recycle(dataManager);
-	    }
+      dataManagerFactory.recycle(dataManager);
 	  }
 	
 	  return dataObject;
@@ -188,10 +265,11 @@ public abstract class Processor implements IProcessor {
 	/**
 	  Retrieves all data objects.
 	  @param dataManagerClass Data manager class.
+    @param processContext Process context.
 	  @return List List of data objects.
 	*/
 	@SuppressWarnings("unchecked")
-	protected <I, T extends DataObject<I>> List<T> findDataObjects(Class<? extends IDataManager<I, T>> dataManagerClass) throws ProcessException {
+	protected <I, T extends DataObject<I>> List<T> findDataObjects(Class<? extends IDataManager<I, T>> dataManagerClass, ProcessContext processContext) throws ProcessException {
 	
 	  // Set method name
 	  String methodName = "findDataObjects";
@@ -208,9 +286,12 @@ public abstract class Processor implements IProcessor {
 	  // Create data manager
 	  dataManager = (IDataManager<I, T>)dataManagerFactory.create();
 	
-	  try {
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+
+		try {
 	    // Retrieve data objects
-	    dataObjects = dataManager.find();
+	    dataObjects = dataManager.find(domain);
 	  }
 	  catch (DataSourceException dataSourceException) {
 	
@@ -223,9 +304,7 @@ public abstract class Processor implements IProcessor {
 	  finally {
 	
 	    // Recycle data manager
-	    if (dataManagerFactory != null) {
-	      dataManagerFactory.recycle(dataManager);
-	    }
+      dataManagerFactory.recycle(dataManager);
 	  }
 	
 	  return dataObjects;
@@ -235,10 +314,12 @@ public abstract class Processor implements IProcessor {
 	  Retrieves all data objects using a list of data object IDs.
 	  @param dataManagerClass Data manager class.
 	  @param dataObjectIds List of data object IDs.
+    @param processContext Process context.
 	  @return List List of data objects.
 	*/
 	@SuppressWarnings("unchecked")
-	protected <I, T extends DataObject<I>> List<T> findDataObjects(Class<? extends IDataManager<I, T>> dataManagerClass, List<I> dataObjectIds) throws ProcessException {
+	protected <I, T extends DataObject<I>> List<T> findDataObjects(Class<? extends IDataManager<I, T>> dataManagerClass, 
+			List<I> dataObjectIds, ProcessContext processContext) throws ProcessException {
 	
 	  // Set method name
 	  String methodName = "findDataObjects";
@@ -255,9 +336,12 @@ public abstract class Processor implements IProcessor {
 	  // Create data manager
 	  dataManager = (IDataManager<I, T>)dataManagerFactory.create();
 	
-	  try {
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+
+		try {
 	    // Retrieve data objects
-	    dataObjects = dataManager.find(dataObjectIds);
+	    dataObjects = dataManager.find(dataObjectIds, domain);
 	  }
 	  catch (DataSourceException dataSourceException) {
 	
@@ -270,10 +354,8 @@ public abstract class Processor implements IProcessor {
 	  finally {
 	
 	    // Recycle data manager
-	    if (dataManagerFactory != null) {
-	      dataManagerFactory.recycle(dataManager);
-	    }
-	  }
+      dataManagerFactory.recycle(dataManager);
+  }
 	
 	  return dataObjects;
 	}
@@ -308,9 +390,12 @@ public abstract class Processor implements IProcessor {
 	  // Create data manager
 	  dataManager = (IDataManager<I, T>)dataManagerFactory.create();
 	
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+
 	  try {
 	    // Save data object
-	    dataManager.save(dataObject, doDirtyUpdateCheck);
+	    dataManager.save(dataObject, doDirtyUpdateCheck, domain);
 	
 	    // Set success indicator
 	    isSuccess = true;
@@ -358,9 +443,7 @@ public abstract class Processor implements IProcessor {
 	  finally {
 	
 	    // Recycle data manager
-	    if (dataManagerFactory != null) {
-	      dataManagerFactory.recycle(dataManager);
-	    }
+      dataManagerFactory.recycle(dataManager);
 	  }
 	
 	  return isSuccess;

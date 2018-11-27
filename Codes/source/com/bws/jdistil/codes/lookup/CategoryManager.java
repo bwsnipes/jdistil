@@ -63,4 +63,13 @@ public class CategoryManager extends BoundDatabaseDataManager<Integer, Category>
     return categoryBinding;
   }
 
+  /**
+   * Disabling domain awareness so categories are shared across domains.
+   * @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#isDomainAware()
+   */
+  @Override
+  protected boolean isDomainAware() {
+  	return false;
+  }
+  
 }

@@ -16,73 +16,43 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with JDistil.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.bws.jdistil.core.datasource.database;
-
-import com.bws.jdistil.core.configuration.Constants;
-import com.bws.jdistil.core.datasource.DataSourceException;
-import com.bws.jdistil.core.resource.ResourceUtil;
-import com.bws.jdistil.core.util.StringUtil;
+package com.bws.jdistil.core.datasource.database.sequence;
 
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.bws.jdistil.core.datasource.DataSourceException;
+import com.bws.jdistil.core.datasource.database.DbUtil;
+import com.bws.jdistil.core.security.IDomain;
+
 /**
-  This class provides a static method used to retrieve table sequence values.
-  The default datasource defined in the core properties file must include an
-  ID lookup table defined below. There is no need to pre-populate the table
-  with data because rows will be created when non-existent table and column names
-  are encountered. The default table name can be overridden in the core
-  properties file.
-  Default Table Name - id_lookup
-  Table Columns - table_name varchar(x), column_name varchar(x), max_value int
-  @author - Bryan Snipes
-*/
-public class Sequencer {
+ * Default sequence provider that provides sequential values for a specified table and column
+ * using a database table to maintain the sequential values.
+ * @author - Bryan Snipes
+ */
+public class DefaultSequenceProvider implements ISequenceProvider {
 
   /**
     Class name attribute used in messaging.
   */
-  private static String className = "com.bws.jdistil.core.datasource.database.Sequencer";
-
+  private static String className = "com.bws.jdistil.core.datasource.database.sequence.DefaultSequenceProvider";
+  
   /**
-    Default table name.
-  */
-  private static final String DEFAULT_TABLE_NAME = "id_lookup";
-
+   * Table name used to manage sequential values.
+   */
+  private static final String SEQUENCE_TABLE_NAME = "bws_id_lookup";
+  
   /**
-    Lookup table name.
-  */
-  private static String lookupTableName = null;
-
-  /**
-    Creates a new instance of the Sequencer class.&nbsp Defined with private
-    access to prohibit instance creation.
-  */
-  private Sequencer() {
+   * Creates a new instance of the DefaultSequenceProvider class.
+   */
+  public DefaultSequenceProvider() {
     super();
   }
-
-  /**
-    Sets the lookup table name used by the sequencer.
-  */
-  static {
-
-    // Lookup custom table name
-    String customTableName = ResourceUtil.getString(Constants.SEQUENCER_TABLE_NAME);
-
-    // Set table name
-    if (StringUtil.isEmpty(customTableName)) {
-      lookupTableName = DEFAULT_TABLE_NAME;
-    }
-    else {
-      lookupTableName = customTableName;
-    }
-  }
-
+  
   /**
     Increments the sequence value for a specified table and column by a value of
     one and returns the incremented value. Table names and columns not
@@ -90,11 +60,13 @@ public class Sequencer {
     sequence value of one.
     @param tableName - Table name.
     @param columnName - Column name.
+    @param domain Target domain.
     @return int - Next identity value.
     @throws com.bws.jdistil.core.datasource.DataSourceException
   */
-  public static int nextValue(String tableName, String columnName) throws DataSourceException {
-
+  @Override
+  public int nextValue(String tableName, String columnName, IDomain domain) throws DataSourceException {
+  
     // Set method name
     String methodName = "nextValue";
     
@@ -102,65 +74,80 @@ public class Sequencer {
     if (tableName == null) {
       throw new DataSourceException("Invalid null table name.");
     }
-
+  
     // Check for valid column name
     if (columnName == null) {
       throw new DataSourceException("Invalid null column name.");
     }
-
+  
     // Convert table and column names to lower case
     tableName = tableName.toLowerCase();
     columnName = columnName.toLowerCase();
-
+  
     // Initialize return value
     int sequenceValue = 1;
-
+  
     // Initialize processing variables
     Connection connection = null;
     PreparedStatement sqlStatement = null;
     ResultSet resultSet = null;
+  
+    // Open non-transaction based connection
+    if (domain == null) {
+      connection = DbUtil.openConnection();
+    }
+    else {
+    	String dataSourceName = domain.getDatasourceName();
+      connection = DbUtil.openConnection(dataSourceName);
+    }
 
     try {
-      // Open connection
-      connection = DbUtil.openConnection();
-      
+      // Turn off auto commit
+      connection.setAutoCommit(false);
+    
       // Create SQL statement
-      String sqlText = "select max_value from " + lookupTableName +
-          " where lower(table_name) = ? and lower(column_name) = ?";
+      String sqlText = "select max_value from " + SEQUENCE_TABLE_NAME +
+          " where lower(table_name) = ? and lower(column_name) = ? for update";
       sqlStatement = connection.prepareStatement(sqlText);
-
+  
       // Set SQL parameters
       int index = 1;
       DbUtil.setString(sqlStatement, index++, tableName);
       DbUtil.setString(sqlStatement, index++, columnName);
-
+  
       // Execute SQL statement
       resultSet = sqlStatement.executeQuery();
-
+  
       if (resultSet != null && resultSet.next()) {
-
+  
         // Set identity value
         sequenceValue = resultSet.getInt("max_value") + 1;
-
+  
         // Increment identity value
         updateSequence(connection, tableName, columnName, sequenceValue);
       }
       else {
-
+  
         // Add new table and column - Sequence already defaulted to value of one
         addSequence(connection, tableName, columnName);
       }
+      
+      // Commit the transaction
+      DbUtil.commit(connection);
     }
     catch (SQLException sqlException) {
-
+    	
+    	// Rollback the transaction
+    	DbUtil.rollback(connection);
+  
       // Post error message
-      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database");
+      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database.sequence");
       logger.logp(Level.SEVERE, className, methodName, "Getting Next Value", sqlException);
-
+  
       throw new DataSourceException("nextValue:" + sqlException.getMessage());
     }
     finally {
-
+  
       // Close statement and result set
       DbUtil.closeStatement(sqlStatement);
       DbUtil.closeResultSet(resultSet);
@@ -168,10 +155,10 @@ public class Sequencer {
       // Close connection
       DbUtil.closeConnection(connection);
     }
-
+  
     return sequenceValue;
   }
-
+  
   /**
     Inserts a new table sequence record using a given table name and column name.
     @param connection - Database connection.
@@ -179,45 +166,45 @@ public class Sequencer {
     @param columnName - Column name.
     @throws com.bws.jdistil.core.datasource.DataSourceException
   */
-  private static void addSequence(Connection connection, String tableName, String columnName)
+  private void addSequence(Connection connection, String tableName, String columnName)
       throws DataSourceException {
-
+  
     // Set method name
     String methodName = "addSequence";
     
     // Initialize processing variables
     PreparedStatement sqlStatement = null;
-
+  
     try {
      // Create SQL statement
-      String sqlText = "insert into " + lookupTableName +
+      String sqlText = "insert into " + SEQUENCE_TABLE_NAME +
           " (table_name, column_name, max_value) values(?, ?, ?)";
       sqlStatement = connection.prepareStatement(sqlText);
-
+  
       // Set SQL parameters
       int index = 1;
       DbUtil.setString(sqlStatement, index++, tableName);
       DbUtil.setString(sqlStatement, index++, columnName);
       DbUtil.setInteger(sqlStatement, index++, new Integer(1));
-
+  
       // Execute SQL statement
       sqlStatement.executeUpdate();
     }
     catch (SQLException sqlException) {
-
+  
       // Post error message
-      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database");
+      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database.sequence");
       logger.logp(Level.SEVERE, className, methodName, "Adding Sequence", sqlException);
-
+  
       throw new DataSourceException("addSequence:" + sqlException.getMessage());
     }
     finally {
-
+  
       // Close statement
       DbUtil.closeStatement(sqlStatement);
     }
   }
-
+  
   /**
     Updates the sequence value for a specified table and column using a
     specified sequence value.
@@ -227,43 +214,43 @@ public class Sequencer {
     @param sequenceValue - New sequence value.
     @throws com.bws.jdistil.core.datasource.DataSourceException
   */
-  private static void updateSequence(Connection connection, String tableName,
-      String columnName, int sequenceValue) throws DataSourceException {
-
+  private static void updateSequence(Connection connection, String tableName, String columnName, int sequenceValue) 
+  		throws DataSourceException {
+  
     // Set method name
     String methodName = "updateSequence";
     
     // Initialize processing variables
     PreparedStatement sqlStatement = null;
-
+  
     try {
      // Create SQL statement
-      String sqlText = "update " + lookupTableName +
+      String sqlText = "update " + SEQUENCE_TABLE_NAME +
           " set max_value = ? where table_name = ? and column_name = ?";
       sqlStatement = connection.prepareStatement(sqlText);
-
+  
       // Set SQL parameters
       int index = 1;
       DbUtil.setInteger(sqlStatement, index++, new Integer(sequenceValue));
       DbUtil.setString(sqlStatement, index++, tableName);
       DbUtil.setString(sqlStatement, index++, columnName);
-
+  
       // Execute SQL statement
       sqlStatement.executeUpdate();
     }
     catch (SQLException sqlException) {
-
+  
       // Post error message
-      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database");
+      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database.sequence");
       logger.logp(Level.SEVERE, className, methodName, "Updating Sequence", sqlException);
-
+  
       throw new DataSourceException("updateSequence:" + sqlException.getMessage());
     }
     finally {
-
+  
       // Close statement
       DbUtil.closeStatement(sqlStatement);
     }
   }
-
+  
 }

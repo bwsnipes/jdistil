@@ -45,34 +45,24 @@ public class Constants {
   public static final String DATASOURCE_NAME = "datasource.name";
 
   /**
-    Constant defining the multiple tenant property key.
-  */
-  public static final String MULTIPLE_TENANTS = "multiple.tenants";
-  
-  /**
     Constant defining the SMTP host name property key.
   */
   public static final String SMTP_HOST_NAME = "smtp.host.name";
 
   /**
-    Constant defining the sequencer table name property key.
+    Constant defining the default welcome action ID property key.
   */
-  public static final String SEQUENCER_TABLE_NAME = "sequencer.table.name";
-
-  /**
-    Constant defining the default welcome page ID property key.
-  */
-  public static final String WELCOME_PAGE_ID = "welcome.page.id";
+  public static final String WELCOME_ACTION_ID = "welcome.action.id";
   
   /**
-    Constant defining the login page ID property key.
+    Constant defining the login action ID property key.
   */
-  public static final String LOGON_PAGE_ID = "logon.page.id";
+  public static final String LOGON_ACTION_ID = "logon.action.id";
   
   /**
-    Constant defining the error page ID property key.
+    Constant defining the error action ID property key.
   */
-  public static final String ERROR_PAGE_ID = "error.page.id";
+  public static final String ERROR_ACTION_ID = "error.action.id";
   
   /**
     Constant defining the application configuration resource property key.
@@ -98,6 +88,16 @@ public class Constants {
     Constant defining the format resources property key.
   */
   public static final String FORMAT_RESOURCES = "format.resources";
+  
+  /**
+    Constant defining the connection provider factory property key.
+  */
+  public static final String CONNECTION_PROVIDER_FACTORY = "connection.provider.factory";
+  
+  /**
+    Constant defining the sequence provider factory property key.
+  */
+  public static final String SEQUENCE_PROVIDER_FACTORY = "sequence.provider.factory";
   
   /**
     Constant defining the security manager factory property key.

@@ -28,6 +28,7 @@ import javax.crypto.SecretKey;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
+import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.factory.IFactory;
@@ -36,10 +37,12 @@ import com.bws.jdistil.core.process.ProcessException;
 import com.bws.jdistil.core.process.ProcessMessage;
 import com.bws.jdistil.core.process.Processor;
 import com.bws.jdistil.core.security.Cryptographer;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.servlet.ParameterExtractor;
 import com.bws.jdistil.core.util.Descriptions;
 import com.bws.jdistil.security.app.configuration.FieldIds;
 import com.bws.jdistil.security.configuration.AttributeNames;
+import com.bws.jdistil.security.domain.DomainManager;
 import com.bws.jdistil.security.role.Role;
 import com.bws.jdistil.security.role.RoleManager;
 import com.bws.jdistil.security.user.User;
@@ -82,9 +85,19 @@ public class Logon extends Processor {
     	// Get submitted logon ID and password
   		String logonId = ParameterExtractor.getString(processContext.getRequest(), FieldIds.USER_AUTHENTICATION_ID);
   		String password = ParameterExtractor.getString(processContext.getRequest(), FieldIds.USER_AUTHENTICATION_PASSWORD);
+  		Integer domainId = ParameterExtractor.getInteger(processContext.getRequest(), FieldIds.USER_AUTHENTICATION_DOMAIN_ID);
   		
+  		// Initialize target domain
+  		IDomain domain = null;
+  		
+  		if (domainId != null) {
+
+  			// Retrieve selected domain
+  			domain = findDataObject(DomainManager.class, domainId, processContext);
+  		}
+
   		// Retrieve user by logon ID
-  		User user = findUser(logonId);
+  		User user = findUser(logonId, domain);
   		
   		if (user != null) {
   			
@@ -132,7 +145,7 @@ public class Logon extends Processor {
   				}
   				
   				// Retrieve roles
-  				List<Role> roles = findDataObjects(RoleManager.class, valueIds);
+  				List<Role> roles = findDataObjects(RoleManager.class, valueIds, processContext);
   				
   				if (roles != null && !roles.isEmpty()) {
   					
@@ -156,8 +169,8 @@ public class Logon extends Processor {
   			ProcessMessage processMessage = new ProcessMessage(ProcessMessage.ERROR, errorMessage);
   			processContext.addMessage(processMessage);
   			
-  			// Return to current page
-  			processContext.setNextPage(processContext.getCurrentPage());
+  			// Forward to view logon process
+  			forward(ViewLogon.class, processContext);
   		}
     }
 	}
@@ -167,18 +180,29 @@ public class Logon extends Processor {
 	 * Navigates to the application defined welcome page.
 	 * @param processContext Process context.
 	 */
-	protected void handleSuccess(ProcessContext processContext) {
+	protected void handleSuccess(ProcessContext processContext) throws ProcessException {
 		
-		// Set welcome page as next page 
-		processContext.setNextPage(ConfigurationManager.getWelcomePage());
+		// Get welcome action
+		Action welcomeAction = ConfigurationManager.getWelcomeAction();
+		
+		if (welcomeAction != null) {
+
+			// Forward processing to welcome action
+			forward(welcomeAction, processContext);
+		}
+		else {
+			
+			throw new ProcessException("Error navigating to welcome page: No welcome page action defined.");
+		}
 	}
 	
 	/**
 	 * Retrieves a user based on a logon ID.
 	 * @param logonId Logon ID.
+	 * @param domain Target domain.
 	 * @return User User data object.
 	 */
-	private User findUser(String logonId) throws ProcessException {
+	private User findUser(String logonId, IDomain domain) throws ProcessException {
 		
 		// Set method name
 		String methodName = "findUser";
@@ -191,10 +215,10 @@ public class Logon extends Processor {
   
     // Create user manager
     UserManager userManager = (UserManager)userManagerFactory.create();
-  
+
     try {
       // Attempt to retrieve user
-      user = userManager.findByLogonId(logonId);
+      user = userManager.findByLogonId(logonId, domain);
     }
     catch (DataSourceException dataSourceException) {
   
@@ -207,9 +231,7 @@ public class Logon extends Processor {
     finally {
   
       // Recycle data manager
-    	if (userManagerFactory != null) {
-        userManagerFactory.recycle(userManager);
-    	}
+      userManagerFactory.recycle(userManager);
     }
 		
     return user;

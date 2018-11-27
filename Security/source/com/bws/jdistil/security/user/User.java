@@ -191,6 +191,23 @@ public class User extends DataObject<Integer> implements IListItem, Comparable<U
   }
   
   /**
+    Returns the domain admin indicator.
+    @return Boolean Domain admin indicator.
+  */
+  public Boolean getIsDomainAdmin() {
+    return isDomainAdmin;
+  }
+  
+  /**
+    Sets the domain admin indicator.
+    @param newIsDomainAdmin New domain admin indicator.
+  */
+  public void setIsDomainAdmin(Boolean newIsDomainAdmin) {
+    updateModifiedStatus(isDomainAdmin, newIsDomainAdmin);
+    isDomainAdmin = newIsDomainAdmin;
+  }
+
+  /**
     Returns the list of role IDs.
     @return List List of role IDs.
   */
@@ -236,23 +253,6 @@ public class User extends DataObject<Integer> implements IListItem, Comparable<U
   public void setIsDeleted(Boolean newIsDeleted) {
     updateModifiedStatus(isDeleted, newIsDeleted);
     isDeleted = newIsDeleted;
-  }
-  
-  /**
-    Returns the domain admin indicator.
-    @return Boolean Domain admin indicator.
-  */
-  public Boolean getIsDomainAdmin() {
-    return isDomainAdmin;
-  }
-  
-  /**
-    Sets the domain admin indicator.
-    @param newIsDomainAdmin New domain admin indicator.
-  */
-  public void setIsDomainAdmin(Boolean newIsDomainAdmin) {
-    updateModifiedStatus(isDomainAdmin, newIsDomainAdmin);
-    isDomainAdmin = newIsDomainAdmin;
   }
   
   /**

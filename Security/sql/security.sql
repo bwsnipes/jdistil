@@ -22,6 +22,25 @@
 --
 
 --
+-- Domain table.
+--
+create table bws_domain 
+(
+	domain_id                INTEGER     NOT NULL,
+	name                     VARCHAR(30) NOT NULL,
+	is_default_datasource    CHAR(1)     NOT NULL,
+	datasource_name          VARCHAR(30) NULL,
+	is_deleted               CHAR(1)     NOT NULL,
+	version                  INTEGER     NOT NULL
+)
+;
+
+ALTER TABLE bws_domain ADD CONSTRAINT pk_domain
+   PRIMARY KEY (domain_id)
+;
+
+
+--
 -- User table.
 --
 CREATE TABLE bws_user
@@ -93,16 +112,13 @@ ALTER TABLE bws_user_role ADD CONSTRAINT fk_user_role_2
 CREATE TABLE bws_task
 (
    task_id	    INTEGER			NOT NULL,
-   name			    VARCHAR(40)	NOT NULL,
-   domain_id    INTEGER			NOT NULL
+   name			    VARCHAR(40)	NOT NULL
 )
 ;
 
 ALTER TABLE bws_task ADD CONSTRAINT pk_task
    PRIMARY KEY (task_id)
 ;
-
-CREATE INDEX idx_task_1 ON bws_task (domain_id);
 
 --
 -- Action table.
@@ -111,8 +127,7 @@ CREATE TABLE bws_action
 (
    action_id    INTEGER			NOT NULL,
    secure_id    VARCHAR(15)	NOT NULL,
-   task_id		  INTEGER			NOT NULL,
-   domain_id    INTEGER			NOT NULL
+   task_id		  INTEGER			NOT NULL
 )
 ;
 
@@ -123,8 +138,6 @@ ALTER TABLE bws_action ADD CONSTRAINT pk_action
 ALTER TABLE bws_action ADD CONSTRAINT fk_action_1
    FOREIGN KEY (task_id) REFERENCES bws_task (task_id)
 ;
-
-CREATE INDEX idx_action_1 ON bws_action (domain_id);
 
 --
 -- Restricted task table.
@@ -154,16 +167,13 @@ ALTER TABLE bws_restricted_task ADD CONSTRAINT fk_restricted_task_2
 CREATE TABLE bws_field_group
 (
    group_id	    INTEGER			NOT NULL,
-   name			    VARCHAR(30)	NOT NULL,
-   domain_id    INTEGER			NOT NULL
+   name			    VARCHAR(30)	NOT NULL
 )
 ;
 
 ALTER TABLE bws_field_group ADD CONSTRAINT pk_field_group
    PRIMARY KEY (group_id)
 ;
-
-CREATE INDEX idx_field_group_1 ON bws_field_group (domain_id);
 
 --
 -- Field table.
@@ -173,8 +183,7 @@ CREATE TABLE bws_field
    field_id	    INTEGER			NOT NULL,
    name			    VARCHAR(30)	NOT NULL,
    secure_id    VARCHAR(15) NOT NULL,
-   group_id	    INTEGER			NOT NULL,
-   domain_id    INTEGER			NOT NULL
+   group_id	    INTEGER			NOT NULL
 )
 ;
 
@@ -185,8 +194,6 @@ ALTER TABLE bws_field ADD CONSTRAINT pk_field
 ALTER TABLE bws_field ADD CONSTRAINT fk_field_1
    FOREIGN KEY (group_id) REFERENCES bws_field_group (group_id)
 ;
-
-CREATE INDEX idx_field_1 ON bws_field (domain_id);
 
 --
 -- Read only field table.

@@ -27,10 +27,12 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 
+import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.configuration.Page;
 import com.bws.jdistil.core.security.ISecurityManager;
 import com.bws.jdistil.core.security.SecurityException;
+import com.bws.jdistil.core.servlet.http.Controller;
 
 /**
   Body component used to encapsulate other components.
@@ -95,18 +97,20 @@ public class Body extends Component {
       	
         if (!securityManager.isAuthenticated(session)) {
         	
-        	// Get logon page
-        	Page logonPage = ConfigurationManager.getLogonPage();
+        	// Get logon action
+        	Action logonAction = ConfigurationManager.getLogonAction();
         	
-        	if (logonPage != null) {
+        	if (logonAction != null) {
         		
-        		// Forward to logon page
-        		pageContext.forward(logonPage.getName());
+        		// Build logon URL
+            String logonUrl = "/Controller?" + Controller.ACTION_ID + "=" + logonAction.getId();
+            
+            pageContext.forward(logonUrl);
         	}
         	else {
         		
         		// Set error message
-        		String errorMessage = "Building Page Body: Unable to forward to logon page because it is undefined.";
+        		String errorMessage = "Building Page Body: Unable to forward to logon process because it is undefined.";
         		
             // Post error message
             Logger logger = Logger.getLogger("com.bws.jdistil.core.tag.basic");
@@ -124,14 +128,6 @@ public class Body extends Component {
 
         throw new JspException(methodName + ":" + securityException.getMessage());
       }
-      catch (IOException ioException) {
-
-        // Post error message
-        Logger logger = Logger.getLogger("com.bws.jdistil.core.tag.basic");
-        logger.logp(Level.SEVERE, getClass().getName(), methodName, "Building Page Body", ioException);
-
-        throw new JspException(methodName + ":" + ioException.getMessage());
-      }
       catch (ServletException servletException) {
 
         // Post error message
@@ -139,6 +135,14 @@ public class Body extends Component {
         logger.logp(Level.SEVERE, getClass().getName(), methodName, "Building Page Body", servletException);
 
         throw new JspException(methodName + ":" + servletException.getMessage());
+      }
+      catch (IOException ioException) {
+
+        // Post error message
+        Logger logger = Logger.getLogger("com.bws.jdistil.core.tag.basic");
+        logger.logp(Level.SEVERE, getClass().getName(), methodName, "Building Page Body", ioException);
+
+        throw new JspException(methodName + ":" + ioException.getMessage());
       }
     }
 

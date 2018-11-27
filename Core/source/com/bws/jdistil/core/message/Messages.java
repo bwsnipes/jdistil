@@ -172,6 +172,11 @@ public class Messages {
   */
   public static final String MISSING_ACTION = "M28";
   
+  /**
+    At least one required field message constant.
+  */
+  public static final String AT_LEAST_ONE_REQUIRED_FIELD = "M29";
+  
 	/**
     Creates a new Messages object. Defined with private access to prevent instantiation.
   */

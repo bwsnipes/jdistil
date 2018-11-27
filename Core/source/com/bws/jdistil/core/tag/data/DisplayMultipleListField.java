@@ -179,7 +179,7 @@ public class DisplayMultipleListField extends ValueComponent {
    * @return List List of list item objects.
    */
   @SuppressWarnings("unchecked")
-  protected List<IListItem> getItems() throws UiException {
+  protected List<IListItem> getItems() throws UiException, JspException {
 
     // Initialize return value
     List<IListItem> items = null;

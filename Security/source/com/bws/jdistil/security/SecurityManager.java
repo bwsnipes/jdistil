@@ -23,6 +23,7 @@ import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.factory.IFactory;
 import com.bws.jdistil.core.security.DefaultSecurityManager;
 import com.bws.jdistil.core.security.IDomain;
+import com.bws.jdistil.core.security.ISecurityManager;
 import com.bws.jdistil.core.security.SecurityException;
 import com.bws.jdistil.security.configuration.AttributeNames;
 import com.bws.jdistil.security.role.Action;
@@ -110,10 +111,9 @@ public class SecurityManager extends DefaultSecurityManager {
       }
     }
     finally {
-    	
-    	if (actionManagerFactory != null) {
-      	actionManagerFactory.recycle(actionManager);
-    	}
+
+    	// Recycle action manager
+    	actionManagerFactory.recycle(actionManager);
     }
   }
   
@@ -145,17 +145,18 @@ public class SecurityManager extends DefaultSecurityManager {
     }
     finally {
 
-    	if (fieldManagerFactory != null) {
-      	fieldManagerFactory.recycle(fieldManager);
-    	}
+    	// Recycle field manager
+    	fieldManagerFactory.recycle(fieldManager);
     }
   }
   
   /**
-    Returns a domain associated with the current user.
+    Returns a user's domain.
     @param session - Current session.
-    @return Domain - User's domain.
+    @return IDomain - User's domain.
+    @see ISecurityManager#getDomain(HttpSession)
   */
+  @Override
   public IDomain getDomain(HttpSession session) throws SecurityException {
 
   	// Get domain associated with the current user
@@ -163,24 +164,29 @@ public class SecurityManager extends DefaultSecurityManager {
 
   	return domain;
   }
-  
+
   /**
     Returns a value indicating whether or not a user is a domain admin.
     @param session - Current session.
     @return boolean - Domain administrator indicator.
+    @see ISecurityManager#isDomainAdmin(HttpSession)
   */
+  @Override
   public boolean isDomainAdmin(HttpSession session) throws SecurityException {
-
+  
   	// Get current user
-		User user = (User)session.getAttribute(AttributeNames.USER);
-		
-		return user != null && user.getIsDomainAdmin();
+  	User user = (User)session.getAttribute(AttributeNames.USER);
+  	
+  	return user != null && user.getIsDomainAdmin();
   }
   
   /**
-   	Indicates whether or not the current user has been authenticated.
-   	@param session Current session.
+    Returns a value indicating whether or not a user has been authenticated.
+    @param session - Current session.
+    @return boolean - Authenticated indicator.
+    @see ISecurityManager#isAuthenticated(HttpSession)
   */
+  @Override
   public boolean isAuthenticated(HttpSession session) throws SecurityException {
   	
   	// Get current user
@@ -191,10 +197,12 @@ public class SecurityManager extends DefaultSecurityManager {
   
   /**
     Indicates whether or not authorization is required for a given action ID.
-    @param actionId Action ID.
-    @param session Current session.
-    @return boolean Authorization required indicator.
+    @param actionId - Action ID.
+    @param session - Current session.
+    @return boolean - Authorization required indicator.
+    @see ISecurityManager#isAuthorizationRequired(String, HttpSession)
   */
+  @Override
   public boolean isAuthorizationRequired(String actionId, HttpSession session) throws SecurityException {
 
     return securedActions.get(actionId) != null;
@@ -205,7 +213,9 @@ public class SecurityManager extends DefaultSecurityManager {
     @param actionId Action ID.
     @param session Current session.
     @return boolean Authorization indicator.
+    @see ISecurityManager#isAuthorized(String, HttpSession)
   */
+  @Override
   public boolean isAuthorized(String actionId, HttpSession session) throws SecurityException {
 
     // Initialize return value
@@ -215,7 +225,7 @@ public class SecurityManager extends DefaultSecurityManager {
     Action securedAction = securedActions.get(actionId);
     
     if (securedAction != null) {
-      
+    	
     	// Set unauthorized by default
     	isAuthorized = false;
 
@@ -245,7 +255,9 @@ public class SecurityManager extends DefaultSecurityManager {
     @param fieldId Field ID.
     @param session Current session.
     @return boolean Hidden indicator.
+    @see ISecurityManager#isFieldHidden(String, HttpSession)
   */
+  @Override
   public boolean isFieldHidden(String fieldId, HttpSession session) throws SecurityException {
 
     // Initialize return value
@@ -288,7 +300,9 @@ public class SecurityManager extends DefaultSecurityManager {
     @param fieldId Field ID.
     @param session Current session.
     @return boolean Read only indicator.
+    @see ISecurityManager#isFieldReadOnly(String, HttpSession)
   */
+  @Override
   public boolean isFieldReadOnly(String fieldId, HttpSession session) throws SecurityException {
 
     // Initialize return value

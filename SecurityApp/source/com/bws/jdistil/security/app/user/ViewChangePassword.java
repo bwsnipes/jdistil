@@ -40,7 +40,7 @@ public class ViewChangePassword extends Processor {
 
 	public void process(ProcessContext processContext) throws ProcessException {
   			
-			// Set change password as next page
+		// Set change password as next page
 		Page changePasswordPage = ConfigurationManager.getPage(PageIds.CHANGE_PASSWORD);
 		processContext.setNextPage(changePasswordPage);
 	}

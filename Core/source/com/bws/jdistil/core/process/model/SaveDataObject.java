@@ -175,7 +175,7 @@ public class SaveDataObject<I, T extends DataObject<I>> extends Processor {
         else {
 
           // Retrieve existing data object
-          dataObject = findDataObject(dataManagerClass, id);
+          dataObject = findDataObject(dataManagerClass, id, processContext);
         }
       }
 

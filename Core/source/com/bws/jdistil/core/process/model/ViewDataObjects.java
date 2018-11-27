@@ -30,6 +30,7 @@ import com.bws.jdistil.core.factory.IFactory;
 import com.bws.jdistil.core.process.Processor;
 import com.bws.jdistil.core.process.ProcessContext;
 import com.bws.jdistil.core.process.ProcessException;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.servlet.ParameterExtractor;
 import com.bws.jdistil.core.util.SegmentedList;
 import com.bws.jdistil.core.util.StringUtil;
@@ -291,7 +292,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
         List<I> targetIds = dataObjectIds.getSegment(pageNumber);
         
         // Retrieve  paging data
-        dataObjects = retrieveDataObjects(targetIds);
+        dataObjects = retrieveDataObjects(targetIds, processContext);
       }
       
       // Store paging data in request attributes
@@ -373,6 +374,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
 
   /**
     Returns a search criteria object if filter field IDs or a sort field ID is defined.
+    @param processContext Process context.
     @return FilterCriteria Filter criteria.
   */
   private FilterCriteria getFilterCriteria(ProcessContext processContext) {
@@ -394,8 +396,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     @return List List of data objects.
   */
   @SuppressWarnings("unchecked")
-	private List<T> retrieveData(ProcessContext processContext)
-      throws ProcessException {
+	private List<T> retrieveData(ProcessContext processContext) throws ProcessException {
 
     // Initialize return value
     List<T> dataObjects = null;
@@ -416,9 +417,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     finally {
 
       // Recycle data manager
-      if (dataManagerFactory != null) {
-        dataManagerFactory.recycle(dataManager);
-      }
+      dataManagerFactory.recycle(dataManager);
     }
 
     return dataObjects;
@@ -430,8 +429,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     @param processContext Process context.
     @return List List of data objects.
   */
-	protected List<T> retrieveData(IDataManager<I, T> dataManager, ProcessContext processContext)
-      throws ProcessException {
+	protected List<T> retrieveData(IDataManager<I, T> dataManager, ProcessContext processContext) throws ProcessException {
 
     // Set method name
     String methodName = "retrieveData";
@@ -442,17 +440,20 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     // Get filter criteria
     FilterCriteria filterCriteria = getFilterCriteria(processContext);
     
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+
     try {
 
       // Retrieve data
       if (filterCriteria == null || filterCriteria.getValueCriteria().isEmpty()) {
         
         if (filterCriteriaDefinition != null && !filterCriteriaDefinition.getIsFilterDataRequired()) {
-          dataObjects = dataManager.find();
+          dataObjects = dataManager.find(domain);
         }
       }
       else {
-        dataObjects = dataManager.find(filterCriteria);
+        dataObjects = dataManager.find(filterCriteria, domain);
       }
     }
     catch (DataSourceException dataSourceException) {
@@ -499,9 +500,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     finally {
 
       // Recycle data manager
-      if (dataManagerFactory != null) {
-        dataManagerFactory.recycle(dataManager);
-      }
+      dataManagerFactory.recycle(dataManager);
     }
     
     return dataObjectIds;
@@ -514,8 +513,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     @param processContext Process context.
     @return List List of data object IDs.
   */
-  protected List<I> retrieveIds(IDataManager<I, T> dataManager, ProcessContext processContext)
-      throws ProcessException {
+  protected List<I> retrieveIds(IDataManager<I, T> dataManager, ProcessContext processContext) throws ProcessException {
 
     // Set method name
     String methodName = "retrieveIds";
@@ -526,6 +524,9 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     // Get filter criteria
     FilterCriteria filterCriteria = null;
     
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+
     try {
 
       if (filterCriteriaDefinition != null) {
@@ -535,13 +536,13 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
         
         // Retrieve data object IDs using filter criteria
         if (filterCriteria.hasValueCriteria() || !filterCriteriaDefinition.getIsFilterDataRequired()) {
-          dataObjectIds = dataManager.findIds(filterCriteria);
+          dataObjectIds = dataManager.findIds(filterCriteria, domain);
         }
       }
       else {
 
         // Retrieve data object IDs
-        dataObjectIds = dataManager.findIds();
+        dataObjectIds = dataManager.findIds(domain);
       }
     }
     catch (DataSourceException dataSourceException) {
@@ -559,10 +560,11 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
   /**
     Returns data objects using a list of data object IDs.
     @param dataObjectIds List of data object IDs.
+    @param processContext Process context.
     @return List<T> List of data objects.
   */
   @SuppressWarnings("unchecked")
-	private List<T> retrieveDataObjects(List<I> dataObjectIds) throws ProcessException {
+	private List<T> retrieveDataObjects(List<I> dataObjectIds, ProcessContext processContext) throws ProcessException {
   
     // Initialize return value
     List<T> dataObjects = null;
@@ -579,14 +581,12 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
       dataManager = (IDataManager<I, T>)dataManagerFactory.create();
     
       try {
-        dataObjects = retrieveDataObjects(dataManager, dataObjectIds);
+        dataObjects = retrieveDataObjects(dataManager, dataObjectIds, processContext);
       }
       finally {
         
         // Recycle data manager
-        if (dataManagerFactory != null) {
-          dataManagerFactory.recycle(dataManager);
-        }
+        dataManagerFactory.recycle(dataManager);
       }
     }
     
@@ -597,10 +597,10 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     Returns data objects using a specified data manager and a list of data object IDs.
     @param dataManager Data manager.
     @param dataObjectIds List of data object IDs.
+    @param processContext Process context.
     @return List<T> List of data objects.
   */
-	protected List<T> retrieveDataObjects(IDataManager<I, T> dataManager, List<I> dataObjectIds)
-      throws ProcessException {
+	protected List<T> retrieveDataObjects(IDataManager<I, T> dataManager, List<I> dataObjectIds, ProcessContext processContext) throws ProcessException {
   
     // Set method name
     String methodName = "retrieveDataObjects";
@@ -608,9 +608,12 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     // Initialize data objects list
     List<T> dataObjects = null;
       
+		// Get current domain
+		IDomain domain = getCurrentDomain(processContext);
+
     try {
       // Retrieve paging data
-      dataObjects = dataManager.find(dataObjectIds);
+      dataObjects = dataManager.find(dataObjectIds, domain);
     }
     catch (DataSourceException dataSourceException) {
 

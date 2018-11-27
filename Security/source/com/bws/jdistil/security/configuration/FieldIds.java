@@ -24,6 +24,12 @@ package com.bws.jdistil.security.configuration;
 */
 public class FieldIds extends com.bws.jdistil.core.configuration.FieldIds {
 
+  public static final String DOMAIN_ID = "SCF-1";
+  public static final String DOMAIN_NAME = "SCF-2";
+  public static final String DOMAIN_IS_DEFAULT_DATASOURCE = "SCF-3";
+  public static final String DOMAIN_DATASOURCE_NAME = "SCF-4";
+  public static final String DOMAIN_VERSION = "SCF-5";
+  
   public static final String ACTION_ID = "SCF1";
   public static final String ACTION_SECURE_ID = "SCF2";
   public static final String GROUP_ID = "SCF3";
@@ -43,10 +49,10 @@ public class FieldIds extends com.bws.jdistil.core.configuration.FieldIds {
   public static final String USER_FIRST_NAME = "SCF17";
   public static final String USER_MIDDLE_INITIAL = "SCF18";
   public static final String USER_LAST_NAME = "SCF19";
-  public static final String USER_LOGON_ID = "SCF20";
-  public static final String USER_ROLE_IDS = "SCF21";
-  public static final String USER_VERSION = "SCF22";
-  public static final String USER_IS_DOMAIN_ADMIN = "SCF23";
+  public static final String USER_IS_DOMAIN_ADMIN = "SCF20";
+  public static final String USER_LOGON_ID = "SCF21";
+  public static final String USER_ROLE_IDS = "SCF22";
+  public static final String USER_VERSION = "SCF23";
   
   protected FieldIds() {
     super();

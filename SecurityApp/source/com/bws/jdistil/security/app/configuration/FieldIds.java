@@ -24,21 +24,31 @@ package com.bws.jdistil.security.app.configuration;
 */
 public class FieldIds extends com.bws.jdistil.security.configuration.FieldIds {
 
+  public static final String DOMAIN_SORT_FIELD = "SCF-6";
+  public static final String DOMAIN_SORT_DIRECTION = "SCF-7";
+  public static final String DOMAIN_CURRENT_PAGE_NUMBER = "SCF-8";
+  public static final String DOMAIN_SELECTED_PAGE_NUMBER = "SCF-9";
+  public static final String DOMAIN_GROUP_STATE = "SCF-10";
+  public static final String DOMAIN_NAME_FILTER = "SCF-11";
+  public static final String DOMAIN_NAME_FILTER_OPERATOR = "SCF-12";
+  public static final String DOMAIN_SELECTED_ID = "SCF-13";
+  
   public static final String USER_AUTHENTICATION_ID = "SCF24";
   public static final String USER_AUTHENTICATION_PASSWORD = "SCF25";
   public static final String USER_AUTHENTICATION_NEW_PASSWORD = "SCF26";
   public static final String USER_AUTHENTICATION_CONFIRM_PASSWORD = "SCF27";
-  public static final String FIRST_NAME_FILTER = "SCF28";
-  public static final String FIRST_NAME_FILTER_OPERATOR = "SCF29";
-  public static final String LAST_NAME_FILTER = "SCF30";
-  public static final String LAST_NAME_FILTER_OPERATOR = "SCF31";
-  public static final String USER_GROUP_STATE = "SCF32";
-  public static final String USER_CURRENT_PAGE_NUMBER = "SCF33";
-  public static final String USER_SELECTED_PAGE_NUMBER = "SCF34";
-  public static final String USER_SORT_DIRECTION = "SCF35";
-  public static final String USER_SORT_FIELD = "SCF36";
-  public static final String ROLE_SORT_DIRECTION = "SCF37";
-  public static final String ROLE_SORT_FIELD = "SCF38";
+  public static final String USER_AUTHENTICATION_DOMAIN_ID = "SCF28";
+  public static final String FIRST_NAME_FILTER = "SCF29";
+  public static final String FIRST_NAME_FILTER_OPERATOR = "SCF30";
+  public static final String LAST_NAME_FILTER = "SCF31";
+  public static final String LAST_NAME_FILTER_OPERATOR = "SCF32";
+  public static final String USER_GROUP_STATE = "SCF33";
+  public static final String USER_CURRENT_PAGE_NUMBER = "SCF34";
+  public static final String USER_SELECTED_PAGE_NUMBER = "SCF35";
+  public static final String USER_SORT_DIRECTION = "SCF36";
+  public static final String USER_SORT_FIELD = "SCF37";
+  public static final String ROLE_SORT_DIRECTION = "SCF38";
+  public static final String ROLE_SORT_FIELD = "SCF39";
   
   protected FieldIds() {
     super();

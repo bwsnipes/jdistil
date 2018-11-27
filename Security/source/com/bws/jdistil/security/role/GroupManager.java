@@ -62,4 +62,13 @@ public class GroupManager extends BoundDatabaseDataManager<Integer, Group> {
     return groupBinding;
   }
 
+  /**
+   * Disabling domain awareness so groups are shared across domains.
+   * @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#isDomainAware()
+   */
+  @Override
+  protected boolean isDomainAware() {
+  	return false;
+  }
+  
 }

@@ -25,7 +25,14 @@ import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.configuration.Field;
 import com.bws.jdistil.core.configuration.ObjectBinding;
 import com.bws.jdistil.core.configuration.Page;
+import com.bws.jdistil.core.validation.rules.AtLeastOneFieldRule;
 import com.bws.jdistil.security.app.configuration.FieldIds;
+import com.bws.jdistil.security.app.domain.ChangeDomain;
+import com.bws.jdistil.security.app.domain.DeleteDomain;
+import com.bws.jdistil.security.app.domain.EditDomain;
+import com.bws.jdistil.security.app.domain.SaveDomain;
+import com.bws.jdistil.security.app.domain.ViewChangeDomain;
+import com.bws.jdistil.security.app.domain.ViewDomains;
 import com.bws.jdistil.security.app.role.DeleteRole;
 import com.bws.jdistil.security.app.role.EditRole;
 import com.bws.jdistil.security.app.role.SaveRole;
@@ -38,7 +45,9 @@ import com.bws.jdistil.security.app.user.Logoff;
 import com.bws.jdistil.security.app.user.Logon;
 import com.bws.jdistil.security.app.user.SaveUser;
 import com.bws.jdistil.security.app.user.ViewChangePassword;
+import com.bws.jdistil.security.app.user.ViewLogon;
 import com.bws.jdistil.security.app.user.ViewUsers;
+import com.bws.jdistil.security.domain.Domain;
 import com.bws.jdistil.security.user.User;
 
 /**
@@ -64,10 +73,19 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     super.registerFields(fields);
 
     // Create fields
+    Field domainSortField = new Field(FieldIds.DOMAIN_SORT_FIELD, Field.STRING, "Sort Field", null);
+    Field domainSortDirection = new Field(FieldIds.DOMAIN_SORT_DIRECTION, Field.STRING, "Sort Direction", null);
+    Field domainCurrentPageNumber = new Field(FieldIds.DOMAIN_CURRENT_PAGE_NUMBER, Field.STRING, "Current Page Number", null);
+    Field domainSelectedPageNumber = new Field(FieldIds.DOMAIN_SELECTED_PAGE_NUMBER, Field.STRING, "Selected Page Number", null);
+    Field domainGroupState = new Field(FieldIds.DOMAIN_GROUP_STATE, Field.STRING, "Group State", null);
+    Field domainNameFilter = new Field(FieldIds.DOMAIN_NAME_FILTER, Field.STRING, "Name", null);
+    Field domainNameFilterOperator = new Field(FieldIds.DOMAIN_NAME_FILTER_OPERATOR, Field.STRING, "Operator", null);
+    Field domainSelectedId = new Field(FieldIds.DOMAIN_SELECTED_ID, Field.INTEGER, "Domain", null);
     Field userAuthenticationId = new Field(FieldIds.USER_AUTHENTICATION_ID, Field.STRING, "Logon ID", null);
     Field userAuthenticationPassword = new Field(FieldIds.USER_AUTHENTICATION_PASSWORD, Field.STRING, "Password", null);
     Field userAuthenticationNewPassword = new Field(FieldIds.USER_AUTHENTICATION_NEW_PASSWORD, Field.STRING, "New Password", null);
     Field userAuthenticationConfirmPassword = new Field(FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD, Field.STRING, "Confirm Password", null);
+    Field userAuthenticationDomainId = new Field(FieldIds.USER_AUTHENTICATION_DOMAIN_ID, Field.INTEGER, "Domain", null);
     Field userGroupState = new Field(FieldIds.USER_GROUP_STATE, Field.STRING, "Group State", null);
     Field userCurrentPageNumber = new Field(FieldIds.USER_CURRENT_PAGE_NUMBER, Field.INTEGER, "Current Page Number", null);
     Field userSelectedPageNumber = new Field(FieldIds.USER_SELECTED_PAGE_NUMBER, Field.INTEGER, "Selected Page Number", null);
@@ -81,10 +99,19 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     Field roleSortField = new Field(FieldIds.ROLE_SORT_FIELD, Field.STRING, "Sort Field", null);
     
     // Register fields
+    fields.add(domainSortField);
+    fields.add(domainSortDirection);
+    fields.add(domainCurrentPageNumber);
+    fields.add(domainSelectedPageNumber);
+    fields.add(domainGroupState);
+    fields.add(domainNameFilter);
+    fields.add(domainNameFilterOperator);
+    fields.add(domainSelectedId);
     fields.add(userAuthenticationId);
     fields.add(userAuthenticationPassword);
     fields.add(userAuthenticationNewPassword);
     fields.add(userAuthenticationConfirmPassword);
+    fields.add(userAuthenticationDomainId);
     fields.add(userGroupState);
     fields.add(userCurrentPageNumber);
     fields.add(userSelectedPageNumber);
@@ -108,6 +135,17 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     super.registerActions(actions);
     
     // Create actions
+    Action viewDomains = new Action(ActionIds.VIEW_DOMAINS, "Apply");
+    Action addDomain = new Action(ActionIds.ADD_DOMAIN, "Add");
+    Action editDomain = new Action(ActionIds.EDIT_DOMAIN, "Edit");
+    Action deleteDomain = new Action(ActionIds.DELETE_DOMAIN, "Delete");
+    Action saveDomain = new Action(ActionIds.SAVE_DOMAIN, "Save");
+    Action cancelDomain = new Action(ActionIds.CANCEL_DOMAIN, "Cancel");
+    Action viewChangeDomain = new Action(ActionIds.VIEW_CHANGE_DOMAIN, "View");
+    Action changeDomain = new Action(ActionIds.CHANGE_DOMAIN, "Save");
+    Action viewDomainPreviousPage = new Action(ActionIds.VIEW_DOMAIN_PREVIOUS_PAGE, "Previous Page");
+    Action viewDomainSelectPage = new Action(ActionIds.VIEW_DOMAIN_SELECT_PAGE, "Select Page");
+    Action viewDomainNextPage = new Action(ActionIds.VIEW_DOMAIN_NEXT_PAGE, "Next Page");
     Action viewRoles = new Action(ActionIds.VIEW_ROLES, "Apply");
     Action deleteRole = new Action(ActionIds.DELETE_ROLE, "Delete");
     Action addRole = new Action(ActionIds.ADD_ROLE, "Add");
@@ -124,12 +162,24 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     Action editUser = new Action(ActionIds.EDIT_USER, "Edit");
     Action saveUser = new Action(ActionIds.SAVE_USER, "Save");
     Action cancelUser = new Action(ActionIds.CANCEL_USER, "Cancel");
+    Action viewLogon = new Action(ActionIds.VIEW_LOGON, "View");
     Action logon = new Action(ActionIds.LOGON, "Logon");
     Action logoff = new Action(ActionIds.LOGOFF, "Logoff");
     Action viewChangePassword = new Action(ActionIds.VIEW_CHANGE_PASSWORD, "View");
     Action changePassword = new Action(ActionIds.CHANGE_PASSWORD, "Save");
 
     // Add action processor factories
+    viewDomains.addProcessorFactory(ConfigurationManager.getFactory(ViewDomains.class));
+    viewDomainPreviousPage.addProcessorFactory(ConfigurationManager.getFactory(ViewDomains.class));
+    viewDomainSelectPage.addProcessorFactory(ConfigurationManager.getFactory(ViewDomains.class));
+    viewDomainNextPage.addProcessorFactory(ConfigurationManager.getFactory(ViewDomains.class));
+    deleteDomain.addProcessorFactory(ConfigurationManager.getFactory(DeleteDomain.class));
+    addDomain.addProcessorFactory(ConfigurationManager.getFactory(EditDomain.class));
+    editDomain.addProcessorFactory(ConfigurationManager.getFactory(EditDomain.class));
+    saveDomain.addProcessorFactory(ConfigurationManager.getFactory(SaveDomain.class));
+    cancelDomain.addProcessorFactory(ConfigurationManager.getFactory(ViewDomains.class));
+    viewChangeDomain.addProcessorFactory(ConfigurationManager.getFactory(ViewChangeDomain.class));
+    changeDomain.addProcessorFactory(ConfigurationManager.getFactory(ChangeDomain.class));
     viewRoles.addProcessorFactory(ConfigurationManager.getFactory(ViewRoles.class));
     deleteRole.addProcessorFactory(ConfigurationManager.getFactory(DeleteRole.class));
     addRole.addProcessorFactory(ConfigurationManager.getFactory(EditRole.class));
@@ -146,12 +196,21 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     editUser.addProcessorFactory(ConfigurationManager.getFactory(EditUser.class));
     saveUser.addProcessorFactory(ConfigurationManager.getFactory(SaveUser.class));
     cancelUser.addProcessorFactory(ConfigurationManager.getFactory(ViewUsers.class));
+    viewLogon.addProcessorFactory(ConfigurationManager.getFactory(ViewLogon.class));
     logon.addProcessorFactory(ConfigurationManager.getFactory(Logon.class));
     logoff.addProcessorFactory(ConfigurationManager.getFactory(Logoff.class));
     viewChangePassword.addProcessorFactory(ConfigurationManager.getFactory(ViewChangePassword.class));
     changePassword.addProcessorFactory(ConfigurationManager.getFactory(ChangePassword.class));
-
+    
     // Add action fields
+    editDomain.addField(FieldIds.DOMAIN_ID, true);    
+    deleteDomain.addField(FieldIds.DOMAIN_ID, true);    
+    saveDomain.addField(FieldIds.DOMAIN_ID, false);    
+    saveDomain.addField(FieldIds.DOMAIN_VERSION, false);    
+    saveDomain.addField(FieldIds.DOMAIN_NAME, true);    
+    saveDomain.addField(FieldIds.DOMAIN_IS_DEFAULT_DATASOURCE, false);    
+    saveDomain.addField(FieldIds.DOMAIN_DATASOURCE_NAME, false);
+    changeDomain.addField(FieldIds.DOMAIN_SELECTED_ID, false);
     editRole.addField(FieldIds.ROLE_ID, true);
     selectGroup.addField(FieldIds.ROLE_ID, false);
     selectGroup.addField(FieldIds.ROLE_NAME, true);
@@ -173,9 +232,9 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     saveUser.addField(FieldIds.USER_MIDDLE_INITIAL, false);
     saveUser.addField(FieldIds.USER_LAST_NAME, true);
     saveUser.addField(FieldIds.USER_LOGON_ID, true);
-    saveUser.addField(FieldIds.USER_IS_DOMAIN_ADMIN, false);
     saveUser.addField(FieldIds.USER_AUTHENTICATION_NEW_PASSWORD, false);
     saveUser.addField(FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD, false);
+    saveUser.addField(FieldIds.USER_IS_DOMAIN_ADMIN, false);
     saveUser.addField(FieldIds.USER_ROLE_IDS, false);
     saveUser.addField(FieldIds.USER_VERSION, false);
     logon.addField(FieldIds.USER_AUTHENTICATION_ID, true);
@@ -184,7 +243,21 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     changePassword.addField(FieldIds.USER_AUTHENTICATION_NEW_PASSWORD, true);
     changePassword.addField(FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD, true);
 
+    // Add action rules
+    saveDomain.addRule(new AtLeastOneFieldRule(FieldIds.DOMAIN_IS_DEFAULT_DATASOURCE, FieldIds.DOMAIN_DATASOURCE_NAME));
+    
     // Register actions
+    actions.add(viewDomains);
+    actions.add(viewDomainPreviousPage);
+    actions.add(viewDomainSelectPage);
+    actions.add(viewDomainNextPage);
+    actions.add(deleteDomain);
+    actions.add(addDomain);
+    actions.add(editDomain);
+    actions.add(saveDomain);
+    actions.add(cancelDomain);
+    actions.add(viewChangeDomain);
+    actions.add(changeDomain);
     actions.add(viewRoles);
     actions.add(deleteRole);
     actions.add(addRole);
@@ -201,6 +274,7 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     actions.add(editUser);
     actions.add(saveUser);
     actions.add(cancelUser);
+    actions.add(viewLogon);
     actions.add(logon);
     actions.add(logoff);
     actions.add(viewChangePassword);
@@ -219,6 +293,9 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     // Create pages
     Page logon = new Page(PageIds.LOGON, "/security/Logon.jsp", "Logon", false);
     Page changePassword = new Page(PageIds.CHANGE_PASSWORD, "/security/ChangePassword.jsp", "Change Password", true);
+    Page changeDomain = new Page(PageIds.CHANGE_DOMAIN, "/security/ChangeDomain.jsp", "Change Domain", true);
+    Page domains = new Page(PageIds.DOMAINS, "/security/Domains.jsp", "Domains", true);    
+    Page domain = new Page(PageIds.DOMAIN, "/security/Domain.jsp", "Domain", true);    
     Page roles = new Page(PageIds.ROLES, "/security/Roles.jsp", "Roles", true);
     Page role = new Page(PageIds.ROLE, "/security/Role.jsp", "Role", true);
     Page users = new Page(PageIds.USERS, "/security/Users.jsp", "Users", true);
@@ -227,6 +304,9 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     // Register pages
     pages.add(logon);
     pages.add(changePassword);
+    pages.add(changeDomain);
+    pages.add(domains);
+    pages.add(domain);
     pages.add(roles);
     pages.add(role);
     pages.add(users);
@@ -244,7 +324,13 @@ public class Configuration extends com.bws.jdistil.security.configuration.Config
     
     for (ObjectBinding objectBinding : objectBindings) {
       
-      if (objectBinding.getTargetClass().equals(User.class)) {
+      if (objectBinding.getTargetClass().equals(Domain.class)) {
+        
+        // Add search fields to existing user object binding
+        ObjectBinding userBinding = new ObjectBinding(User.class);
+        userBinding.addFieldBinding(FieldIds.DOMAIN_NAME_FILTER, "Name");
+      }
+      else if (objectBinding.getTargetClass().equals(User.class)) {
         
         // Add search fields to existing user object binding
         ObjectBinding userBinding = new ObjectBinding(User.class);

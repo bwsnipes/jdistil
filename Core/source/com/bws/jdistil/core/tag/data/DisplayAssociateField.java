@@ -25,6 +25,7 @@ import com.bws.jdistil.core.datasource.DataObject;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.IDataManager;
 import com.bws.jdistil.core.factory.IFactory;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.tag.UiException;
 import com.bws.jdistil.core.tag.table.Table;
 import com.bws.jdistil.core.tag.table.TableRow;
@@ -115,8 +116,11 @@ public class DisplayAssociateField extends ValueComponent {
     	// Retrieve unformatted attribute ID
     	Object attributeId = getFieldValue();
     	
+    	// Get current domain
+    	IDomain domain = getCurrentDomain();
+    	
     	// Retrieve associate
-    	DataObject<Object> associate = findAssociate(attributeId);
+    	DataObject<Object> associate = findAssociate(attributeId, domain);
     	
     	// Write associate view
     	writeAssociateView(jspWriter, isHidden, associate);
@@ -162,9 +166,10 @@ public class DisplayAssociateField extends ValueComponent {
   /**
     Returns an associate data object using a specified associate ID.
     @param associateId Associate ID.
+    @param domain Current domain.
     @return DataObject<Object> Associate data object.
   */
-  private DataObject<Object> findAssociate(Object associateId) throws UiException {
+  private DataObject<Object> findAssociate(Object associateId, IDomain domain) throws UiException {
   	
     // Set method name
     String methodName = "findAssociates";
@@ -196,7 +201,7 @@ public class DisplayAssociateField extends ValueComponent {
       		List<DataObject<?>> dataObjects = table.getDataObjects();
       		
       		// Load associate lookup
-      		loadAssociates(dataObjects, associateLookup);
+      		loadAssociates(dataObjects, associateLookup, domain);
 
       		// Add associate lookup to associate lookups map
       		associateLookups.put(associateManagerClassName, associateLookup);
@@ -216,7 +221,7 @@ public class DisplayAssociateField extends ValueComponent {
 
         try {
           // Retrieve associate
-          associate = dataManager.find(associateId);
+          associate = dataManager.find(associateId, domain);
         }
         catch (DataSourceException dataSourceException) {
           
@@ -229,9 +234,7 @@ public class DisplayAssociateField extends ValueComponent {
         finally {
 
           // Recycle data manager
-          if (dataManagerFactory != null) {
-          	dataManagerFactory.recycle(dataManager);
-          }
+        	dataManagerFactory.recycle(dataManager);
         }
       }
     }
@@ -243,8 +246,9 @@ public class DisplayAssociateField extends ValueComponent {
     Loads all associate data objects associated with a specified list of data objects into an associate lookup.
     @param dataObjects Data objects containing associates.
     @param associateLookup Associate lookup to populate.
+    @param domain Current domain.
   */
-  private void loadAssociates(List<DataObject<?>> dataObjects, Map<Object, DataObject<Object>> associateLookup) throws UiException {
+  private void loadAssociates(List<DataObject<?>> dataObjects, Map<Object, DataObject<Object>> associateLookup, IDomain domain) throws UiException {
   	
     // Set method name
     String methodName = "loadAssociates";
@@ -274,7 +278,7 @@ public class DisplayAssociateField extends ValueComponent {
 
         try {
           // Retrieve associates
-          List<DataObject<Object>> associates = dataManager.find(associateIds);
+          List<DataObject<Object>> associates = dataManager.find(associateIds, domain);
           
           if (associates != null && !associates.isEmpty()) {
           	
@@ -296,9 +300,7 @@ public class DisplayAssociateField extends ValueComponent {
         finally {
 
           // Recycle data manager
-          if (dataManagerFactory != null) {
-          	dataManagerFactory.recycle(dataManager);
-          }
+        	dataManagerFactory.recycle(dataManager);
         }
     	}
     }

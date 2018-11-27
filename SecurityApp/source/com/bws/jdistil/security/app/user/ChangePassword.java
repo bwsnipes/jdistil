@@ -26,6 +26,7 @@ import javax.crypto.SecretKey;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
+import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.factory.IFactory;
 import com.bws.jdistil.core.process.ProcessContext;
@@ -33,6 +34,7 @@ import com.bws.jdistil.core.process.ProcessException;
 import com.bws.jdistil.core.process.ProcessMessage;
 import com.bws.jdistil.core.process.Processor;
 import com.bws.jdistil.core.security.Cryptographer;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.servlet.ParameterExtractor;
 import com.bws.jdistil.core.util.Descriptions;
 import com.bws.jdistil.security.app.configuration.FieldIds;
@@ -133,7 +135,10 @@ public class ChangePassword extends Processor {
 	  	  
 	  	    // Create user manager
 	  	    UserManager userManager = (UserManager)userManagerFactory.create();
-  	  
+
+	  	    // Get current domain
+	  	    IDomain domain = getCurrentDomain(processContext);
+	  	    
 	  	    try {
 	  	    	
     				// Create salt value
@@ -149,7 +154,7 @@ public class ChangePassword extends Processor {
     		  	user.setPassword(encryptedPassword);
   
 	  	      // Save user
-	  	      userManager.save(user);
+	  	      userManager.save(user, domain);
 	    			
 	    			// Handle successful logon
 	    			handleSuccess(processContext);
@@ -165,9 +170,7 @@ public class ChangePassword extends Processor {
 	  	    finally {
 	  	  
 	  	      // Recycle data manager
-	  	    	if (userManagerFactory != null) {
-		  	      userManagerFactory.recycle(userManager);
-	  	    	}
+	  	      userManagerFactory.recycle(userManager);
 	  	    }
   			}
   			else {
@@ -187,14 +190,24 @@ public class ChangePassword extends Processor {
 	}
 
 	/**
-	 * Default implementation for handling a successful change password which can be overriden by descendant classes.
+	 * Default implementation for handling a successful change password which can be overridden by descendant classes.
 	 * Navigates to the application defined welcome page.
 	 * @param processContext Process context.
 	 */
-	protected void handleSuccess(ProcessContext processContext) {
+	protected void handleSuccess(ProcessContext processContext) throws ProcessException {
 		
-		// Set welcome page as next page 
-		processContext.setNextPage(ConfigurationManager.getWelcomePage());
+		// Get welcome action
+		Action welcomeAction = ConfigurationManager.getWelcomeAction();
+		
+		if (welcomeAction != null) {
+
+			// Forward processing to welcome action
+			forward(welcomeAction, processContext);
+		}
+		else {
+			
+			throw new ProcessException("Error navigating to welcome page: No welcome page action defined.");
+		}
 	}
 	
 }

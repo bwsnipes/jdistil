@@ -28,6 +28,7 @@ import com.bws.jdistil.core.datasource.database.IdColumnBinding;
 import com.bws.jdistil.core.datasource.database.Operators;
 import com.bws.jdistil.core.datasource.database.ValueCondition;
 import com.bws.jdistil.core.datasource.database.ValueConditions;
+import com.bws.jdistil.core.security.IDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +88,10 @@ public class UserManager extends BoundDatabaseDataManager<Integer, User> {
   /**
 	  Returns a for a logon ID.
 	  @param logonId Logon ID.
+	  @param domain Target domain.
 	  @return User User data object.
 	*/
-	public User findByLogonId(String logonId) throws DataSourceException {
+	public User findByLogonId(String logonId, IDomain domain) throws DataSourceException {
 	  
 	  // Initialize return value
 	  User user = null;
@@ -103,7 +105,7 @@ public class UserManager extends BoundDatabaseDataManager<Integer, User> {
 	    ValueConditions valueConditions = new ValueConditions(valueCondition);
 	    
 	    // Retrieve users
-	    List<User> values = find(null, valueConditions, null);
+	    List<User> values = find(null, valueConditions, null, domain);
 	    
 	    if (values != null && values.size() > 0) {
 	    	

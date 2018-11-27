@@ -62,4 +62,13 @@ public class TaskManager extends BoundDatabaseDataManager<Integer, Task> {
     return taskBinding;
   }
 
+  /**
+   * Disabling domain awareness so tasks are shared across domains.
+   * @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#isDomainAware()
+   */
+  @Override
+  protected boolean isDomainAware() {
+  	return false;
+  }
+  
 }

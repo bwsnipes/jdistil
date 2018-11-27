@@ -24,6 +24,9 @@ import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.FilterCriteria;
 import com.bws.jdistil.core.datasource.OrderCriterion;
 import com.bws.jdistil.core.datasource.ValueCriterion;
+import com.bws.jdistil.core.datasource.database.sequence.ISequenceProvider;
+import com.bws.jdistil.core.datasource.database.sequence.SequenceProviderFactory;
+import com.bws.jdistil.core.factory.IFactory;
 import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.util.Instantiator;
 import com.bws.jdistil.core.util.Introspector;
@@ -149,11 +152,24 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
     // Only set values that haven't already been set
     if (propertyValue == null) {
 
-      // Get next sequence value
-      int value = Sequencer.nextValue(tableName, columnName);
+    	// Get sequence provider factory
+    	IFactory sequenceProviderFactory = SequenceProviderFactory.getInstance();
+    	
+    	// Create sequence provider
+    	ISequenceProvider sequenceProvider = (ISequenceProvider)sequenceProviderFactory.create();
+    	
+    	try {
+        // Get next sequence value
+        int value = sequenceProvider.nextValue(tableName, columnName, domain);
 
-      // Set property value
-      Introspector.setPropertyValue(dataObject, propertyName, new Integer(value));
+        // Set property value
+        Introspector.setPropertyValue(dataObject, propertyName, new Integer(value));
+    	}
+    	finally {
+    		
+    		// Recycle sequence provider
+    		sequenceProviderFactory.recycle(sequenceProvider);
+    	}
     }
   }
 

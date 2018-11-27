@@ -24,26 +24,39 @@ package com.bws.jdistil.security.app.configuration;
 */
 public class ActionIds extends com.bws.jdistil.core.configuration.ActionIds {
 
-	public static final String LOGON = "SCA1";
-	public static final String LOGOFF = "SCA2";
-	public static final String VIEW_CHANGE_PASSWORD = "SCA3";
-	public static final String CHANGE_PASSWORD = "SCA4";
-	public static final String VIEW_ROLES = "SCA5";
-	public static final String DELETE_ROLE = "SCA6";
-	public static final String ADD_ROLE = "SCA7";
-	public static final String EDIT_ROLE = "SCA8";
-	public static final String SELECT_GROUP = "SCA9";
-	public static final String SAVE_ROLE = "SCA10";
-	public static final String CANCEL_ROLE = "SCA11";
-	public static final String VIEW_USERS = "SCA12";
-	public static final String VIEW_USER_PREVIOUS_PAGE = "SCA13";
-	public static final String VIEW_USER_SELECT_PAGE = "SCA14";
-	public static final String VIEW_USER_NEXT_PAGE = "SCA15";
-	public static final String DELETE_USER = "SCA16";
-	public static final String ADD_USER = "SCA17";
-	public static final String EDIT_USER = "SCA18";
-	public static final String SAVE_USER = "SCA19";
-	public static final String CANCEL_USER = "SCA20";
+	public static final String VIEW_DOMAINS = "SCA-1";
+	public static final String VIEW_DOMAIN_PREVIOUS_PAGE = "SCA-2";
+	public static final String VIEW_DOMAIN_SELECT_PAGE = "SCA-3";
+	public static final String VIEW_DOMAIN_NEXT_PAGE = "SCA-4";
+	public static final String DELETE_DOMAIN = "SCA-5";
+	public static final String ADD_DOMAIN = "SCA-6";
+	public static final String EDIT_DOMAIN = "SCA-7";
+	public static final String SAVE_DOMAIN = "SCA-8";
+	public static final String CANCEL_DOMAIN = "SCA-9";
+	public static final String VIEW_CHANGE_DOMAIN = "SCA-10";
+	public static final String CHANGE_DOMAIN = "SCA-11";
+	
+	public static final String VIEW_LOGON = "SCA1";
+	public static final String LOGON = "SCA2";
+	public static final String LOGOFF = "SCA3";
+	public static final String VIEW_CHANGE_PASSWORD = "SCA4";
+	public static final String CHANGE_PASSWORD = "SCA5";
+	public static final String VIEW_ROLES = "SCA6";
+	public static final String DELETE_ROLE = "SCA7";
+	public static final String ADD_ROLE = "SCA8";
+	public static final String EDIT_ROLE = "SCA9";
+	public static final String SELECT_GROUP = "SCA10";
+	public static final String SAVE_ROLE = "SCA11";
+	public static final String CANCEL_ROLE = "SCA12";
+	public static final String VIEW_USERS = "SCA13";
+	public static final String VIEW_USER_PREVIOUS_PAGE = "SCA14";
+	public static final String VIEW_USER_SELECT_PAGE = "SCA15";
+	public static final String VIEW_USER_NEXT_PAGE = "SCA16";
+	public static final String DELETE_USER = "SCA17";
+	public static final String ADD_USER = "SCA18";
+	public static final String EDIT_USER = "SCA19";
+	public static final String SAVE_USER = "SCA20";
+	public static final String CANCEL_USER = "SCA21";
 	
 	protected ActionIds() {
 		super();

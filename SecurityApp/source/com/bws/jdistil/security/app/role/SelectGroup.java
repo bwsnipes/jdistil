@@ -18,6 +18,12 @@
  */
 package com.bws.jdistil.security.app.role;
 
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.http.HttpSession;
+
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.factory.IFactory;
@@ -35,12 +41,6 @@ import com.bws.jdistil.security.role.FieldManager;
 import com.bws.jdistil.security.role.GroupManager;
 import com.bws.jdistil.security.role.Role;
 import com.bws.jdistil.security.role.TaskManager;
-
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.servlet.http.HttpSession;
 
 /**
   Handles the selection of a different group by updating
@@ -81,8 +81,8 @@ public class SelectGroup extends Processor {
       processContext.getRequest().setAttribute(AttributeNames.ROLE, role);
       
       // Load tasks
-      loadReferenceData(TaskManager.class, AttributeNames.TASKS, processContext.getRequest());
-      loadReferenceData(GroupManager.class, AttributeNames.GROUPS, processContext.getRequest());
+      loadReferenceData(TaskManager.class, AttributeNames.TASKS, processContext);
+      loadReferenceData(GroupManager.class, AttributeNames.GROUPS, processContext);
       
       // Retrieve group ID from request parameters
       Integer groupId = ParameterExtractor.getInteger(processContext.getRequest(), FieldIds.GROUP_ID);
@@ -90,7 +90,7 @@ public class SelectGroup extends Processor {
       if (groupId !=  null) {
         
         // Retrieve fields based on the selected group ID
-        List<Field> fields = retrieveFields(groupId);
+        List<Field> fields = retrieveFields(groupId, processContext);
         
         // Add fields to request attributes
         if (fields != null && fields.size() > 0) {
@@ -114,9 +114,10 @@ public class SelectGroup extends Processor {
   /**
     Retrieves a list of field data objects using an group ID.
     @param groupId Group ID.
+    @param processContext Process context.
     @return List List of field data objects.
   */
-  private List<Field> retrieveFields(Integer groupId) throws ProcessException {
+  private List<Field> retrieveFields(Integer groupId, ProcessContext processContext) throws ProcessException {
     
     // Set method name
     String methodName = "retrieveProperties";
@@ -129,7 +130,7 @@ public class SelectGroup extends Processor {
   
     // Initialize field manager
     FieldManager fieldManager = null;
-    
+
     try {
       // Create field manager
       fieldManager = (FieldManager)fieldManagerFactory.create();
@@ -148,9 +149,7 @@ public class SelectGroup extends Processor {
     finally {
       
       // Recycle field manager
-    	if (fieldManagerFactory != null) {
-        fieldManagerFactory.recycle(fieldManager);
-    	}
+      fieldManagerFactory.recycle(fieldManager);
     }
     
     return fields;

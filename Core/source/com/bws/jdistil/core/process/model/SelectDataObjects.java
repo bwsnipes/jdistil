@@ -197,7 +197,7 @@ public class SelectDataObjects<I, T extends DataObject<I>> extends ViewDataObjec
     	if (!associateFieldIds.isEmpty()) {
       	
       	// Retrieve selected associates
-      	List<T> selectedAssociates = findDataObjects(getDataManagerClass(), associateFieldIds);
+      	List<T> selectedAssociates = findDataObjects(getDataManagerClass(), associateFieldIds, processContext);
       	 
       	if (selectedAssociates != null) {
       		

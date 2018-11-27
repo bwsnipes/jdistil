@@ -18,39 +18,35 @@
  */
 package com.bws.jdistil.core.datasource.database;
 
-import com.bws.jdistil.core.configuration.Constants;
-import com.bws.jdistil.core.configuration.FieldValues;
-import com.bws.jdistil.core.datasource.DataSourceException;
-import com.bws.jdistil.core.resource.ResourceUtil;
-import com.bws.jdistil.core.util.StringUtil;
-
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.BufferedInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.IOException;
 import java.io.Reader;
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.sql.DataSource;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import com.bws.jdistil.core.configuration.Constants;
+import com.bws.jdistil.core.configuration.FieldValues;
+import com.bws.jdistil.core.datasource.DataSourceException;
+import com.bws.jdistil.core.datasource.database.connection.ConnectionProviderFactory;
+import com.bws.jdistil.core.datasource.database.connection.IConnectionProvider;
+import com.bws.jdistil.core.factory.IFactory;
+import com.bws.jdistil.core.resource.ResourceUtil;
 
 /**
   Utility class providing database related services for opening connections,
@@ -165,12 +161,9 @@ public class DbUtil {
   */
   public static Connection openConnection(String dataSourceName) throws DataSourceException {
 
-    // Set method name
-    String methodName = "openConnection";
-
-    // Initialize return value
-    Connection connection = null;
-
+  	// Initialize return value
+  	Connection connection = null;
+  	
     // Retrieve default data source name if one is not specified
     if (dataSourceName == null) {
       dataSourceName = ResourceUtil.getString(Constants.DATASOURCE_NAME);
@@ -181,42 +174,24 @@ public class DbUtil {
       throw new DataSourceException("Invalid null data source name");
     }
 
-    // Retrieve context factory name from core property file
-    String contextFactory = ResourceUtil.getString(Constants.INITIAL_CONTEXT_FACTORY);
-
-    // Create context properties
-    Properties properties = new Properties();
+    // Get connection provider
+    IFactory connectionProviderFactory = ConnectionProviderFactory.getInstance();
     
-    // Set context factory property
-    if (!StringUtil.isEmpty(contextFactory)) {
-      properties.put(Context.INITIAL_CONTEXT_FACTORY, contextFactory);
-    }
-
+    // Initialize connection provider
+    IConnectionProvider connectionProvider = null;
+    
     try {
-      // Create initial context
-      InitialContext initialContext = new InitialContext(properties);
-
-      // Retrieve data source
-      DataSource dataSource = (DataSource)initialContext.lookup(dataSourceName);
+    	
+    	// Create connection provider
+      connectionProvider = (IConnectionProvider)connectionProviderFactory.create();
 
       // Open connection
-      connection = dataSource.getConnection();
+      connection = connectionProvider.openConnection(dataSourceName);
     }
-    catch (NamingException namingException) {
-
-      // Post error message
-      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database");
-      logger.logp(Level.SEVERE, className, methodName, "Opening DB Connection", namingException);
-
-      throw new DataSourceException(methodName + ": " + namingException.getMessage());
-    }
-    catch (SQLException sqlException) {
-
-      // Post error message
-      Logger logger = Logger.getLogger("com.bws.jdistil.core.datasource.database");
-      logger.logp(Level.SEVERE, className, methodName, "Opening DB Connection", sqlException);
-
-      throw new DataSourceException(methodName + ": " + sqlException.getMessage());
+    finally {
+    	
+    	// Recycle connection provider
+  		connectionProviderFactory.recycle(connectionProvider);
     }
 
     return connection;

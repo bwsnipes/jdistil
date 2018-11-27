@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with JDistil.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.bws.jdistil.core.tag.security;
+package com.bws.jdistil.security.tag;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,15 +24,13 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.JspException;
 
-import com.bws.jdistil.core.configuration.Constants;
-import com.bws.jdistil.core.resource.ResourceUtil;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.security.ISecurityManager;
 import com.bws.jdistil.core.security.SecurityException;
 import com.bws.jdistil.core.tag.basic.Component;
 
 /**
-  Component used to only display nested components if the application is configured
-  for multiple tenants and the current user is a domain admin.
+  Component used to only display nested components if the current user is a domain admin.
   @author - Bryan Snipes
 */
 public class DomainAdmin extends Component {
@@ -43,7 +41,7 @@ public class DomainAdmin extends Component {
 	private static final long serialVersionUID = 8090329041495125456L;
 
 	/**
-    Creates a new DomainAccess object.
+    Creates a new DomainAdmin object.
   */
   public DomainAdmin() {
     super();
@@ -70,22 +68,24 @@ public class DomainAdmin extends Component {
     if (securityManager != null) {
 
       try {
-    		// Determine if application is configured to support multiple tenants
-        String multipleTenants = ResourceUtil.getString(Constants.MULTIPLE_TENANTS);
-    		boolean isMultipleTenantsSupported = multipleTenants != null && multipleTenants.equalsIgnoreCase(Boolean.TRUE.toString());
-    		
-    		// Domain admin field is only accessible if the application is configured to support multiple tenants
-    		// and the current user is a domain admin. This field is not included in the list of fields available when defining roles.
-    		if (isMultipleTenantsSupported && securityManager.isDomainAdmin(session)) {
+
+    		if (securityManager.isDomainAdmin(session)) {
     			
-    			bodyInstruction = EVAL_BODY_INCLUDE;
+    			// Get current domain
+    			IDomain domain = securityManager.getDomain(session);
+
+    			// Check to ensure user is in the default domain
+    			if (domain == null || domain.getId() == null || domain.getId().equals(IDomain.DEFAULT_ID)) {
+    				
+      			bodyInstruction = EVAL_BODY_INCLUDE;
+    			}
     		}
       }
       catch (SecurityException securityException) {
 
         // Post error message
         Logger logger = Logger.getLogger("com.bws.jdistil.core.tag.basic");
-        logger.logp(Level.SEVERE, getClass().getName(), methodName, "Checking Domain Access", securityException);
+        logger.logp(Level.SEVERE, getClass().getName(), methodName, "Checking Domain Admin Access", securityException);
 
         throw new JspException(methodName + ":" + securityException.getMessage());
       }

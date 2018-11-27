@@ -50,7 +50,7 @@ public class EditCode extends EditDataObject<Integer, Code> {
   	super.populateReferenceData(processContext);
   	
     // Load reference data
-    loadReferenceData(CategoryManager.class, AttributeNames.CATEGORIES, processContext.getRequest());
+    loadReferenceData(CategoryManager.class, AttributeNames.CATEGORIES, processContext);
   }
   
 }

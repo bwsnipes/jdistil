@@ -29,6 +29,7 @@ import com.bws.jdistil.core.datasource.database.Operators;
 import com.bws.jdistil.core.datasource.database.OrderCondition;
 import com.bws.jdistil.core.datasource.database.ValueCondition;
 import com.bws.jdistil.core.datasource.database.ValueConditions;
+import com.bws.jdistil.core.security.IDomain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,11 +77,13 @@ public class CodeManager extends BoundDatabaseDataManager<Integer, Code> {
   }
 
   /**
-    Returns a list of codes for a category ID.
-    @param categoryId Category ID.
-    @return List List of field data objects.
-  */
-  public List<Code> findByCategory(Integer categoryId) throws DataSourceException {
+   * Returns a list of codes for a category ID.
+   * @param categoryId Category ID.
+   * @param domain Target domain.
+   * @return List List of field data objects.
+   * @throws DataSourceException
+   */
+  public List<Code> findByCategory(Integer categoryId, IDomain domain) throws DataSourceException {
     
     // Initialize return value
     List<Code> codes = null;
@@ -99,7 +102,7 @@ public class CodeManager extends BoundDatabaseDataManager<Integer, Code> {
       OrderCondition orderCondition = new OrderCondition("bws_code", "name", FieldValues.SORT_ASCENDING);
       
       // Retrieve codes
-      codes = find(null, valueConditions, orderCondition);
+      codes = find(null, valueConditions, orderCondition, domain);
     }
     
     return codes;

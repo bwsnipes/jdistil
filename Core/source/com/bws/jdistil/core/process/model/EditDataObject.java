@@ -173,7 +173,7 @@ public class EditDataObject<I, T extends DataObject<I>> extends Processor {
       else {
 
         // Find data object
-        T dataObject = findDataObject(dataManagerClass, id);
+        T dataObject = findDataObject(dataManagerClass, id, processContext);
 
         if (dataObject != null) {
 

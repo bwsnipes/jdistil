@@ -19,10 +19,12 @@
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
+<%@ page import="com.bws.jdistil.core.security.IDomain" %>
 <%@ page import="com.bws.jdistil.security.app.configuration.ActionIds" %>
-<%@ page import="com.bws.jdistil.security.configuration.AttributeNames" %>
 <%@ page import="com.bws.jdistil.security.app.configuration.PageIds" %>
 <%@ page import="com.bws.jdistil.security.app.configuration.FieldIds" %>
+<%@ page import="com.bws.jdistil.security.configuration.AttributeNames" %>
+<%@ page import="com.bws.jdistil.security.domain.DomainManager" %>
 
 <%@ taglib uri="com/bws/jdistil/core" prefix="core" %>
 
@@ -57,6 +59,10 @@
 	          <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_PASSWORD %>" /></td>
 	          <td><core:password fieldId="<%= FieldIds.USER_AUTHENTICATION_PASSWORD %>" maxlength="10" /></td>
 	        </tr>
+		      <tr>
+		        <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_DOMAIN_ID %>" /></td>
+		        <td><core:list fieldId="<%= FieldIds.USER_AUTHENTICATION_DOMAIN_ID %>" itemsAttributeName="<%= AttributeNames.DOMAINS %>" instruction="<%= IDomain.DEFAULT_NAME %>" /></td>
+		      </tr>
 	        <tr>
 	          <td colspan="2">&nbsp;</td>
 	        </tr>

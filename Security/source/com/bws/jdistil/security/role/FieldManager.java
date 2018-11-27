@@ -18,6 +18,9 @@
  */
 package com.bws.jdistil.security.role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager;
 import com.bws.jdistil.core.datasource.database.ColumnBinding;
@@ -27,9 +30,6 @@ import com.bws.jdistil.core.datasource.database.IdColumnBinding;
 import com.bws.jdistil.core.datasource.database.Operators;
 import com.bws.jdistil.core.datasource.database.ValueCondition;
 import com.bws.jdistil.core.datasource.database.ValueConditions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
   Field manager class used to retrieve field data objects.
@@ -68,6 +68,15 @@ public class FieldManager extends BoundDatabaseDataManager<Integer, Field> {
     return fieldBinding;
   }
 
+  /**
+   * Disabling domain awareness so fields are shared across domains.
+   * @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#isDomainAware()
+   */
+  @Override
+  protected boolean isDomainAware() {
+  	return false;
+  }
+  
   /**
     Returns a list of properties for an group ID.
     @param groupId Group ID.

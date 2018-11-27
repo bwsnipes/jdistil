@@ -20,6 +20,7 @@ package com.bws.jdistil.security.app.user;
 
 import javax.servlet.http.HttpSession;
 
+import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.process.ProcessContext;
 import com.bws.jdistil.core.process.ProcessException;
@@ -57,10 +58,20 @@ public class Logoff extends Processor {
 	 * Navigates to the application defined welcome page.
 	 * @param processContext Process context.
 	 */
-	protected void handleSuccess(ProcessContext processContext) {
+	protected void handleSuccess(ProcessContext processContext) throws ProcessException {
 		
-		// Set welcome page as next page 
-		processContext.setNextPage(ConfigurationManager.getWelcomePage());
+		// Get welcome action
+		Action welcomeAction = ConfigurationManager.getWelcomeAction();
+		
+		if (welcomeAction != null) {
+
+			// Forward processing to welcome action
+			forward(welcomeAction, processContext);
+		}
+		else {
+			
+			throw new ProcessException("Error navigating to welcome page: No welcome page action defined.");
+		}
 	}
 
 }

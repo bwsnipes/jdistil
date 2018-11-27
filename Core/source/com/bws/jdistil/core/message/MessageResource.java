@@ -50,6 +50,7 @@ public class MessageResource extends ListResourceBundle {
     {Messages.DIRTY_UPDATE, "Data has been modified by another user."},
     {Messages.DELETED_UPDATE, "Data has been deleted by another user."},
     {Messages.MISSING_ACTION, "Missing action."},
+    {Messages.AT_LEAST_ONE_REQUIRED_FIELD, "At least one of {0} is a required field."},
   };
 
   /**

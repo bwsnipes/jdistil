@@ -23,6 +23,7 @@ import com.bws.jdistil.codes.lookup.CodeManager;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.factory.IFactory;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.tag.UiException;
 import com.bws.jdistil.core.tag.data.IListItem;
 import com.bws.jdistil.core.tag.data.MultipleListField;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.servlet.jsp.JspException;
 
 /**
   Component used to write selectable data using a combination of HTML select field.
@@ -66,8 +69,9 @@ public class MultipleCodeListField extends MultipleListField {
   /**
    * Returns a list of list items objects.
    * @return List List of list item objects.
+   * @throws JspException 
    */
-  protected List<IListItem> getItems() throws UiException {
+  protected List<IListItem> getItems() throws UiException, JspException {
 
     // Set method name
     String methodName = "getItems";
@@ -93,9 +97,12 @@ public class MultipleCodeListField extends MultipleListField {
         // Initialize codes list
         List<Code> codes = null;
         
+        // Get current domain
+        IDomain domain = getCurrentDomain();
+        
         try {
           // Retrieve codes
-          codes = codeManager.findByCategory(categoryId);
+          codes = codeManager.findByCategory(categoryId, domain);
         }
         catch (DataSourceException dataSourceException) {
           
@@ -108,9 +115,7 @@ public class MultipleCodeListField extends MultipleListField {
         finally {
 
           // Recycle code manager
-          if (codeManagerFactory != null) {
-            codeManagerFactory.recycle(codeManager);
-          }
+          codeManagerFactory.recycle(codeManager);
         }
           
         if (codes != null) {

@@ -25,6 +25,7 @@ import com.bws.jdistil.core.datasource.DataObject;
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.IDataManager;
 import com.bws.jdistil.core.factory.IFactory;
+import com.bws.jdistil.core.security.IDomain;
 import com.bws.jdistil.core.tag.UiException;
 import com.bws.jdistil.core.tag.table.Table;
 import com.bws.jdistil.core.tag.table.TableRow;
@@ -116,8 +117,11 @@ public class DisplayAssociateListField extends ValueComponent {
     	// Retrieve unformatted attribute IDs
     	Collection<Object> attributeIds = getFieldValues();
     	
+    	// Get current domain
+    	IDomain domain = getCurrentDomain();
+    	
     	// Retrieve associates
-    	List<DataObject<Object>> associates = findAssociates(attributeIds);
+    	List<DataObject<Object>> associates = findAssociates(attributeIds, domain);
     	
     	// Write associates view
     	writeAssociateView(jspWriter, isHidden, associates);
@@ -163,9 +167,10 @@ public class DisplayAssociateListField extends ValueComponent {
   /**
     Returns a list of associate data objects using a specified list of associate IDs.
     @param associateIds List of associate IDs.
+    @param domain Current domain.
     @return List<DataObject<Object>> List of associate data objects.
   */
-  private List<DataObject<Object>> findAssociates(Collection<Object> associateIds) throws UiException {
+  private List<DataObject<Object>> findAssociates(Collection<Object> associateIds, IDomain domain) throws UiException {
   	
     // Set method name
     String methodName = "findAssociates";
@@ -197,7 +202,7 @@ public class DisplayAssociateListField extends ValueComponent {
       		List<DataObject<?>> dataObjects = table.getDataObjects();
       		
       		// Load associate lookup
-      		loadAssociates(dataObjects, associateLookup);
+      		loadAssociates(dataObjects, associateLookup, domain);
 
       		// Add associate lookup to associate lookups map
       		associateLookups.put(associateManagerClassName, associateLookup);
@@ -233,7 +238,7 @@ public class DisplayAssociateListField extends ValueComponent {
         	ids.addAll(associateIds);
         	
           // Retrieve associates
-          associates = (List<DataObject<Object>>)dataManager.find(ids);
+          associates = (List<DataObject<Object>>)dataManager.find(ids, domain);
         }
         catch (DataSourceException dataSourceException) {
           
@@ -246,9 +251,7 @@ public class DisplayAssociateListField extends ValueComponent {
         finally {
 
           // Recycle data manager
-          if (dataManagerFactory != null) {
-          	dataManagerFactory.recycle(dataManager);
-          }
+        	dataManagerFactory.recycle(dataManager);
         }
       }
     }
@@ -260,8 +263,9 @@ public class DisplayAssociateListField extends ValueComponent {
     Loads all associate data objects associated with a specified list of data objects into an associate lookup.
     @param dataObjects Data objects containing associates.
     @param associateLookup Associate lookup to populate.
+    @param domain Current domain.
   */
-  private void loadAssociates(List<DataObject<?>> dataObjects, Map<Object, DataObject<Object>> associateLookup) throws UiException {
+  private void loadAssociates(List<DataObject<?>> dataObjects, Map<Object, DataObject<Object>> associateLookup, IDomain domain) throws UiException {
   	
     // Set method name
     String methodName = "loadAssociates";
@@ -298,7 +302,7 @@ public class DisplayAssociateListField extends ValueComponent {
 
         try {
           // Retrieve associates
-          List<DataObject<Object>> associates = dataManager.find(associateIds);
+          List<DataObject<Object>> associates = dataManager.find(associateIds, domain);
           
           if (associates != null && !associates.isEmpty()) {
           	
@@ -320,9 +324,7 @@ public class DisplayAssociateListField extends ValueComponent {
         finally {
 
           // Recycle data manager
-          if (dataManagerFactory != null) {
-          	dataManagerFactory.recycle(dataManager);
-          }
+        	dataManagerFactory.recycle(dataManager);
         }
     	}
     }

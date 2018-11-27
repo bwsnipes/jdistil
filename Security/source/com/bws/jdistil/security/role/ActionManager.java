@@ -18,6 +18,9 @@
  */
 package com.bws.jdistil.security.role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.bws.jdistil.core.datasource.DataSourceException;
 import com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager;
 import com.bws.jdistil.core.datasource.database.ColumnBinding;
@@ -29,9 +32,6 @@ import com.bws.jdistil.core.datasource.database.JoinCondition;
 import com.bws.jdistil.core.datasource.database.Operators;
 import com.bws.jdistil.core.datasource.database.ValueCondition;
 import com.bws.jdistil.core.datasource.database.ValueConditions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
   Action manager class used to retrieve action data objects.
@@ -70,6 +70,15 @@ public class ActionManager extends BoundDatabaseDataManager<Integer, Action> {
   }
 
   /**
+   * Disabling domain awareness so actions are shared across domains.
+   * @see com.bws.jdistil.core.datasource.database.DatabaseDataManager#isDomainAware()
+   */
+  @Override
+  protected boolean isDomainAware() {
+  	return false;
+  }
+  
+  /**
     Returns a list of actions for a list of task IDs.
     @param taskIds List of task IDs.
     @return List List of action data objects.
@@ -84,7 +93,7 @@ public class ActionManager extends BoundDatabaseDataManager<Integer, Action> {
       // Create join list
       List<Join> joins = new ArrayList<Join>(1);
       
-      // Create join conditin
+      // Create join condition
       JoinCondition joinCondition = new JoinCondition("bws_task_action", "action_id", Operators.EQUALS, "bws_action", "action_id");
       
       // Create and add join to list

@@ -39,7 +39,9 @@ public class DefaultSecurityManager implements ISecurityManager {
     Returns a user's domain.
     @param session - Current session.
     @return IDomain - User's domain.
+    @see ISecurityManager#getDomain(HttpSession)
   */
+  @Override
   public IDomain getDomain(HttpSession session) throws SecurityException {
   	return null;
   }
@@ -48,18 +50,21 @@ public class DefaultSecurityManager implements ISecurityManager {
     Returns a value indicating whether or not a user is a domain admin.
     @param session - Current session.
     @return boolean - Domain administrator indicator.
+    @see ISecurityManager#isDomainAdmin(HttpSession)
   */
+  @Override
   public boolean isDomainAdmin(HttpSession session) throws SecurityException {
   	return false;
   }
 
-  /**
+	/**
     Returns a value indicating whether or not a user has been authenticated.
     @param session - Current session.
     @return boolean - Authenticated indicator.
+    @see ISecurityManager#isAuthenticated(HttpSession)
   */
-  public boolean isAuthenticated(HttpSession session)
-      throws SecurityException {
+  @Override
+  public boolean isAuthenticated(HttpSession session) throws SecurityException {
 
     // Attempt to authentication indicator from session
     Boolean isAuthenticated = (Boolean)session.getAttribute(AttributeNames.IS_AUTHENTICATED);
@@ -68,25 +73,14 @@ public class DefaultSecurityManager implements ISecurityManager {
   }
 
   /**
-    Sets the user's authentication status for the current session.
-    @param isAuthenticated - Authentication status.
-    @param session - Current session.
-  */
-  public void setAuthenticated(boolean isAuthenticated, HttpSession session)
-      throws SecurityException {
-
-    // Set authentication indicator
-    session.setAttribute(AttributeNames.IS_AUTHENTICATED, new Boolean(isAuthenticated));
-  }
-
-  /**
     Indicates whether or not authorization is required for a given action ID.
     @param actionId - Action ID.
     @param session - Current session.
     @return boolean - Authorization required indicator.
+    @see ISecurityManager#isAuthorizationRequired(String, HttpSession)
   */
-  public boolean isAuthorizationRequired(String actionId, HttpSession session)
-      throws SecurityException {
+  @Override
+  public boolean isAuthorizationRequired(String actionId, HttpSession session) throws SecurityException {
 
     return false;
   }
@@ -96,9 +90,10 @@ public class DefaultSecurityManager implements ISecurityManager {
     @param actionId - Action ID.
     @param session - Current session.
     @return boolean - Authorization indicator.
+    @see ISecurityManager#isAuthorized(String, HttpSession)
   */
-  public boolean isAuthorized(String actionId, HttpSession session)
-      throws SecurityException {
+  @Override
+  public boolean isAuthorized(String actionId, HttpSession session) throws SecurityException {
 
     return true;
   }
@@ -108,9 +103,10 @@ public class DefaultSecurityManager implements ISecurityManager {
     @param fieldId - Field ID.
     @param session - Current session.
     @return boolean - Hidden indicator.
+    @see ISecurityManager#isFieldHidden(String, HttpSession)
   */
-  public boolean isFieldHidden(String fieldId, HttpSession session)
-      throws SecurityException {
+  @Override
+  public boolean isFieldHidden(String fieldId, HttpSession session) throws SecurityException {
 
     return false;
   }
@@ -120,9 +116,10 @@ public class DefaultSecurityManager implements ISecurityManager {
     @param fieldId - Field ID.
     @param session - Current session.
     @return boolean - Read only indicator.
+    @see ISecurityManager#isFieldReadOnly(String, HttpSession)
   */
-  public boolean isFieldReadOnly(String fieldId, HttpSession session)
-      throws SecurityException {
+  @Override
+  public boolean isFieldReadOnly(String fieldId, HttpSession session) throws SecurityException {
 
     return false;
   }

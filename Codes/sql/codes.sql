@@ -28,8 +28,7 @@ CREATE TABLE bws_category
 (
    category_id	INTEGER			NOT NULL,
    name					VARCHAR(20)	NOT NULL,
-   is_deleted		CHAR(1)			NOT NULL,
-   domain_id    INTEGER			NOT NULL
+   is_deleted		CHAR(1)			NOT NULL
 )
 ;
 
@@ -37,7 +36,6 @@ ALTER TABLE bws_category ADD CONSTRAINT pk_category
    PRIMARY KEY (category_id)
 ;
 
-CREATE INDEX idx_category_1 ON bws_category (domain_id);
 
 --
 -- Code table.

@@ -26,10 +26,13 @@ public class PageIds extends com.bws.jdistil.core.configuration.PageIds {
 
   public static final String LOGON = "SCP1";
   public static final String CHANGE_PASSWORD = "SCP2";
-  public static final String ROLES = "SCP3";
-  public static final String ROLE = "SCP4";
-  public static final String USERS = "SCP5";
-  public static final String USER = "SCP6";
+  public static final String CHANGE_DOMAIN = "SCP3";
+	public static final String DOMAINS = "SCP4";
+	public static final String DOMAIN = "SCP5";
+  public static final String ROLES = "SCP6";
+  public static final String ROLE = "SCP7";
+  public static final String USERS = "SCP8";
+  public static final String USER = "SCP9";
 
   protected PageIds() {
     super();

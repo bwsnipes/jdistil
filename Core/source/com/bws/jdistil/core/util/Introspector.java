@@ -157,33 +157,53 @@ public class Introspector {
       // Get object class
       Class<?> objectClass = object.getClass();
       
-      // Create parameter types array
-      Class<?> propertyClass = getPropertyClass(objectClass, propertyName);
-      Class<?>[] parameterTypes = new Class<?>[] {propertyClass};
-  
-      try {
-        // Get method
-        Method method = objectClass.getMethod(methodName, parameterTypes);
-  
-        if (method != null) {
-  
-          // Create values arrays
-          Object[] values = new Object[] {propertyValue};
-  
-          // Set property value
-          method.invoke(object, values);
-        }
-      }
-      catch (NoSuchMethodException noSuchMethodException) {
-        System.out.println("setPropertyValue: " + noSuchMethodException.getMessage());
-      }
-      catch (InvocationTargetException invocationTargetException) {
-        System.out.println("setPropertyValue: " + invocationTargetException.getMessage());
-      }
-      catch (IllegalAccessException illegalAccessException) {
-        System.out.println("setPropertyValue: " + illegalAccessException.getMessage());
+      if (!setPropertyValue(object, objectClass, methodName, propertyName, propertyValue)) {
+      	
+      	Class<?> parentClass = objectClass.getSuperclass();
+      	
+      	while (parentClass != null && !setPropertyValue(object, parentClass, methodName, propertyName, propertyValue)) {
+      		
+      			parentClass = parentClass.getSuperclass();
+      	}
       }
     }
+  }
+  
+  private static boolean setPropertyValue(Object object, Class<?> objectClass, String methodName, String propertyName, Object propertyValue) {
+  	
+  	// Initialize return value
+  	boolean isSuccess = false;
+  	
+    // Create parameter types array
+    Class<?> propertyClass = getPropertyClass(objectClass, propertyName);
+    Class<?>[] parameterTypes = new Class<?>[] {propertyClass};
+
+    try {
+      // Get method
+      Method method = objectClass.getMethod(methodName, parameterTypes);
+
+      if (method != null) {
+
+        // Create values arrays
+        Object[] values = new Object[] {propertyValue};
+
+        // Set property value
+        method.invoke(object, values);
+        
+        isSuccess = true;
+      }
+    }
+    catch (NoSuchMethodException noSuchMethodException) {
+      System.out.println("setPropertyValue: " + noSuchMethodException.getMessage());
+    }
+    catch (InvocationTargetException invocationTargetException) {
+      System.out.println("setPropertyValue: " + invocationTargetException.getMessage());
+    }
+    catch (IllegalAccessException illegalAccessException) {
+      System.out.println("setPropertyValue: " + illegalAccessException.getMessage());
+    }
+    
+    return isSuccess;
   }
 
   /**

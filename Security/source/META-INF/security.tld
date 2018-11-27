@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  Copyright (C) 2015 Bryan W. Snipes
+
+  This file is part of the JDistil web application framework.
+
+  JDistil is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Lesser General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  JDistil is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with JDistil.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+  version="2.0">
+
+  <uri>com/bws/jdistil/security</uri>
+  <tlibversion>2.0</tlibversion>
+  <jspversion>2.0</jspversion>
+  <shortname>Security</shortname>
+  <info>Security</info>
+
+  <tag>
+    <name>domainAdmin</name>
+    <tagclass>com.bws.jdistil.security.tag.DomainAdmin</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <dynamic-attributes>false</dynamic-attributes>
+  </tag>
+
+</taglib>

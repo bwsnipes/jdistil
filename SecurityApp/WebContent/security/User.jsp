@@ -25,6 +25,7 @@
 <%@ page import="com.bws.jdistil.security.app.configuration.FieldIds" %>
 
 <%@ taglib uri="com/bws/jdistil/core" prefix="core" %>
+<%@ taglib uri="com/bws/jdistil/security" prefix="security" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -86,12 +87,12 @@
 		        <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD %>" /></td>
 		        <td><core:password fieldId="<%= FieldIds.USER_AUTHENTICATION_CONFIRM_PASSWORD %>" attributeName="<%= AttributeNames.USER %>" maxlength="10" /></td>
 		      </tr>
-		      <core:domainAdmin>
+		      <security:domainAdmin>
 			      <tr>
 			        <td><core:label fieldId="<%= FieldIds.USER_IS_DOMAIN_ADMIN %>" /></td>
 			        <td><core:check fieldId="<%= FieldIds.USER_IS_DOMAIN_ADMIN %>" attributeName="<%= AttributeNames.USER %>" /></td>
 			      </tr>
-			    </core:domainAdmin>
+			    </security:domainAdmin>
 				</table>
 				<br/>
 				<table>
