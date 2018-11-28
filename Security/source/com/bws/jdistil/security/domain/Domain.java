@@ -44,7 +44,6 @@ public class Domain extends DataObject<Integer> implements IDomain, IListItem, C
   /**
    * Returns the name.
    * @return String Name.
-   * @see IDomain#getClass()
    */
   @Override
   public String getName() {

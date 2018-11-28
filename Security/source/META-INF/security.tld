@@ -31,10 +31,20 @@
   <info>Security</info>
 
   <tag>
-    <name>domainAdmin</name>
-    <tagclass>com.bws.jdistil.security.tag.DomainAdmin</tagclass>
+    <name>domainAccess</name>
+    <tagclass>com.bws.jdistil.security.tag.DomainAccess</tagclass>
     <bodycontent>JSP</bodycontent>
     <dynamic-attributes>false</dynamic-attributes>
+    <attribute>
+      <name>isDefaultDomainRequired</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>isDomainAdminRequired</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
   </tag>
 
 </taglib>

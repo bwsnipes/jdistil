@@ -35,6 +35,11 @@ public class Constants {
   public static final String PROPERTY_FILE = "core";
 
   /**
+    Constant defining the multitenancy property key.
+  */
+  public static final String MULTITENANCY_ENABLED = "multitenancy.enabled";
+  
+  /**
     Constant defining the JNDI initial context factory property key.
   */
   public static final String INITIAL_CONTEXT_FACTORY = "initial.context.factory";

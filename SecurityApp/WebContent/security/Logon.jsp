@@ -27,6 +27,7 @@
 <%@ page import="com.bws.jdistil.security.domain.DomainManager" %>
 
 <%@ taglib uri="com/bws/jdistil/core" prefix="core" %>
+<%@ taglib uri="com/bws/jdistil/security" prefix="security" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -59,10 +60,12 @@
 	          <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_PASSWORD %>" /></td>
 	          <td><core:password fieldId="<%= FieldIds.USER_AUTHENTICATION_PASSWORD %>" maxlength="10" /></td>
 	        </tr>
-		      <tr>
-		        <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_DOMAIN_ID %>" /></td>
-		        <td><core:list fieldId="<%= FieldIds.USER_AUTHENTICATION_DOMAIN_ID %>" itemsAttributeName="<%= AttributeNames.DOMAINS %>" instruction="<%= IDomain.DEFAULT_NAME %>" /></td>
-		      </tr>
+	        <security:domainAccess isDefaultDomainRequired="false" isDomainAdminRequired="false" >
+			      <tr>
+			        <td><core:label fieldId="<%= FieldIds.USER_AUTHENTICATION_DOMAIN_ID %>" /></td>
+			        <td><core:list fieldId="<%= FieldIds.USER_AUTHENTICATION_DOMAIN_ID %>" itemsAttributeName="<%= AttributeNames.DOMAINS %>" instruction="<%= IDomain.DEFAULT_NAME %>" /></td>
+			      </tr>
+	        </security:domainAccess>
 	        <tr>
 	          <td colspan="2">&nbsp;</td>
 	        </tr>
