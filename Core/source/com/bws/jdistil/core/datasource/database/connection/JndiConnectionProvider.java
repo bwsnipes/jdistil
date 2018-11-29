@@ -35,10 +35,10 @@ import com.bws.jdistil.core.resource.ResourceUtil;
 import com.bws.jdistil.core.util.StringUtil;
 
 /**
- * Default connection provider that provides database connections from a JNDI connection pool.
+ * Connection provider that provides database connections from a JNDI connection pool.
  * @author - Bryan Snipes
  */
-public class DefaultConnectionProvider implements IConnectionProvider {
+public class JndiConnectionProvider implements IConnectionProvider {
 
 	/**
 	 * Returns a connection from a JNDI connection pool. 

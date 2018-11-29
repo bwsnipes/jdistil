@@ -30,16 +30,16 @@ import com.bws.jdistil.core.datasource.database.DbUtil;
 import com.bws.jdistil.core.security.IDomain;
 
 /**
- * Default sequence provider that provides sequential values for a specified table and column
+ * Sequence provider that provides sequential values for a specified table and column
  * using a database table to maintain the sequential values.
  * @author - Bryan Snipes
  */
-public class DefaultSequenceProvider implements ISequenceProvider {
+public class TableBasedSequenceProvider implements ISequenceProvider {
 
   /**
     Class name attribute used in messaging.
   */
-  private static String className = "com.bws.jdistil.core.datasource.database.sequence.DefaultSequenceProvider";
+  private static String className = "com.bws.jdistil.core.datasource.database.sequence.TableBasedSequenceProvider";
   
   /**
    * Table name used to manage sequential values.
@@ -47,9 +47,9 @@ public class DefaultSequenceProvider implements ISequenceProvider {
   private static final String SEQUENCE_TABLE_NAME = "bws_id_lookup";
   
   /**
-   * Creates a new instance of the DefaultSequenceProvider class.
+   * Creates a new instance of the TableBasedSequenceProvider class.
    */
-  public DefaultSequenceProvider() {
+  public TableBasedSequenceProvider() {
     super();
   }
   

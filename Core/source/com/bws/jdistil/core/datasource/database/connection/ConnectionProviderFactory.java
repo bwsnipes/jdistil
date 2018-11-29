@@ -69,7 +69,7 @@ public final class ConnectionProviderFactory {
         	if (connectionProviderFactory == null) {
         		
         		// Use singleton pojo factory targeting the default connection provider
-        		connectionProviderFactory = new SingletonPojoFactory(DefaultConnectionProvider.class);
+        		connectionProviderFactory = new SingletonPojoFactory(JndiConnectionProvider.class);
         	}
         }
       }

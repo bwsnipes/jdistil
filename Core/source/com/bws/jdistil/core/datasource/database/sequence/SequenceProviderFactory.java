@@ -68,8 +68,8 @@ public final class SequenceProviderFactory {
         	
         	if (sequenceProviderFactory == null) {
         		
-        		// Use singleton pojo factory targeting the default sequence provider
-        		sequenceProviderFactory = new SingletonPojoFactory(DefaultSequenceProvider.class);
+        		// Use singleton pojo factory targeting the default table based sequence provider
+        		sequenceProviderFactory = new SingletonPojoFactory(TableBasedSequenceProvider.class);
         	}
         }
       }
