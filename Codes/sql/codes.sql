@@ -61,3 +61,5 @@ ALTER TABLE bws_code ADD CONSTRAINT fk_code_1
 ;
 
 CREATE INDEX idx_code_1 ON bws_code (domain_id);
+
+insert into bws_id_lookup (table_name, column_name, max_value) values ('bws_code', 'code_id', 1);

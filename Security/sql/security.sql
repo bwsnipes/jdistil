@@ -39,6 +39,7 @@ ALTER TABLE bws_domain ADD CONSTRAINT pk_domain
    PRIMARY KEY (domain_id)
 ;
 
+insert into bws_id_lookup (table_name, column_name, max_value) values ('bws_domain', 'domain_id', 1);
 
 --
 -- User table.
@@ -65,6 +66,8 @@ ALTER TABLE bws_user ADD CONSTRAINT pk_user
 
 CREATE INDEX idx_user_1 ON bws_user (domain_id);
 
+insert into bws_id_lookup (table_name, column_name, max_value) values ('bws_user', 'user_id', 1);
+
 --
 -- Role table.
 --
@@ -83,6 +86,8 @@ ALTER TABLE bws_role ADD CONSTRAINT pk_role
 ;
 
 CREATE INDEX idx_role_1 ON bws_role (domain_id);
+
+insert into bws_id_lookup (table_name, column_name, max_value) values ('bws_role', 'role_id', 1);
 
 --
 -- User role assignment table.
