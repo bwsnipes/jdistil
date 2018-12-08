@@ -11,11 +11,11 @@
   - Extendible user authentication.
   - Extendible action and field level authorization.
   - Extendible CRUD based processing models.
-  - Support for multitenancy domains.
+  - Support for multi-tenant domains.
   - Support for internationalization (i18n).
   - Independence from third party libraries.
 
-JDistil further simplifies application development by providing two open source default modules and an Eclipse plugin. The default modules support common application functions and the plugin supports domain model based code generation. The following provides additional detail on these items.
+JDistil further simplifies application development by providing an Eclipse plugin and two open source modules. The plugin supports domain model based code generation and the two modules provide default implementations of common functions found in most applications. The plugin and modules provide a low code option for quickly developing CRUD based applications using the JDistil framework. The following provides additional detail on the plugin and modules.
   - Default Modules
     - Codes - Administration and component support for application specific codes.
     - Security - Administration and component support for user authentication and role based authorization.
