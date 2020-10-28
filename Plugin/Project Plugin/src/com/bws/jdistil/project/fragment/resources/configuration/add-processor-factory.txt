@@ -1,0 +1,1 @@
+    ACTION-NAME.addProcessorFactory(new SingletonPojoFactory(ACTION-CLASS.class));

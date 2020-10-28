@@ -1,0 +1,4 @@
+  /**
+   * ATTRIBUTE-DESCRIPTION.
+   */
+  private ATTRIBUTE-TYPE ATTRIBUTE-NAME = null;  

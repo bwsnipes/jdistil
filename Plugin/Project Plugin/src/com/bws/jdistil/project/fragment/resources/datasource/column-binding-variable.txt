@@ -1,0 +1,2 @@
+    // Create ID-COLUMN-DESC ID column binding
+    IdColumnBinding ID-VARIABLE-NAME = new IdColumnBinding("ID-COLUMN-NAME");

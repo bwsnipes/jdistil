@@ -1,0 +1,5 @@
+    // Create code ID column binding
+    IdColumnBinding codeIdColumnBinding = new IdColumnBinding("code_id");
+    
+    // Add associate ID binding to list
+ASSOCIATE-BINDING-STATEMENTS

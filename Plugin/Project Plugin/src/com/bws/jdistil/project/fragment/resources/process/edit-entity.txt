@@ -1,0 +1,22 @@
+package PACKAGE-NAME;
+
+import CONFIGURATION-PACKAGE-NAME.FieldIds;
+import CONFIGURATION-PACKAGE-NAME.PageIds;
+import CONFIGURATION-PACKAGE-NAME.AttributeNames;
+import com.bws.jdistil.core.process.ProcessContext;
+import com.bws.jdistil.core.process.ProcessException;
+import com.bws.jdistil.core.process.model.EditDataObject;
+
+/**
+ * Retrieves data needed to add or edit a ENTITY-NAME.
+ */
+public class EDIT-CLASS-NAME extends EditDataObject<Integer, ENTITY-NAME> {
+
+  /**
+   * Creates a new EDIT-CLASS-NAME object.
+   */
+  public EDIT-CLASS-NAME() {
+    super(ENTITY-CLASS-NAME.class, MANAGER-CLASS-NAME.class, FieldIds.FIELD-NAME, AttributeNames.ATTRIBUTE-NAME, PageIds.PAGE-NAME, VIEW-CLASS-NAME.class, false);
+  }
+
+}

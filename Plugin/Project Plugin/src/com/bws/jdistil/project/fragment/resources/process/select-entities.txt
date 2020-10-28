@@ -1,0 +1,32 @@
+package PACKAGE-NAME;
+
+import CONFIGURATION-PACKAGE-NAME.ActionIds;
+import CONFIGURATION-PACKAGE-NAME.AttributeNames;
+import CONFIGURATION-PACKAGE-NAME.FieldIds;
+import CONFIGURATION-PACKAGE-NAME.PageIds;
+import com.bws.jdistil.core.datasource.database.Operators;
+import com.bws.jdistil.core.process.model.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Retrieves data supporting the select ENTITY-NAME view.
+ */
+public class SELECT-CLASS-NAME extends SelectDataObjects<Integer, ENTITY-NAME> {
+
+  /**
+   * Filter criteria definition.
+   */
+  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(ENTITY-NAME.class);
+FILTER-CRITERIA-DEFINITION
+  /**
+   *  Creates a new SELECT-CLASS-NAME object.
+   */
+  public SELECT-CLASS-NAME() {
+    super(MANAGER-CLASS-NAME.class, filterCriteriaDefinition, AttributeNames.PRIMARY-ATTRIBUTE-NAME, PageIds.PAGE-NAME,
+        AttributeNames.ASSOCIATE-ATTRIBUTE-NAME, FieldIds.SELECTED-ASSOCIATE-ID, ActionIds.ADD-ASSOCIATE-ID, ActionIds.REMOVE-ASSOCIATE-ID, ActionIds.CLOSE-ASSOCIATE-ID);
+  }
+}

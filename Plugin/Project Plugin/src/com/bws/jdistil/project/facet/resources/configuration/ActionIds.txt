@@ -1,0 +1,14 @@
+package PACKAGE_NAME;
+
+/**
+ * Interface defining all application action IDs.
+ */
+public class ActionIds extends com.bws.jdistil.core.configuration.ActionIds {
+
+	public static final String VIEW_HOME = "A1";
+
+  private ActionIds() {
+    super();
+  }
+
+}

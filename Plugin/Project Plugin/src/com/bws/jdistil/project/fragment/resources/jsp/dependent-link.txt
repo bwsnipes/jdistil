@@ -1,0 +1,6 @@
+              <core:popupMenuItem>
+	              <core:link actionId="<%= ActionIds.DEPENDENT-ACTION-NAME %>" >
+  	              <core:pageDescription pageId="<%= PageIds.DEPENDENT-PAGE-NAME %>" />
+    	     	      <core:actionData fieldId="<%= FieldIds.PARENT-ID-FIELD-NAME %>" />
+      	        </core:link>
+              </core:popupMenuItem>

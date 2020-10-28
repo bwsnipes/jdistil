@@ -1,0 +1,4 @@
+				<tr>
+					<td valign="top"><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
+					<td><core:memo fieldId="<%= FieldIds.FIELD-NAME %>" attributeName="<%= AttributeNames.ATTRIBUTE-NAME %>" maxlength="MAX-LENGTH" rows="10" cols="50" /></td>
+				</tr>

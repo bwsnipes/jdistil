@@ -1,0 +1,53 @@
+package PACKAGE-NAME;
+
+import com.bws.jdistil.core.datasource.database.AssociateBinding;
+import com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager;
+import com.bws.jdistil.core.datasource.database.ColumnBinding;
+import com.bws.jdistil.core.datasource.database.DataObjectBinding;
+import com.bws.jdistil.core.datasource.database.DbUtil;
+import com.bws.jdistil.core.datasource.database.IdColumnBinding;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  MANAGER-NAME manager class used to retrieve ENTITY-NAME data objects.
+ */
+public class MANAGER-CLASS-NAME extends BoundDatabaseDataManager<Integer, ENTITY-CLASS-NAME> {
+
+  /**
+   * Creates a new ENTITY-NAME manager object.
+   */
+  public MANAGER-CLASS-NAME() {
+    super();
+  }
+
+  /**
+   * Creates and returns a data object binding.
+   * @see com.bws.core.datasource.BoundDatabaseDataManager#createDataObjectBinding
+   */
+  protected DataObjectBinding createDataObjectBinding() {
+
+    // Set table name
+    String tableName = "TABLE-NAME";
+
+    // Create ID column binding
+    IdColumnBinding idColumnBinding = new IdColumnBinding("ID-COLUMN-NAME");
+
+    // Create and populate column bindings
+    List<ColumnBinding> columnBindings = new ArrayList<ColumnBinding>();
+COLUMN-BINDING-STATEMENTS
+    columnBindings.add(new ColumnBinding("is_deleted", DbUtil.BOOLEAN, false, true, "IsDeleted"));
+    columnBindings.add(new ColumnBinding("version", DbUtil.LONG, false, false, "Version"));
+    
+    // Create associate bindings list
+    List<AssociateBinding> associateBindings = new ArrayList<AssociateBinding>();
+
+ASSOCIATE-BINDING-STATEMENTS
+    // Create ENTITY-NAME binding
+    DataObjectBinding binding = new DataObjectBinding(ENTITY-CLASS-NAME.class, tableName, idColumnBinding, columnBindings, null, associateBindings);
+
+    return binding;
+  }
+  
+}

@@ -1,0 +1,1 @@
+    ObjectBinding BINDING-NAME = new ObjectBinding(BINDING-CLASS.class);    

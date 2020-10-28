@@ -1,0 +1,14 @@
+package PACKAGE_NAME;
+
+/**
+ * Class defining all  application page IDs.
+ */
+public class PageIds extends com.bws.jdistil.core.configuration.PageIds {
+
+  public static final String HOME = "P1";
+
+  private PageIds() {
+    super();
+  }
+
+}

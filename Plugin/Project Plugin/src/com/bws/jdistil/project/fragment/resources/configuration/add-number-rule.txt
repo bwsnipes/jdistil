@@ -1,0 +1,1 @@
+    FIELD-NAME.addRule(new NumberRule(PRECISION, SCALE, NumberRule.VALUE-TYPE));

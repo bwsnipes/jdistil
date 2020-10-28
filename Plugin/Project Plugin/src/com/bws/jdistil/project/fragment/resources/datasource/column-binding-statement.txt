@@ -1,0 +1,1 @@
+    columnBindings.add(new ColumnBinding("PRIMARY-COLUMN-NAME", DbUtil.COLUMN-TYPE, IS-UNIQUE-MEMBER, IS-VIRTUAL-DELETE, "PROPERTY-NAME"));

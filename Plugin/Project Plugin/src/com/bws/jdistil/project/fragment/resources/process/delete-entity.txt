@@ -1,0 +1,18 @@
+package PACKAGE-NAME;
+
+import CONFIGURATION-PACKAGE-NAME.FieldIds;
+import com.bws.jdistil.core.process.model.DeleteDataObject;
+
+/**
+ * Deletes a ENTITY-NAME using submitted data.
+ */
+public class DELETE-CLASS-NAME extends DeleteDataObject<Integer, ENTITY-NAME> {
+
+  /**
+   * Creates a new DELETE-CLASS-NAME object.
+   */
+  public DELETE-CLASS-NAME() {
+    super(MANAGER-CLASS-NAME.class, FieldIds.FIELD-NAME, VIEW-CLASS-NAME.class);
+  }
+
+}

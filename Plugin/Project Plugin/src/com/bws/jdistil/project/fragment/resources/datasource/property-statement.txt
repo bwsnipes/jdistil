@@ -1,0 +1,16 @@
+  /**
+   * Returns the PROPERTY-DESCRIPTION.
+   * @return ATTRIBUTE-TYPE ATTRIBUTE-DESCRIPTION.
+   */
+  public ATTRIBUTE-TYPE getPROPERTY-NAME() {
+    return ATTRIBUTE-NAME;
+  }
+  
+  /**
+   * Sets the PROPERTY-DESCRIPTION.
+   * @param ATTRIBUTE-NAME ATTRIBUTE-DESCRIPTION.
+   */
+  public void setPROPERTY-NAME(ATTRIBUTE-TYPE ATTRIBUTE-NAME) {
+    updateModifiedStatus(this.ATTRIBUTE-NAME, ATTRIBUTE-NAME);
+    this.ATTRIBUTE-NAME = ATTRIBUTE-NAME;
+  }
