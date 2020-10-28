@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.bws.jdistil.project.feature"
+      label="Web Application Builder"
+      version="1.0.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      Supports the creation of Java web applications using the JDistil web application framework.
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      Copyright (C) 2015 Bryan W. Snipes
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      END USER LICENSE AGREEMENT
+
+By installing or using the Bryan W. Snipes (the “Company”) product JDistil Plugin (the “Software”) you indicate your agreement to the terms of this End User License Agreement (the “Agreement”).  If you do not agree to the terms herein, you are not authorized to copy or use the Software.  The Software, all images, photographs, icons, and text incorporated in the Software, is owned by Company or its suppliers and is protected by United States copyright laws and international treaty provisions.  Except to the extent expressly licensed herein, all rights are reserved to Company and its suppliers.  You may not reverse engineer, decompile or disassemble the Software except as set forth herein.
+
+ATTENTION:  USE OF THE SOFTWARE IS SUBJECT TO THE TERMS SET FORTH BELOW.  USING THE SOFTWARE INDICATES YOUR ACCEPTANCE OF THESE TERMS.  IF YOU DO NOT ACCEPT THESE TERMS YOU ARE NOT AUTHORIZED TO USE THIS SOFTWARE.
+
+
+1.    LICENSE GRANT
+The Company grants you a non-exclusive, royalty-free, worldwide right and license to use the executable version of the Software, where “use” in this Agreement means storing, loading, installing or executing the Software.  You may not modify the Software or disable any licensing or control features of the Software. You agree that you may not copy the written materials accompanying the Software.  You may copy the software for archival purposes so long as the copy is unmodified from the original distribution and the copy retains all of the original Software’s proprietary notices. You may not rent or lease your rights to the Software or documentation. If you are an individual and this Agreement is for a single license, you may install the Software on multiple computers provided that not more than one of those computers is in use simultaneously and that those computers are solely for your own use. If the Software license you have is for a single user license then the Software may be installed on a computer that is for multiple users but it may not be installed on more than one computer regardless of whether those computers are operated simultaneously or not. If this Agreement is for a multi-user (site) license, the number of computers on which the Software is installed may not exceed the number of licenses purchased, regardless of whether the computer is used by multiple users or not. You may use this software in a networked environment on computers other than the computer on which the software is installed provided that you have purchased licenses for each computer that will use the software, regardless of whether those computers will use the software at the same time or not. 
+  
+2.    OWNERSHIP
+All right, title and interest in and to the Software is owned and copyrighted by the Company or its third party suppliers. Your license confers neither title to nor ownership in the Software and is not a sale of any rights in the Company. Company third party suppliers may protect their rights in the event of any violation of this License Agreement as if such suppliers were parties to this License Agreement.  No license is given to you under any patent or patent application of Company.
+
+3.    COPIES AND ADAPTATIONS
+Other than as provided in the License Grant section of this agreement, you may only make copies or adaptations of the Software for archival purposes or when copying or adaptation is an essential step in the authorized use of the Software. You must reproduce all copyright notices in the original Software on all copies or adaptations.
+
+4.    NO DISASSEMBLY, RECOMPILATION OR DECRYPTION
+You may not disassemble or decompile the Software unless Company prior written consent is obtained. In some jurisdictions, Company consent may not be required for limited disassembly or decompilation.  Upon request, you will provide Company with reasonably detailed information regarding any disassembly or decompilation. You may not decrypt the Software unless decryption is an essential step in the authorized use of the Software.
+If you have obtained a source code version of this program, you may use the unmodified binary executable in accordance with this Agreement, but source code for the Product is not covered by this Agreement. Source code is provided exclusively as an educational service and you agree that all responsibility for all use of source code is yours alone and that Company assumes no responsibility for any use of source code by you.  
+
+5.    NO WARRANTIES
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, COMPANY EXPRESSLY DISCLAIMS ANY WARRANTY FOR THE SOFTWARE.  THE SOFTWARE AND ANY RELATED DOCUMENTATION IS PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY PROPRIETARY RIGHTS.  THE ENTIRE RISK ARISING OUT OF USE OR PERFORMANCE OF THE SOFTWARE REMAINS WITH YOU.
+
+6.    NO LIABILITY FOR DAMAGES
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, NEITHER COMPANY NOR ITS SUPPLIERS SHALL BE LIABLE FOR ANY INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES WHATSOEVER (INCLUDING WITHOUT LIMITATION, DAMAGES FOR LOSS OF BUSINESS PROFIT, BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LOSS) ARISING OUT OF OR RELATING TO THE USE OR INABILITY TO USE THIS SOFTWARE, EVEN IF COMPANY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.  BECAUSE SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, THE ABOVE LIMITATION MAY NOT APPLY TO YOU. FURTHERMORE, THE COMPANY’S LIABILITY FOR DIRECT DAMAGES SHALL NOT EXCEED THE LICENSE FEE, IF ANY, PAID BY YOU DIRECTLY TO THE COMPANY FOR USE OF THE PRODUCT OR ANY LICENSE FEE RECEIVED BY THE COMPANY FOR THE USE OF THE PRODUCT IF PURCHASED THROUGH AN AUTHORIZED THIRD PARTY.
+
+7.    CUSTOMER REMEDIES
+YOUR EXCLUSIVE REMEDY SHALL BE, AT COMPANY OPTION, REPAIR OR REPLACEMENT OF THE SOFTWARE OR REFUND OF PART OR ALL OF THE LICENSE FEE, IF ANY, PAID BY YOU FOR THE SOFTWARE.
+
+8.    INDEMNIFICATION
+This Software is intended for use with data, media, files, and content for which you have sufficient rights to, authority for, or ownership of. It is your responsibility to ascertain whether copyrights, patents, or other licenses are needed for the content that you use in conjunction with this Software. You agree to hold harmless, indemnify and defend the Company, its officers, directors, employees and third party suppliers against any loss, damage, fine, or expense including attorney’s fees arising out of or related to any claim that you have used this Software in violation of applicable laws in your jurisdiction. It is your responsibility to abide by the laws of whichever jurisdiction you reside in. 
+
+9.    TERMINATION
+This Agreement shall continue for the duration of Company copyright in the Software, unless earlier terminated as provided herein. The Company may terminate your license immediately without notice to you for your failure to comply with any of the terms set forth in this Agreement. Upon termination, you must immediately destroy the Software, together with all copies, adaptations and merged portions thereof in any form. Obligations to pay accrued charges or fees shall survive the termination of this Agreement. 
+
+10.    ASSIGNMENT AND NON-ASSIGNMENT
+If you are an individual and this Agreement is for a single license, then this license is personal to you but you may assign your rights under this Agreement to a third party who agrees in writing to be bound to this Agreement prior to the assignment and provided that you transfer all copies of the Software, registration keys and/or codes, and related documentation to the third party and destroy any copies not transferred. If you are an individual and this Agreement is for a multi-user license, or you are not an individual and are an entity, then you may not assign your rights under this Agreement without the prior written permission of the Company. If you are an entity that merges with or is acquired by another entity then your rights under this Agreement shall be deemed to be temporarily assigned to the resulting entity of that merge or acquisition provided that you supply the Company with written notice not later than the date on which any public announcement of that merger or acquisition is made.  Upon receipt of written notice, the Company shall have thirty (30) days to either accept or reject the assignment of rights.  
+
+11.    EXPORT REQUIREMENTS
+You may not export or re-export the Software or any copy or adaptation in violation of any applicable laws or regulations.
+
+12.    U.S. GOVERNMENT RESTRICTED RIGHTS 
+The Software and any accompanying documentation have been developed entirely at private expense. They are delivered and licensed as “commercial computer software.”  If this Software is acquired under the terms of a DOD or civilian agency contract, use, reproduction or disclosure of the Software by the Government is subject to the restrictions set forth in this License Agreement in accordance with 48 C.F.R. 227.7202 or 48 C.F.R. 12.212, respectively.
+
+13.    NEGATION OF PARTNERSHIP
+Company shall not become or be deemed a partner or a joint venturer with you by reason of the provisions of this license.
+
+14.    GOVERNING LAW AND FORUM
+Irrespective of the place of execution or performance, this License Agreement shall be governed and construed in accordance with the laws of a jurisdiction of Company&apos;s choosing, likely from among Canada, the United States of America, or the Republic of Korea, applicable to agreements.  Any litigation to enforce or interpret the provisions of this License Agreement or the parties’ rights or obligations arising out of this License Agreement or the performance hereunder shall be maintained only in the courts in a City of Company&apos;s choosing, and the parties expressly consent to personal jurisdiction in such courts. In the event that you breach this Agreement or indicate your intention to breach this Agreement in any manner that violates or may violate the Company’s intellectual property rights or may cause continuing or irreparable harm to the Company, the Company may seek injunctive relief in any court of competent jurisdiction. The United Nations Convention on Contracts for the International Sale of Goods is specifically disclaimed.
+
+15.    ENTIRE AGREEMENT  
+Unless otherwise expressly agreed in writing, this License Agreement constitutes the sole and exclusive agreement between you and Company with regard to the Software, and supersedes all prior agreements, whether oral or written, and other communications between the parties relating to the subject matter set forth herein.
+If you have any questions regarding this License Agreement or if you wish to request any information from Company, please contact the firm at the email address below. All correspondence must be in English. 
+
+www.jdistil.com
+
+Copyright (C) 2015 Bryan W. Snipes
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.wst.common.project.facet.ui"/>
+      <import plugin="org.eclipse.wst.common.modulecore"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.jst.j2ee"/>
+      <import plugin="org.eclipse.jst.j2ee.core"/>
+      <import plugin="org.eclipse.jst.j2ee.web"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.text"/>
+      <import plugin="org.eclipse.wst.common.project.facet.core"/>
+   </requires>
+
+   <plugin
+         id="com.bws.jdistil.project"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+</feature>
