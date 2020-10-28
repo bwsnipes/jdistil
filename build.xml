@@ -1,7 +1,7 @@
-<project name="jdistil" default="jdistil-framework" basedir=".">
+<project name="jdistil" default="jdistil-plugin" basedir=".">
 
   <description>
-    Builds the JDistil framework libraries.
+    Builds the JDistil framework libraries, copies updated files to Plugin resources and copies documentation to website directory.
   </description>
 
   <target name="jdistil-framework">
@@ -12,4 +12,91 @@
     <ant dir="SecurityApp/ant/" target="security-app" inheritAll="false" useNativeBasedir="true"/>        
   </target>
 
+  <target name="jdistil-plugin" depends="jdistil-framework">
+  
+    <fileset id="jdistil-core-jar" dir="Core/ant/dist/" includes="*.jar">
+      <filename regex=".*jdistil-core-[0-9]*\.[0-9]*\.[0-9]*.jar" />
+    </fileset>
+
+    <fileset id="jdistil-codes-jar" dir="Codes/ant/dist/" includes="*.jar">
+      <filename regex=".*jdistil-codes-[0-9]*\.[0-9]*\.[0-9]*.jar" />
+    </fileset>
+
+    <fileset id="jdistil-codes-app-jar" dir="CodesApp/ant/dist/" includes="*.jar">
+      <filename regex=".*jdistil-codes-app-[0-9]*\.[0-9]*\.[0-9]*.jar" />
+    </fileset>
+
+    <fileset id="jdistil-security-jar" dir="Security/ant/dist/" includes="*.jar">
+      <filename regex=".*jdistil-security-[0-9]*\.[0-9]*\.[0-9]*.jar" />
+    </fileset>
+
+    <fileset id="jdistil-security-app-jar" dir="SecurityApp/ant/dist/" includes="*.jar">
+      <filename regex=".*jdistil-security-app-[0-9]*\.[0-9]*\.[0-9]*.jar" />
+    </fileset>
+
+    <pathconvert property="jdistil-core-version" refid="jdistil-core-jar">
+      <mapper type="regexp" from=".*-([0-9]*\.[0-9]*\.[0-9]*).jar" to="\1" />
+    </pathconvert>
+
+    <pathconvert property="jdistil-codes-version" refid="jdistil-codes-jar">
+      <mapper type="regexp" from=".*-([0-9]*\.[0-9]*\.[0-9]*).jar" to="\1" />
+    </pathconvert>
+
+    <pathconvert property="jdistil-codes-app-version" refid="jdistil-codes-app-jar">
+      <mapper type="regexp" from=".*-([0-9]*\.[0-9]*\.[0-9]*).jar" to="\1" />
+    </pathconvert>
+
+    <pathconvert property="jdistil-security-version" refid="jdistil-security-jar">
+      <mapper type="regexp" from=".*-([0-9]*\.[0-9]*\.[0-9]*).jar" to="\1" />
+    </pathconvert>
+
+    <pathconvert property="jdistil-security-app-version" refid="jdistil-security-app-jar">
+      <mapper type="regexp" from=".*-([0-9]*\.[0-9]*\.[0-9]*).jar" to="\1" />
+    </pathconvert>
+
+    <echo message="Core Version: ${jdistil-core-version}" />
+    <echo message="Codes Version: ${jdistil-codes-version}" />
+    <echo message="Codes App Version: ${jdistil-codes-app-version}" />
+    <echo message="Security Version: ${jdistil-security-version}" />
+    <echo message="Security App Version: ${jdistil-security-app-version}" />
+    
+    <delete includeEmptyDirs="true">
+      <fileset dir="Plugin/Project Plugin/src/com/bws/jdistil/project/facet/resources/libraries/" includes="*.jar"/>
+    </delete>
+
+    <propertyfile file="Plugin/Project Plugin/src/com/bws/jdistil/project/facet/resources/libraries/version.properties">
+      <entry key="jdistil-core-version" value="${jdistil-core-version}" />
+      <entry key="jdistil-codes-version" value="${jdistil-codes-version}" />
+      <entry key="jdistil-codes-app-version" value="${jdistil-codes-app-version}" />
+      <entry key="jdistil-security-version" value="${jdistil-security-version}" />
+      <entry key="jdistil-security-app-version" value="${jdistil-security-app-version}" />
+    </propertyfile>
+    
+    <copy todir="Plugin/Project Plugin/src/com/bws/jdistil/project/facet/resources/libraries/">
+      <fileset refid="jdistil-core-jar" />
+      <fileset refid="jdistil-codes-jar" />
+      <fileset refid="jdistil-codes-app-jar" />
+      <fileset refid="jdistil-security-jar" />
+      <fileset refid="jdistil-security-app-jar" />
+    </copy>
+
+    <copy todir="Plugin/Project Plugin/src/com/bws/jdistil/project/facet/resources/properties/" >
+      <fileset dir="Core/properties/" />
+    </copy>
+
+    <copy todir="Plugin/Project Plugin/src/com/bws/jdistil/project/facet/resources/sql/" >
+      <fileset dir="Core/sql/" />
+      <fileset dir="Codes/sql/" />
+      <fileset dir="Security/sql/" />
+      <fileset dir="SecurityApp/sql/" />
+    </copy>
+
+    <copy todir="Plugin/Project Plugin/src/com/bws/jdistil/project/facet/resources/web/" >
+      <fileset dir="Core/presentation/" />
+      <fileset dir="CodesApp/WebContent/codes/" />
+      <fileset dir="SecurityApp/WebContent/security/" />
+    </copy>
+    
+  </target>
+  
 </project>
