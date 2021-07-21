@@ -2,7 +2,7 @@
 <feature
       id="com.bws.jdistil.project.feature"
       label="Web Application Builder"
-      version="1.0.0.qualifier">
+      version="3.3.1">
 
    <description url="http://www.example.com/description">
       Supports the creation of Java web applications using the JDistil web application framework.

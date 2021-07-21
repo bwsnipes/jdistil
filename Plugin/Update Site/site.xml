@@ -3,7 +3,7 @@
    <description name="JDistil Update Site" url="http://com.jdistil.com/update">
       JDistil plugin update site.
    </description>
-   <feature url="features/com.bws.jdistil.project.feature_1.0.0.201812081913.jar" id="com.bws.jdistil.project.feature" version="1.0.0.201812081913">
+   <feature url="features/com.bws.jdistil.project.feature_1.0.0.202107211132.jar" id="com.bws.jdistil.project.feature" version="1.0.0.202107211132">
       <category name="JDistil"/>
    </feature>
    <category-def name="JDistil" label="JDistil"/>
