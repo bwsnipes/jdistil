@@ -185,7 +185,7 @@ public class Form extends Component {
       setDynamicAttribute(null, "action", "Controller");
     }
     if (!isAttributeDefined("method")) {
-      setDynamicAttribute(null, "method", "put");
+      setDynamicAttribute(null, "method", "post");
     }
 
     return super.buildAttributes();
