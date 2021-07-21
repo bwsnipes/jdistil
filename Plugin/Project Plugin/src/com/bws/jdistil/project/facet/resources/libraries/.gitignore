@@ -1,6 +1,6 @@
-/jdistil-codes-3.3.0.jar
-/jdistil-codes-app-3.3.0.jar
-/jdistil-core-3.3.0.jar
-/jdistil-security-3.3.0.jar
-/jdistil-security-app-3.3.0.jar
+/jdistil-codes-*.jar
+/jdistil-codes-app-*.jar
+/jdistil-core-*.jar
+/jdistil-security-*.jar
+/jdistil-security-app-*.jar
 /version.properties
