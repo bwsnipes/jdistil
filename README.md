@@ -2,7 +2,7 @@
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](http://www.gnu.org/licenses/lgpl-3.0) 
 
-[JDistil](http://www.jdistil.com) is an open source, independent, full stack, lightweight and extensible framework focused on simplifying application development and reducing the amount of time required to build Java web applications. The framework is built using simple design principles and supports the functionality commonly required by data centric applications. The following key features are included in the core framework. 
+[JDistil](https://bwsnipes.github.io/jdistil) is an open source, independent, full stack, lightweight and extensible framework focused on simplifying application development and reducing the amount of time required to build Java web applications. The framework is built using simple design principles and supports the functionality commonly required by data centric applications. The following key features are included in the core framework. 
   - Action based MVC model.
   - Code based application configuration.
   - Code based ORM support with dynamic query capabilities.
@@ -26,6 +26,6 @@ JDistil further simplifies application development by providing an Eclipse plugi
     - Fragment Relationship Wizard - Updates application resources to establish a relationship between two application fragments.
 
 #### Application Stack
-![Diagram](http://www.jdistil.com/images/application-stack.png)
+![Diagram](https://bwsnipes.github.io/jdistil/images/application-stack.png)
 
-For additional information including video demonstrations please visit www.jdistil.com
+For additional information including video demonstrations please visit https://bwsnipes.github.io/jdistil/utilities.html
