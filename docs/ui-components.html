@@ -1,0 +1,662 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of the UI components in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">UI Components</h3>
+				<div class="section-content">
+					The JDistil framework includes a custom tag library that provides UI components supporting the creation of logic-less JSP pages.
+					These UI components are fully integrated with the framework and provide features such as data binding, data iteration, dynamic action data,
+					internationalization (i18n) based on application configuration data, and pre-emptive security based on the framework security model.					
+					These UI components are separated into five distinct packages based on functionality and the following table provides a description
+					of the types of components available in each of the packages. Subsequent sections further document each of the UI components 
+					available in these packages and the last section provides example JSP pages illustrating the use of some of the UI components.<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Package</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.core.tag.basic</td>
+							<td>Higher level foundational and structural UI components.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.core.tag.action</td>
+							<td>UI components supporting the invocation of application actions.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.core.tag.data</td>
+							<td>UI components supporting the presentation and entry of application data.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.core.tag.paging</td>
+							<td>UI components supporting pagination of application data.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.core.tag.table</td>
+							<td>UI components supporting the display of application data in an HTML table.</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Basic</h3>
+				<div class="section-content">
+					The following table describes the components contained in the "com.bws.jdistil.core.tag.basic" package.
+					<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Component</td>
+							<td>Base component for all other components providing exception handling, support for dynamic attributes, and security manager access.</td>
+						</tr>
+						<tr>
+							<td nowrap>Body</td>
+							<td>Produces an HTML body tag using a page ID. Ensures a user is authenticated if the page is defined as secure.</td>
+						</tr>
+						<tr>
+							<td nowrap>Form</td>
+							<td>Produces an HTML form tag using an action ID. Configures form to perform a put the framework Controller servlet.</td>
+						</tr>
+						<tr>
+							<td nowrap>Group</td>
+							<td>Produces an HTML div tag used to hide and show components nested within the tag body.</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Action</h3>
+				<div class="section-content">
+					The following table describes the components contained in the "com.bws.jdistil.core.tag.action" package.
+					<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>ActionComponent</td>
+							<td>Base component for all other action components providing support for dynamic action data, action confirmation, and action authorization.</td>
+						</tr>
+						<tr>
+							<td nowrap>ActionData</td>
+							<td>Specifies a field ID and associated value to include in the submitted action data when nested inside an action component.</td>
+						</tr>
+						<tr>
+							<td nowrap>Button</td>
+							<td>Produces an HTML button tag supporting submission of a specified action.</td>
+						</tr>
+						<tr>
+							<td nowrap>Link</td>
+							<td>Produces an HTML anchor tag supporting submission of a specified action.</td>
+						</tr>
+						<tr>
+							<td nowrap>MenuBar</td>
+							<td>Produces an HTML div tag and an unordered list tag containing one or more menu components. HTML tags are aligned with the core framework CSS styles.</td>
+						</tr>
+						<tr>
+							<td nowrap>Menu</td>
+							<td>Produces an HTML list item tag, an anchor tag representing the selectable menu and an unordered list tag containing one or more menu item components. HTML tags are aligned with the core framework CSS styles.</td>
+						</tr>
+						<tr>
+							<td nowrap>MenuItem</td>
+							<td>Produces an HTML list item tag containing one or more display components representing the selectable menu item. HTML tags are aligned with the core framework CSS styles.</td>
+						</tr>
+						<tr>
+							<td nowrap>PopupMenu</td>
+							<td>Produces an HTML list item tag, an anchor tag representing the selectable popup menu and an unordered list tag containing one or more popup menu item components. HTML tags are aligned with the core framework CSS styles.</td>
+						</tr>
+						<tr>
+							<td nowrap>PopupMenuItem</td>
+							<td>Produces an HTML list item tag containing one or more display components representing the selectable popup menu item. HTML tags are aligned with the core framework CSS styles.</td>
+						</tr>
+						<tr>
+							<td nowrap>BreadcrumbTrail</td>
+							<td>Produces a series of HTML anchor tags representing a breadcrumb trail used to navigate back to previous views.</td>
+						</tr>
+						<tr>
+							<td nowrap>BreadcrumbAction</td>
+							<td>Specifies action IDs to be tracked for a breadcrumb link when nested within a breadcrumb trail component.</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Data</h3>
+				<div class="section-content">
+					The following table describes the components contained in the "com.bws.jdistil.core.tag.data" package.
+					<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>ValueComponent</td>
+							<td>Base component for all other value components providing support for obtaining a formatted or unformatted field value, and determining editable, read only, or hidden authorization.</td>
+						</tr>
+						<tr>
+							<td nowrap>Label</td>
+							<td>Produces an HTML label tag using an i18n locale specific field description.</td>
+						</tr>
+						<tr>
+							<td nowrap>Description</td>
+							<td>Produces an i18n locale specific field description for a given value.</td>
+						</tr>
+						<tr>
+							<td nowrap>CheckField</td>
+							<td>Produces an HTML input tag of type checkbox.</td>
+						</tr>
+						<tr>
+							<td nowrap>DateField</td>
+							<td>Produces an HTML input tag of type date.</td>
+						</tr>
+						<tr>
+							<td nowrap>EmailField</td>
+							<td>Produces an HTML input tag of type email.</td>
+						</tr>
+						<tr>
+							<td nowrap>HiddenField</td>
+							<td>Produces an HTML input tag of type hidden.</td>
+						</tr>
+						<tr>
+							<td nowrap>MemoField</td>
+							<td>Produces an HTML text area tag.</td>
+						</tr>
+						<tr>
+							<td nowrap>OptionField</td>
+							<td>Produces an HTML input tag of type radio.</td>
+						</tr>
+						<tr>
+							<td nowrap>PasswordField</td>
+							<td>Produces an HTML input tag of type password.</td>
+						</tr>
+						<tr>
+							<td nowrap>PhoneNumberField</td>
+							<td>Produces an HTML input tag of type phone.</td>
+						</tr>
+						<tr>
+							<td nowrap>TextField</td>
+							<td>Produces an HTML input tag of type text.</td>
+						</tr>
+						<tr>
+							<td nowrap>TimeField</td>
+							<td>Produces an HTML input tag of type time.</td>
+						</tr>
+						<tr>
+							<td nowrap>DisplayField</td>
+							<td>Produces an HTML span tag containing the formatted field value.</td>
+						</tr>
+						<tr>
+							<td nowrap>DisplayListField</td>
+							<td>Produces an HTML span tag containing a vertical list of formatted field values.</td>
+						</tr>
+						<tr>
+							<td nowrap>DisplayMultipleListField</td>
+							<td>
+								Produces an HTML span tag containing a vertical list of reference item descriptions where the reference item values match 
+								the field values. The reference list must contain objects of type IListItem and be available by name in the request attributes.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>PageDescription</td>
+							<td>Produces a locale specific i18n page description in plain text.</td>
+						</tr>
+						<tr>
+							<td nowrap>ProcessMessages</td>
+							<td>
+								Produces an HTML table containing process messages for each message type available in the process context. 
+								This includes messages of type information, confirmation, warning and error. A table is only produce for a given message type if messages exist.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>Fields</td>
+							<td>Produces an HTML input tag of type hidden for each field registered by tags nested within its body. Fields can be registered for inclusion and exclusion.</td>
+						</tr>
+						<tr>
+							<td nowrap>IncludeField</td>
+							<td>Registers a field to be included for processing when nested in a Fields tag.</td>
+						</tr>
+						<tr>
+							<td nowrap>IncludeActionFields</td>
+							<td>Registers all fields associated with a specified action to be included for processing when nested in a Fields tag.</td>
+						</tr>
+						<tr>
+							<td nowrap>ExcludeField</td>
+							<td>Registers a field to be excluded from processing when nested in a Fields tag.</td>
+						</tr>
+						<tr>
+							<td nowrap>ExcludeActionFields</td>
+							<td>Registers all fields associated with a specified action to be excluded from processing when nested in a Fields tag.</td>
+						</tr>
+						<tr>
+							<td nowrap>ListField</td>
+							<td>
+								Produces an HTML select tag containing a list of reference item values and descriptions. 
+								The reference list must contain objects of type IListItem and be available by name in the request attributes.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>BooleanListField</td>
+							<td>Produces an HTML select tag containing a list of boolean values and descriptions. </td>
+						</tr>
+						<tr>
+							<td nowrap>OperatorListField</td>
+							<td>
+								Produces an HTML select tag containing a list of text or numeric based operator values and descriptions. 
+								Also provides support for displaying operator symbols or text.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>MultipleListField</td>
+							<td>
+								Composite component consisting of HTML table, label, select, and button tags supporting the selection 
+								of multiple items using available and selected lists.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>MultipleListGroup</td>
+							<td>
+								Supports the use of multiple selected item lists when nested in a multiple list field. Results in a single 
+								available items list and a selected list for each nested multiple list group.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>AssociateField</td>
+							<td>
+								Composite component consisting of HTML input tag of type text and button tag supporting the off page selection 
+								of a single data object to be associated with the page specific target data object.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>AssociateListField</td>
+							<td>
+								Composite component consisting of HTML select tag and a button tag supporting the off page selection 
+								of multiple data objects to be associated with the page specific target data object.
+							</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Table</h3>
+				<div class="section-content">
+					The following table describes the components contained in the "com.bws.jdistil.core.tag.table" package.
+					<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Table</td>
+							<td>Produces an HTML table tag and handles data iteration and evaluation of other nested table components.</td>
+						</tr>
+						<tr>
+							<td nowrap>TableHeader</td>
+							<td>Produces an HTML table row tag in the first row of the table.</td>
+						</tr>
+						<tr>
+							<td nowrap>TableFooter</td>
+							<td>Produces an HTML table row tag in the last row of the table.</td>
+						</tr>
+						<tr>
+							<td nowrap>TableRow</td>
+							<td>Produces an HTML table row tag for each iteration of table data.</td>
+						</tr>
+						<tr>
+							<td nowrap>TableData</td>
+							<td>Produces an HTML table header, table footer, or table data tag depending upon the type of table component it is nested within.</td>
+						</tr>
+						<tr>
+							<td nowrap>SortableColumnHeader</td>
+							<td>Produces an HTML anchor tag supporting the ascending and descending sorting of table data.</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Paging</h3>
+				<div class="section-content">
+					The following table describes the components contained in the "com.bws.jdistil.core.tag.paging" package.
+					<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>PageNavigation</td>
+							<td>Displays pagination controls including previous, next and a range of select page links.</td>
+						</tr>
+						<tr>
+							<td nowrap>CurrentPageNumber</td>
+							<td>Displays the currently selected page number.</td>
+						</tr>
+						<tr>
+							<td nowrap>TotalPages</td>
+							<td>Displays the total number of available pages.</td>
+						</tr>
+						<tr>
+							<td nowrap>TotalItems</td>
+							<td>Displays the total number of available items.</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Examples</h3>
+				<div class="section-content">
+					The following two example JSP pages illustrate the use of some of the UI components. These examples were generated 
+					using the application fragment wizard included with the JDistil plugin.
+				</div>
+				<div class="section-content">
+					The following is an example view data objects JSP page that includes a breadcrumb trail, filter fields, pagination, 
+                    sortable column headers, pop-up menus, and various action components.
+				</div>
+				<pre class="code-content">
+&lt;%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%&gt;
+
+&lt;%@ page import="com.bws.jdistil.core.configuration.FieldValues" %&gt;
+&lt;%@ page import="com.bws.jdistil.core.datasource.database.Operators" %&gt;
+&lt;%@ page import="com.bws.jdistil.core.message.Messages" %&gt;
+&lt;%@ page import="com.bws.test.configuration.ActionIds" %&gt;
+&lt;%@ page import="com.bws.test.configuration.AttributeNames" %&gt;
+&lt;%@ page import="com.bws.test.configuration.CategoryIds" %&gt;
+&lt;%@ page import="com.bws.test.configuration.FieldIds" %&gt;
+&lt;%@ page import="com.bws.test.configuration.PageIds" %&gt;
+
+&lt;%@ taglib uri="com/bws/jdistil/core" prefix="core" %&gt;
+&lt;%@ taglib uri="com/bws/jdistil/codes" prefix="codes" %&gt;
+
+&lt;html&gt;
+	
+    &lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"&gt;
+        &lt;link rel="stylesheet" type="text/css" href="core.css" /&gt;
+        &lt;script type="text/javascript" src="core.js"&gt;&lt;/script&gt;
+        &lt;title&gt;&lt;core:pageDescription pageId="&lt;%= PageIds.COMPANIES %&gt;" /&gt;&lt;/title&gt;
+    &lt;/head&gt;
+	
+    &lt;core:body pageId="&lt;%= PageIds.COMPANIES %&gt;"&gt;
+
+        &lt;jsp:include page="../Header.jsp" /&gt;
+
+        &lt;div class="page"&gt;			
+    
+            &lt;core:breadcrumbTrail isStartOfTrail="&lt;%= true %&gt;" &gt;
+                &lt;core:pageDescription pageId="&lt;%= PageIds.COMPANIES %&gt;" /&gt;
+                &lt;core:breadcrumbAction actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;"/&gt;
+                &lt;core:breadcrumbAction actionId="&lt;%= ActionIds.VIEW_COMPANY_PREVIOUS_PAGE %&gt;"/&gt;
+                &lt;core:breadcrumbAction actionId="&lt;%= ActionIds.VIEW_COMPANY_SELECT_PAGE %&gt;"/&gt;
+                &lt;core:breadcrumbAction actionId="&lt;%= ActionIds.VIEW_COMPANY_NEXT_PAGE %&gt;"/&gt;
+            &lt;/core:breadcrumbTrail&gt;
+
+            &lt;core:form id="Companies" actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" &gt;
+        
+                &lt;core:processMessages /&gt;
+
+                &lt;core:hidden fieldId="&lt;%= FieldIds.COMPANY_ID %&gt;" fieldValue="&lt;%= null %&gt;" /&gt;
+                &lt;core:hidden fieldId="&lt;%= FieldIds.SORT_FIELD %&gt;" defaultValue="&lt;%= FieldIds.COMPANY_NAME %&gt;" /&gt;
+                &lt;core:hidden fieldId="&lt;%= FieldIds.SORT_DIRECTION %&gt;" defaultValue="&lt;%= FieldValues.SORT_ASCENDING %&gt;" /&gt;
+
+                &lt;core:group id="&lt;%= "filterGroup" %&gt;>" fieldId="&lt;%= FieldIds.COMPANY_GROUP_STATE %&gt;" hideLabel="&lt;%= "Hide Filter" %&gt;" 
+                        showLabel="&lt;%= "Show Filter" %&gt;" isHiddenByDefault="&lt;%= Boolean.TRUE %&gt;" &gt;
+                    &lt;table&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_NAME_FILTER %&gt;" /&gt;&lt;/td&gt;
+                            &lt;td&gt;
+                                &lt;core:operatorList fieldId="&lt;%= FieldIds.COMPANY_NAME_FILTER_OPERATOR %&gt;" isTextMode="&lt;%= true %&gt;" 
+                                    defaultValue="&lt;%= Operators.CONTAINS %&gt;" /&gt;
+                                &lt;core:text fieldId="&lt;%= FieldIds.COMPANY_NAME_FILTER %&gt;" maxlength="20" /&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_TYPE_FILTER %&gt;" /&gt;&lt;/td&gt;
+                            &lt;td&gt;&lt;codes:list fieldId="&lt;%= FieldIds.COMPANY_TYPE_FILTER %&gt;" categoryId="&lt;%= CategoryIds.COMPANY_TYPE %&gt;"/&gt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_ACTIVE_FILTER %&gt;" /&gt;&lt;/td&gt;
+                            &lt;td&gt;&lt;core:booleanList fieldId="&lt;%= FieldIds.COMPANY_ACTIVE_FILTER %&gt;" /&gt;&lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_CREATED_FILTER %&gt;" /&gt;&lt;/td&gt;
+                            &lt;td&gt;
+                                &lt;core:operatorList fieldId="&lt;%= FieldIds.COMPANY_CREATED_FILTER_OPERATOR %&gt;" isTextMode="&lt;%= false %&gt;" 
+                                    defaultValue="&lt;%= Operators.EQUALS %&gt;" /&gt;
+                                &lt;core:text fieldId="&lt;%= FieldIds.COMPANY_CREATED_FILTER %&gt;" maxlength="10" /&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td colspan="2" /&gt;
+                        &lt;/tr&gt;
+                        &lt;tr&gt;
+                            &lt;td&gt;&nbsp;&lt;/td&gt;
+                            &lt;td&gt;
+                                &lt;core:button actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" /&gt;
+                                &lt;input type="button" value="&lt;core:description value="Clear" /&gt;" 
+                                        onClick="clearFilter('Companies', 'filterGroup');return false;" /&gt;
+                            &lt;/td&gt;
+                        &lt;/tr&gt;
+                    &lt;/table&gt;
+                &lt;/core:toggle&gt;
+                
+                &lt;p&gt;
+                    &lt;label&gt;&lt;core:description value="Page" /&gt;&nbsp;&lt;core:currentPageNumber/&gt;&nbsp;&lt;core:description value="of" /&gt;&nbsp;&lt;core:totalPages/&gt;&lt;/label&gt;
+                    &lt;core:pageNavigation currentPageNumberFieldId="&lt;%= FieldIds.COMPANY_CURRENT_PAGE_NUMBER %&gt;" 
+                        selectedPageNumberFieldId="&lt;%= FieldIds.COMPANY_SELECTED_PAGE_NUMBER %&gt;"
+                        previousPageActionId="&lt;%= ActionIds.VIEW_COMPANY_PREVIOUS_PAGE %&gt;" selectPageActionId="&lt;%= ActionIds.VIEW_COMPANY_SELECT_PAGE %&gt;" 
+                        nextPageActionId="&lt;%= ActionIds.VIEW_COMPANY_NEXT_PAGE %&gt;" /&gt;
+                    &lt;label&gt;&lt;core:totalItems/&gt;&nbsp;&lt;core:description value="Items" /&gt;&lt;/label&gt;
+                &lt;/p&gt;
+                
+                &lt;core:table attributeName="&lt;%= AttributeNames.COMPANIES %&gt;" border="1" cellspacing="1" cellpadding="3" &gt;
+                    &lt;core:th&gt;
+                        &lt;core:td width="100"&gt;
+                            &lt;core:sortableColumnHeader actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" displayFieldId="&lt;%= FieldIds.COMPANY_NAME %&gt;" 
+                                sortFieldId="&lt;%= FieldIds.SORT_FIELD %&gt;" sortDirectionId="&lt;%= FieldIds.SORT_DIRECTION %&gt;" /&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td width="100"&gt;
+                            &lt;core:sortableColumnHeader actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" displayFieldId="&lt;%= FieldIds.COMPANY_ACTIVE %&gt;" 
+                                sortFieldId="&lt;%= FieldIds.SORT_FIELD %&gt;" sortDirectionId="&lt;%= FieldIds.SORT_DIRECTION %&gt;" /&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td width="100"&gt;
+                            &lt;core:sortableColumnHeader actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" displayFieldId="&lt;%= FieldIds.COMPANY_TYPE %&gt;" 
+                                sortFieldId="&lt;%= FieldIds.SORT_FIELD %&gt;" sortDirectionId="&lt;%= FieldIds.SORT_DIRECTION %&gt;" /&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td width="100"&gt;
+                            &lt;core:sortableColumnHeader actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" displayFieldId="&lt;%= FieldIds.COMPANY_CREATED %&gt;" 
+                                sortFieldId="&lt;%= FieldIds.SORT_FIELD %&gt;" sortDirectionId="&lt;%= FieldIds.SORT_DIRECTION %&gt;" /&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td&gt;&nbsp;&lt;/core:td&gt;
+                        &lt;core:td align="center"&gt;
+                            &lt;core:link actionId="&lt;%= ActionIds.ADD_COMPANY %&gt;" &gt;
+                                &lt;core:actionData fieldId="&lt;%= FieldIds.COMPANY_ID %&gt;" fieldValue="&lt;%= null %&gt;" /&gt;
+                            &lt;/core:link&gt;
+                        &lt;/core:td&gt;
+                    &lt;/core:th&gt;
+                    &lt;core:tr&gt;
+                        &lt;core:td align="center"&gt;
+                            &lt;core:link actionId="&lt;%= ActionIds.EDIT_COMPANY %&gt;" &gt;
+                                &lt;core:display fieldId="&lt;%= FieldIds.COMPANY_NAME %&gt;" /&gt;
+                                &lt;core:actionData fieldId="&lt;%= FieldIds.COMPANY_ID %&gt;" /&gt;
+                            &lt;/core:link&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td&gt;
+                            &lt;core:display fieldId="&lt;%= FieldIds.COMPANY_ACTIVE %&gt;" /&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td&gt;
+                            &lt;codes:displayList fieldId="&lt;%= FieldIds.COMPANY_TYPE %&gt;" categoryId="&lt;%= CategoryIds.COMPANY_TYPE %&gt;"/&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td&gt;
+                            &lt;core:display fieldId="&lt;%= FieldIds.COMPANY_CREATED %&gt;" /&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td&gt;
+                            &lt;core:popupMenu&gt;
+                                &lt;core:popupMenuItem&gt;
+                                    &lt;core:link actionId="&lt;%= ActionIds.VIEW_PRODUCTS %&gt;" &gt;
+                                        &lt;core:pageDescription pageId="&lt;%= PageIds.PRODUCTS %&gt;" /&gt;
+                                        &lt;core:actionData fieldId="&lt;%= FieldIds.COMPANY_ID %&gt;" /&gt;
+                                    &lt;/core:link&gt;
+                                &lt;/core:popupMenuItem&gt;
+                            &lt;/core:popupMenu&gt;
+                        &lt;/core:td&gt;
+                        &lt;core:td align="center"&gt;
+                            &lt;core:link actionId="&lt;%= ActionIds.DELETE_COMPANY %&gt;" confirmationMessageKey="&lt;%= Messages.DELETE_CONFIRMATION %&gt;" &gt;
+                                &lt;core:actionData fieldId="&lt;%= FieldIds.COMPANY_ID %&gt;" /&gt;
+                            &lt;/core:link&gt;
+                        &lt;/core:td&gt;
+                    &lt;/core:tr&gt;
+                &lt;/core:table&gt;
+
+            &lt;/core:form&gt;
+        &lt;/div&gt;
+    &lt;/core:body&gt;
+&lt;/html&gt;			
+				</pre>
+				<div class="section-content">
+					The following is an example edit data object JSP page that includes various data components and button action components.
+				</div>
+   				<pre class="code-content">
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+
+&lt;%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%&gt;
+
+&lt;%@ page import="com.bws.test.configuration.ActionIds" %&gt;
+&lt;%@ page import="com.bws.test.configuration.AttributeNames" %&gt;
+&lt;%@ page import="com.bws.test.configuration.CategoryIds" %&gt;
+&lt;%@ page import="com.bws.test.configuration.PageIds" %&gt;
+&lt;%@ page import="com.bws.test.configuration.FieldIds" %&gt;
+&lt;%@ page import="com.bws.test.company.Company" %&gt;
+
+&lt;%@ taglib uri="com/bws/jdistil/core" prefix="core" %&gt;
+&lt;%@ taglib uri="com/bws/jdistil/codes" prefix="codes" %&gt;
+
+&lt;html&gt;
+	
+    &lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"&gt;
+        &lt;link rel="stylesheet" type="text/css" href="core.css" /&gt;
+        &lt;script type="text/javascript" src="core.js"&gt;&lt;/script&gt;
+        &lt;title&gt;&lt;core:pageDescription pageId="&lt;%= PageIds.COMPANY %&gt;" /&gt;&lt;/title&gt;
+    &lt;/head&gt;
+
+    &lt;core:body pageId="&lt;%= PageIds.COMPANY %&gt;"&gt;
+    
+        &lt;jsp:include page="../Header.jsp" /&gt;
+        
+        &lt;div class="page"&gt;
+            
+            &lt;div class="breadcrumbTrail"&gt;
+                &lt;span class="breadcrumbSelected"&gt;&lt;core:pageDescription pageId="&lt;%= PageIds.COMPANY %&gt;" /&gt;&lt;/span&gt;
+            &lt;/div&gt;
+            
+            &lt;core:form id="Company" actionId="&lt;%= ActionIds.SAVE_COMPANY %&gt;" &gt;
+
+                &lt;core:processMessages /&gt;
+
+                &lt;core:hidden fieldId="&lt;%= FieldIds.PARENT_FIELD_ID %&gt;" fieldValue="&lt;%= null %&gt;" /&gt;
+                &lt;core:hidden fieldId="&lt;%= FieldIds.PARENT_ACTION_ID %&gt;" fieldValue="&lt;%= ActionIds.VIEW_COMPANIES %>" /&gt;
+                &lt;core:hidden fieldId="&lt;%= FieldIds.PARENT_ACTION_ID %&gt;" fieldValue="&lt;%= ActionIds.SAVE_COMPANY %>" /&gt;
+                &lt;core:hidden fieldId="&lt;%= FieldIds.PARENT_PAGE_ID %&gt;" fieldValue="&lt;%= PageIds.COMPANY %&gt;" /&gt;
+
+                &lt;core:hidden fieldId="&lt;%= FieldIds.COMPANY_ID %&gt;" attributeName="&lt;%= AttributeNames.COMPANY %&gt;" /&gt;
+                &lt;core:hidden fieldId="&lt;%= FieldIds.COMPANY_VERSION %&gt;" attributeName="&lt;%= AttributeNames.COMPANY %&gt;" /&gt;
+
+                &lt;core:fields&gt;
+                    &lt;core:includeActionFields actionId="&lt;%= ActionIds.VIEW_COMPANIES %&gt;" /&gt;
+                &lt;/core:fields&gt;
+                
+                &lt;table&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_NAME %&gt;" /&gt;&lt;/td&gt;
+                        &lt;td&gt;&lt;core:text fieldId="&lt;%= FieldIds.COMPANY_NAME %&gt;" attributeName="&lt;%= AttributeNames.COMPANY %&gt;" maxlength="20" /&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_ACTIVE %&gt;" /&gt;&lt;/td&gt;
+                        &lt;td&gt;&lt;core:check fieldId="&lt;%= FieldIds.COMPANY_ACTIVE %&gt;" attributeName="&lt;%= AttributeNames.COMPANY %&gt;" /&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_CREATED %&gt;" /&gt;&lt;/td&gt;
+                        &lt;td&gt;&lt;core:text fieldId="&lt;%= FieldIds.COMPANY_CREATED %&gt;" attributeName="&lt;%= AttributeNames.COMPANY %&gt;" maxlength="10" /&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td&gt;&lt;core:label fieldId="&lt;%= FieldIds.COMPANY_TYPE %&gt;" /&gt;&lt;/td&gt;
+                        &lt;td&gt;
+                            &lt;codes:list fieldId="&lt;%= FieldIds.COMPANY_TYPE %&gt;" attributeName="&lt;%= AttributeNames.COMPANY %&gt;" 
+                                categoryId="&lt;%= CategoryIds.COMPANY_TYPE %&gt;" /&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td colspan="2"&gt;&nbsp;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    &lt;tr&gt;
+                        &lt;td colspan="2" align="center"&gt;
+                            &lt;core:button actionId="&lt;%= ActionIds.SAVE_COMPANY %&gt;" /&gt;
+                            &lt;core:button actionId="&lt;%= ActionIds.CANCEL_COMPANY %&gt;" /&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/table&gt;
+            
+            &lt;/core:form&gt;
+        &lt;/div&gt;
+    &lt;/core:body&gt;
+&lt;/html&gt;			
+				</pre>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

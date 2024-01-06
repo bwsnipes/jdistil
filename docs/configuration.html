@@ -1,0 +1,226 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of configuration in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Configuration</h3>
+				<div class="section-content">
+					Applications built using the JDistil framework are defined using configuration data. This configuration data 
+					includes the details of all fields, actions, pages, and domain object bindings encompassing an application. 
+					The details include action and field validation rules, field converters supporting formatting and parsing of field values,
+					action specific field mappings, action specific processor mappings, field to domain object property bindings, and 
+					page resource mappings.<br/> 
+					<br/>
+					Configuration data is provided by implementing the "com.bws.jdistil.core.configuration.IConfiguration" 
+					interface and specifying a reference to the implementing class using the "application.configuration" property 
+					in the "core.properties" file. Multiple configuration classes can be specified in the "core.properties" file 
+					for a single application but this feature is intended to support pluggable application modules. Applications 
+					created using the JDistil Plug-in leverage the multiple configurations feature to include the codes and security 
+					module configurations. The configuration data section below provides an example of a configuration implementation 
+					and an example of registering the implementation with the framework using the "core.properties" file.<br/>
+					<br/>
+					The "com.bws.jdistil.core.configuration.ConfigurationManager" class is responsible for providing centralized access to all 
+					application defined configuration data. This class loads and consolidates the configuration data of all configuration classes 
+					defined in the "core.properties" file and provides a single point of entry to access the information. Framework components 
+					leverage this class for access to application configuration data and it can also be used by application specific classes 
+					when needed. The configuration manager section of this page provides an overview of the methods available in the ConfigurationManager class.
+                </div>
+				<br/>
+				<h3 class="section-title">Configuration Data</h3>
+				<div class="section-content">
+					The following provides an example of an application configuration implementation. Instead of implementing the 
+					"com.bws.jdistil.core.configuration.IConfiguration" interface, the implementation extends "com.bws.jdistil.core.configuration.Configuration" 
+					which is an abstract implementation of the interface provided by the framework. This is a convenience class that provides a default empty 
+					implementation of each interface method allowing a developer to only implement the methods required by the configuration.
+				</div>
+				<pre class="code-content">
+public class CompanyConfiguration extends com.bws.jdistil.core.configuration.Configuration {
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following is an example implementation of the "registerFields" method. Each field is composed of a unique ID, field data type, 
+					default display name, and converter if needed. Additionally, one or more field rules can also be registered with the field. These
+					will be used during field validation.
+				</div>
+				<pre class="code-content">
+@Override
+public void registerFields(Set<Field> fields) {
+
+	super.registerFields(fields);
+
+	Field companyId = new Field(FieldIds.COMPANY_ID, Field.INTEGER, "ID", NumberConverter.getInstance());
+	fields.add(companyId);
+
+	Field companyVersion = new Field(FieldIds.COMPANY_VERSION, Field.LONG, "Version", NumberConverter.getInstance());
+	fields.add(companyVersion);
+
+	Field companyName = new Field(FieldIds.COMPANY_NAME, Field.STRING, "Name", null);
+	fields.add(companyName);
+
+	Field companyActive = new Field(FieldIds.COMPANY_ACTIVE, Field.BOOLEAN, "Active", BooleanConverter.getInstance());
+	fields.add(companyActive);
+
+	Field companyCreated = new Field(FieldIds.COMPANY_CREATED, Field.DATE, "Created", DateConverter.getInstance());
+	companyCreated.addRule(new ConverterRule());
+	fields.add(companyCreated);
+
+	Field companyType = new Field(FieldIds.COMPANY_TYPE, Field.INTEGER, "Type", NumberConverter.getInstance());
+	fields.add(companyType);
+	...
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following is an example implementation of the "registerActions" method. Each action is composed of a unique ID and default display name. 
+					Additionally, one or more processors and all supported fields are also registered with the action. A boolean value is specified with each 
+					registered field indicating whether or not the field is required.
+				</div>
+				<pre class="code-content">
+@Override
+public void registerActions(Set<Action> actions) {
+  
+	super.registerActions(actions);
+
+	Action saveCompany = new Action(ActionIds.SAVE_COMPANY, "Save");
+	saveCompany.addProcessorFactory(new SingletonPojoFactory(SaveCompany.class));
+	saveCompany.addField(FieldIds.COMPANY_ID, false);    
+	saveCompany.addField(FieldIds.COMPANY_VERSION, false);    
+	saveCompany.addField(FieldIds.COMPANY_NAME, true);    
+	saveCompany.addField(FieldIds.COMPANY_ACTIVE, false);    
+	saveCompany.addField(FieldIds.COMPANY_CREATED, false);    
+	saveCompany.addField(FieldIds.COMPANY_TYPE, true);    
+	actions.add(saveCompany);
+	...
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following is an example implementation of the "registerPages" method. Each page is composed of a unique ID, resource name, 
+					default display name, and secure indicator. Pages defined as secure ensure only authenticated users can access the page. This 
+					provides added security if attempts are made to directly access pages.
+				</div>
+				<pre class="code-content">
+@Override
+public void registerPages(Set<Page> pages) {
+
+	super.registerPages(pages);
+	Page companies = new Page(PageIds.COMPANIES, "/company/Companies.jsp", "Companies", true);    
+	pages.add(companies);
+
+	Page company = new Page(PageIds.COMPANY, "/company/Company.jsp", "Company", true);    
+	pages.add(company);
+	...
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following is an example implementation of the "registerObjectBindings" method. Each object binding is composed of a 
+					target domain object class and one or more field bindings. Each field binding is composed of a unique ID and associated 
+					domain object property name.
+				</div>
+				<pre class="code-content">
+@Override
+public void registerObjectBindings(Set<ObjectBinding> objectBindings) {
+
+	super.registerObjectBindings(objectBindings);
+
+	ObjectBinding company = new ObjectBinding(Company.class);    
+	company.addFieldBinding(FieldIds.COMPANY_ID, "Id");
+	company.addFieldBinding(FieldIds.COMPANY_VERSION, "Version");
+	company.addFieldBinding(FieldIds.COMPANY_NAME, "Name");
+	company.addFieldBinding(FieldIds.COMPANY_ACTIVE, "Active");
+	company.addFieldBinding(FieldIds.COMPANY_CREATED, "Created");
+	company.addFieldBinding(FieldIds.COMPANY_TYPE, "Type");
+	objectBindings.add(company);
+	...
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following is an example implementation of the "registerFactoryProviders" method. This method is provided to support
+					integration and can be used to map factory providers to packages or specific classes if desired. This allow control over 
+					how class instances are created	by the framework.
+				</div>
+				<pre class="code-content">
+@Override
+public void registerFactoryProviders(Map<String, Class<? extends IFactoryProvider>> factoryProviders) {
+  
+	super.registerFactoryProviders(factoryProviders);
+	
+	factoryProviders.put("com.bws.test", PojoFactoryProvider);
+	factoryProviders.put("com.bws.test.TestClass", PooledFactoryProvider);
+	...
+}
+				</pre>
+				<br/>
+				<h3 class="section-title">Configuration Manager</h3>
+				<div class="section-content">
+					The following highlights the public methods available in the "com.bws.jdistil.core.configuration.ConfigurationManager" 
+					class. These methods provide access to all consolidated configuration data for an application.
+				</div>
+				<pre class="code-content">
+public class ConfigurationManager {
+
+	public static Action getWelcomeAction();
+	public static Action getLogonAction();
+	public static Action getErrorAction();
+	public static IFactory getFactory(Class<?> targetClass);
+	public static Action getAction(String actionId);
+	public static Field getField(String fieldId);
+	public static Page getPage(String pageId);
+	public static ObjectBinding getObjectBinding(Class<?> targetClass);
+}
+				</pre>
+			</div>
+		</div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

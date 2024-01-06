@@ -1,0 +1,299 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of data access (ORM) in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Data Access (ORM)</h3>
+				<div class="section-content">
+					The JDistil framework uses data managers and data objects to support access to application specific data. The following sections provide detailed 
+					information and examples supporting both these object types.
+				</div>
+                <h3 class="section-title">Data Objects</h3>
+				<div class="section-content">
+					Data objects are uniquely identifiable domain objects that provide support for modification and version tracking. Application specific data objects are implemented 
+					by extending the "com.bws.jdistil.core.datasource.DataObject" class and providing domain specific properties. The "com.bws.jdistil.core.datasource.DataObject" 
+					class provides unique ID and version properties and a protected method that can be used in domain specific property setters to update the modified status 
+					of the domain object using the current and new property values.
+                </div>
+				<div class="section-content">
+					<br/>
+					The following highlights the methods provided by the "com.bws.jdistil.core.datasource.DataObject" class.
+				</div>
+				<pre class="code-content">
+public abstract class DataObject&lt;I&gt; implements Serializable {
+
+    public I getId();
+    public void setId(I newId);
+    public Long getVersion();
+    public void setVersion(Long newVersion);
+    protected void setModified(boolean newModifiedStatus);
+    public boolean isModified();
+    protected void updateModifiedStatus(Object oldValue, Object newValue);
+    public void clear();
+    public String toString();
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following provides an example data object implementation.
+				</div>
+				<pre class="code-content">
+public class Company extends DataObject&lt;Integer&gt; {
+
+    private String name = null;  
+    private Boolean active = null;  
+    private Date created = null;  
+    private Integer type = null;  
+    private boolean isDeleted;
+    private List&lt;Integer&gt; productIds = new ArrayList&lt;Integer&gt;();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        updateModifiedStatus(this.name, name);
+        this.name = name;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        updateModifiedStatus(this.active, active);
+        this.active = active;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        updateModifiedStatus(this.created, created);
+        this.created = created;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        updateModifiedStatus(this.type, type);
+        this.type = type;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public List&lt;Integer&t; getProductIds() {
+        return Collections.unmodifiableList(productIds);
+    }
+
+    public void setProductIds(List&lt;Integer&gt; productIds) {
+
+        // Update modified status
+        updateModifiedStatus(this.productIds, productIds);
+
+        // Clear existing values
+        this.productIds.clear();
+
+        // Set new values
+        if (productIds != null) {
+            this.productIds.addAll(productIds);
+        }
+    }
+}
+				</pre>
+				<br/>
+                <h3 class="section-title">Data Managers</h3>
+				<div class="section-content">
+					Data managers are domain specific implementations of the "com.bws.jdistil.core.datasource.IDataManager" interface. This interface defines standard methods 
+					for retrieving, saving and deleting domain specific data objects. Technically, data manager implementations can leverage any 
+					storage medium for data persistence but the classes provided by the JDistil framework are focused on database persistence. Specifically, the framework 
+					provides the "com.bws.jdistil.core.datasource.database.DatabaseDataManager" and "com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager" 
+					classes.<br/>
+					<br/>
+					The "com.bws.jdistil.core.datasource.database.DatabaseDataManager" abstract class is a direct implementation of the "com.bws.jdistil.core.datasource.IDataManager" 
+					interface and uses a template design pattern to delegate creation of prepared statements and result sets to descendant classes. This provides the most control over 
+					SQL creation and result set processing but requires more work during implementation when compared to the "com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager" class.<br/> 
+					<br/>
+					The "com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager" abstract 
+					class is an extension of the previously mentioned "com.bws.jdistil.core.datasource.database.DatabaseDataManager" class and uses object relationship mapping (ORM) information 
+					to create the prepared statements and result sets required by the parent class. The ORM information consists of bindings used to map tables to domain objects and columns 
+					to domain object properties. Bindings are also provided for associative and dependent domain object relationships. Associative bindings support a many-to-many relationship 
+					between the primary data object and another independently managed data object. Dependent bindings support hierarchical object graphs where the dependent domain objects 
+					are managed as part of the primary domain object.<br/>
+					<br/>
+					Another benefit of using the "com.bws.jdistil.core.datasource.database.BoundDatabaseDataManager" class is it supports the use of dynamic SQL when retrieving data. 
+					Specifically, it defines additional "find" methods where joins, value conditions, and order conditions can be specified programmatically. This is especially helpful 
+					when a data manager needs to support joining and filtering against tables outside the target domain.
+                </div>
+				<div class="section-content">
+					<br/>
+					The following highlights the methods provided by the "com.bws.jdistil.core.datasource.IDataManager" interface.
+				</div>
+				<pre class="code-content">
+public interface IDataManager&lt;I, T extends DataObject&lt;I&gt;&gt; {
+
+    public void save(T dataObject) throws DataSourceException;
+    public void save(T dataObject, IDomain domain) throws DataSourceException;
+    public void save(T dataObject, boolean checkDirty) throws DataSourceException;
+    public void save(T dataObject, boolean checkDirty, IDomain domain) throws DataSourceException;
+    public void delete(T dataObject) throws DataSourceException;
+    public void delete(T dataObject, IDomain domain) throws DataSourceException;
+    public List&lt;T&gt; find() throws DataSourceException;
+    public List&lt;T&gt; find(IDomain domain) throws DataSourceException;
+    public List&lt;I&gt; findIds() throws DataSourceException;
+    public List&lt;I&gt; findIds(IDomain domain) throws DataSourceException;
+    public T find(I id) throws DataSourceException;
+    public T find(I id, IDomain domain) throws DataSourceException;
+    public List&lt;T&gt; find(List&lt;I&gt; ids) throws DataSourceException;
+    public List&lt;T&gt; find(List&lt;I&gt; ids, IDomain domain) throws DataSourceException;
+    public List&lt;T&gt; find(FilterCriteria filterCriteria) throws DataSourceException;
+    public List&lt;T&gt; find(FilterCriteria filterCriteria, IDomain domain) throws DataSourceException;
+    public List&lt;I&gt; findIds(FilterCriteria filterCriteria) throws DataSourceException;
+    public List&lt;I&gt; findIds(FilterCriteria filterCriteria, IDomain domain) throws DataSourceException;
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following provides an example data manager implementation.
+				</div>
+				<pre class="code-content">
+public class CompanyManager extends BoundDatabaseDataManager&lt;Integer, Company&gt; {
+
+    protected DataObjectBinding createDataObjectBinding() {
+
+        // Set table name
+        String tableName = "company";
+
+        // Create ID column binding
+        IdColumnBinding idColumnBinding = new IdColumnBinding("company_id");
+
+        // Create and populate column bindings
+        List&lt;ColumnBinding&gt; columnBindings = new ArrayList&lt;ColumnBinding&gt;();
+        columnBindings.add(new ColumnBinding("name", DbUtil.STRING, false, false, "Name"));
+        columnBindings.add(new ColumnBinding("active", DbUtil.BOOLEAN, false, false, "Active"));
+        columnBindings.add(new ColumnBinding("created", DbUtil.DATE, false, false, "Created"));
+        columnBindings.add(new ColumnBinding("type", DbUtil.INTEGER, false, false, "Type"));
+        columnBindings.add(new ColumnBinding("is_deleted", DbUtil.BOOLEAN, false, true, "IsDeleted"));
+        columnBindings.add(new ColumnBinding("version", DbUtil.LONG, false, false, "Version"));
+
+        // Create associate bindings list
+        List&lt;AssociateBinding&gt; associateBindings = new ArrayList&lt;AssociateBinding&gt;();
+
+        // Create product ID column binding
+        IdColumnBinding producIdColumnBinding = new IdColumnBinding("product_id");
+        associateBindings.add(new AssociateBinding("ProductIds", true, "company_product", idColumnBinding, producIdColumnBinding));
+
+        // Create company binding
+        DataObjectBinding binding = new DataObjectBinding(Company.class, tableName, idColumnBinding, columnBindings, null, associateBindings);
+
+        return binding;
+    }
+}
+				</pre>
+				<div class="section-content">
+					<br/>
+					The following provides an example method implementation using dynamic SQL.
+				</div>
+				<pre class="code-content">
+public List&lt;Action&gt; findByTask(List&lt;Integer&gt; taskIds) throws DataSourceException {
+
+    // Initialize return value
+    List&lt;Action&gt; actions = null;
+
+    if (taskIds != null && !taskIds.isEmpty()) {
+
+        // Create join list
+        List&lt;Join&gt; joins = new ArrayList&lt;Join&gt;(1);
+
+        // Create join conditin
+        JoinCondition joinCondition = new JoinCondition("bws_task_action", "action_id", Operators.EQUALS, "bws_action", "action_id");
+
+        // Create and add join to list
+        joins.add(new Join(Join.INNER_JOIN, "bws_task_action", "bws_action", joinCondition));
+
+        // Initialize value conditions
+        ValueConditions valueConditions = null;
+
+        for (Integer taskId : taskIds) {
+
+            // Create value condition
+            ValueCondition valueCondition = new ValueCondition("bws_task", "task_id", Operators.EQUALS, DbUtil.INTEGER, taskId);
+
+            // Add condition to value conditions
+            if (valueConditions == null) {
+                valueConditions = new ValueConditions(valueCondition);
+            }
+            else {
+                valueConditions.add(Operators.OR, valueCondition);
+            }
+        }
+
+        // Retrieve tasks
+        actions = find(joins, valueConditions, null);
+    }
+
+    return actions;
+}
+				</pre>
+			</div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

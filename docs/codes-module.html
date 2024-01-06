@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of the JDistil codes module." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Codes Module</h3>
+				<div class="section-content">
+					The codes module provides support for including application specific lookup codes in a custom application. The module is built 
+					upon the core framework and consists of a code management interface for managing codes values based on application specific 
+					code categories and user interface components supporting the display and selection of code values within an application. The following
+					sections document the code management interface and user interface components.
+                </div>
+				<br/>
+				<h3 class="section-title">Code Management Interface</h3>
+				<div class="section-content">
+					This view allows a user to view, add, edit and delete category specific lookup codes.<br/>
+					<br/>
+					<img src="images/code-management-1.png" border="1" alt="Codes" /><br/>
+					<br/><br/>
+					This view allows a user to add or edit a category specific lookup code. Definitions of each field are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/code-management-2.png" border="1" alt="Code" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Category</td>
+							<td>Category associated with the code value.</td>
+						</tr>
+						<tr>
+							<td nowrap>Name</td>
+							<td>Code name displayed in user interface display and selection components.</td>
+						</tr>
+						<tr>
+							<td nowrap>Default</td>
+							<td>Indicates this code is the default value with the category. User interface selection components will display this code by default.</td>
+						</tr>
+						<tr>
+							<td nowrap>Save</td>
+							<td>Saves changes to the lookup code and returns to the view codes page.</td>
+						</tr>
+						<tr>
+							<td nowrap>Cancel</td>
+							<td>Ignores changes to the lookup code and returns to the view codes page.</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+				<h3 class="section-title">Code Component Interface</h3>
+				<div class="section-content">
+					The code library contains four components supporting access to the lookup code values defined using the code management interface.
+					The components can be included in an application page using the following statement.
+				</div>
+				<div class="code-content">
+					&lt;%@ taglib uri="com/bws/jdistil/codes" prefix="codes" %&gt;
+				</div>
+				<div class="section-content">
+					<br/>
+					The following table documents the available code components.<br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Reference Name</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.codes.tag.CodeDisplayField</td>
+							<td nowrap>displayList</td>
+							<td>Displays a single read only code value.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.codes.tag.CodeDisplayMultipleField</td>
+							<td nowrap>displayMultipleList</td>
+							<td>Displays multiple read only code values.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.codes.tag.CodeListField</td>
+							<td nowrap>list</td>
+							<td>Displays a single select list of code values.</td>
+						</tr>
+						<tr>
+							<td nowrap>com.bws.jdistil.codes.tag.CodeListMultipleField</td>
+							<td nowrap>multipleList</td>
+							<td>Displays available and selected lists allowing selection of multiple code values.</td>
+						</tr>
+					</table>
+				</div>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

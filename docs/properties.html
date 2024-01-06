@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of properties in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Properites</h3>
+				<div class="section-content">
+					The JDistil framework supports configuration options using a single core.properties file. The properties contained in this file
+					along with descriptions of each property can be found in the example section below. This file is referenced by the framework
+					using the com.bws.jdistil.core.resource.ResourceUtil framework class. The framework also uses this class to reference various
+					core and application specific resource bundles. Additionally, environment specific versions of the core.properties file can be
+					defined and referenced by specifying an environment specific suffix using the &quot;env&quot; system property. For example, specifying 
+					"-Denv=dev" would result in the "core-dev.properties" file being loaded by the framework.
+                </div>
+				<br/>
+				<h3 class="section-title">File Content</h3>
+				<div class="section-content"> 
+					The following documents the properties available in a default core.properties file. Several of the properties are automatically 
+					populated when an Eclipse Dynamic Web Project is created using the Project Facet configuration available in the JDistil Plugin. 
+					Other properties are provided to support optional features not always included with all applications.
+				</div>
+				<pre class="code-content">
+# List of comma delimited application configuration class names
+application.configuration=
+
+# Connection provider factory class name
+connection.provider.factory=
+
+# Database sequence provider factory class name
+sequence.provider.factory=
+
+# Security manager factory class name
+security.manager.factory=
+
+# Validator factory class name
+validator.factory=
+
+# Welcome, logon and error action IDs
+welcome.action.id=
+logon.action.id=
+error.action.id=
+
+# List of comma delimited base resource names supporting application descriptions.
+# Resources defining locale specific translations for application descriptions.
+# Default values are used if no resource is defined.
+# See descriptions defined in application configuration for page, action and field keys.
+description.resources=
+
+# List of comma delimited base resource names supporting application messages.
+# Resources defining locale specific translations for application messages.
+# Default values are used if no locale specific value is defined.
+# See com.bws.jdistil.core.message.MessageResource for all resource keys.
+message.resources=
+
+# List of comma delimited base resource names supporting application operators.
+# Resources defining locale specific translations for application operators.
+# Default values are used if no locale specific value is defined.
+# See com.bws.jdistil.core.datasource.database.Operators for operator keys.
+operator.resources=
+
+# List of comma delimited base resource names supporting application formats.
+# Resources defining locale specific translations for application formats.
+# Default values are used if no locale specific value is defined.
+# See com.bws.jdistil.core.conversion.Formats for all resource keys.
+format.resources=
+
+# Multitenancy indicator
+multitenancy.enabled=false
+
+# JNDI initial context factory classname
+initial.context.factory=
+
+# Default datasource name used to open DB connections
+datasource.name=
+
+# SMTP host name used by Mailer class
+smtp.host.name=
+
+# Default page size used by page manager
+default.page.size=
+
+# Page navigation images
+previous.page.image.source=
+next.page.image.source=
+
+# Sort images
+sort.ascending.image=
+sort.descending.image=
+				</pre>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

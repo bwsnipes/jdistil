@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of fragment relationships included in the JDistil Eclipse plug-in." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Fragment Relationship</h3>
+				<div class="section-content">
+					The Fragment Relationship wizard is used to establish a many-to-many or many-to-one relationship between two application
+					fragments. Many-to-many relationships support the option of managing the relationship from both entity user interfaces.
+                </div>
+				<br/>
+				<h3 class="section-title">Relationship Creation</h3>
+				<div class="section-content">
+					Select the new resource wizard and choose the Fragment Relationship wizard.<br/>
+					<br/>
+					<img src="images/fragment-relationship-1.png" alt="Wizard Selection" /><br/>
+					<br/><br/>
+					Populate all required fields on the Definition wizard page. Definitions of each field are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/fragment-relationship-2.png" alt="Fragment Relationship" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Project</td>
+							<td>Workspace project where application resources will be generated.</td>
+						</tr>
+						<tr>
+							<td nowrap>Source Fragment: Data Object</td>
+							<td>Data object associated with the source fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>Source Fragment: UI Attribute</td>
+							<td>
+								Attribute associated with the source fragment data object. Only valid in a many-to-many relationship and 
+								specifies the value to display when managing the relationship from the target fragment user interface.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>Source Fragment: Include in View</td>
+							<td>Indicates the source fragment will be included in the target fragment&#39;s view.</td>
+						</tr>
+						<tr>
+							<td nowrap>Configuration: Association</td>
+							<td>Type of relationship to establish. Many-to-many or many-to-one relationships are available for selection.</td>
+						</tr>
+						<tr>
+							<td nowrap>Configuration: Bidirectional</td>
+							<td>Indicates the relationship can be managed from both the source and target fragment user interfaces.</td>
+						<tr>
+							<td nowrap>Target Fragment: Data Object</td>
+							<td>Data object associated with the target fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>Target Fragment: UI Attribute</td>
+							<td>
+								Attribute associated with the target fragment data object. Specifies the value to display when managing 
+								the relationship from the target fragment user interface.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>Target Fragment: Required</td>
+							<td>Indicates the target fragment is a required field when editing a source fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>Target Fragment: Include in View</td>
+							<td>Indicates the target fragment will be included in the source fragment&#39;s view.</td>
+						</tr>
+					</table>
+                </div>
+				<br/>
+                <h3 class="section-title">Relationship Resources</h3>
+				<div class="section-content">
+					The following table documents the project specific resources modified by the Fragment Relationship wizard.<br/>
+					<br/>					
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Directory</th>
+							<th>Resource</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.FieldIds</td>
+							<td>Adds relationship specific field ID constants.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.fragment.&lt;fragment-name&gt;Configuration</td>
+							<td>Add fields, actions, and data object bindings supporting the fragment relationship.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.&lt;fragment-name&gt;.java</td>
+							<td>Adds property supporting the fragment relationship.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.&lt;fragment-name&gt;Manager.java</td>
+							<td>Adds a column binding (many-to-one) or associate binding (many-to-many) the fragment relationship.</td>
+						</tr>
+						<tr>
+							<td nowrap>sql</td>
+							<td nowrap>app-category.txt</td>
+							<td>Adds fragment specific SQL statements supporting any new code lookup categories.</td>
+						</tr>
+						<tr>
+							<td nowrap>sql</td>
+							<td nowrap>app-entity.txt</td>
+							<td>Adds SQL statements used to create a column (many-to-one) or associative table (many-to-many) supporting the fragment relationship.</td>
+						</tr>
+						<tr>
+							<td nowrap>sql</td>
+							<td nowrap>app-security.txt</td>
+							<td>Adds SQL statements used to populate security entitlements supporting the fragment relationship.</td>
+						</tr>
+						<tr>
+							<td nowrap>WebContent/&lt;fragment-name&gt;</td>
+							<td nowrap>&lt;fragment-name&gt;.jsp/td>
+							<td>Adds selection component to the edit entity page supporting the fragment relationship.</td>
+						</tr>
+					</table>
+                </div>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

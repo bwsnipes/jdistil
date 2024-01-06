@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of the JDistil security module." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Security Module</h3>
+				<div class="section-content">
+					The security module provides support for user authentication and authorization in a custom application. The module is built 
+					upon the core framework and consists of a logon interface, change password interface, user management interface, role management interface 
+					and a security manager implementation supporting authentication and authorization. The following	sections document the management interfaces 
+					and security manager component.
+                </div>
+				<br/>
+				<h3 class="section-title">User Interface</h3>
+				<div class="section-content">
+					This view allows a user to logon to the application.<br/>
+					<br/>
+					<img src="images/user-management-1.png" border="1" alt="Logon" />
+					<br/><br/><br/>
+					This view allows a user to change their password.<br/>
+					<br/>
+					<img src="images/user-management-2.png" border="1" alt="Change Password" />
+				</div>
+				<br/>
+				<h3 class="section-title">User Management Interface</h3>
+				<div class="section-content">
+					This view allows a user to view, add, edit and delete user information.<br/>
+					<br/>
+					<img src="images/user-management-3.png" border="1" alt="Users" />
+					<br/><br/><br/>
+					This view allows a user to add or edit a user information. Definitions of each field are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/user-management-4.png" border="1" alt="User" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Logon ID</td>
+							<td>Unique logon ID.</td>
+						</tr>
+						<tr>
+							<td nowrap>First Name</td>
+							<td>First name of user.</td>
+						</tr>
+						<tr>
+							<td nowrap>Middle Initial</td>
+							<td>Middle initial of user.</td>
+						</tr>
+						<tr>
+							<td nowrap>Last Name</td>
+							<td>Last name of user.</td>
+						</tr>
+						<tr>
+							<td nowrap>New Password</td>
+							<td>New password providing user authentication.</td>
+						</tr>
+						<tr>
+							<td nowrap>Confirm Password</td>
+							<td>Confirmation of value entered into New password field.</td>
+						</tr>
+						<tr>
+							<td nowrap>Roles</td>
+							<td>One or more selected roles providing task and field authorization.</td>
+						</tr>
+						<tr>
+							<td nowrap>Save</td>
+							<td>Saves changes to the user and returns to the view users page.</td>
+						</tr>
+						<tr>
+							<td nowrap>Cancel</td>
+							<td>Ignores changes to the user and returns to the view users page.</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+				<h3 class="section-title">Role Management Interface</h3>
+				<div class="section-content">
+					This view allows a user to view, add, edit and delete role information.<br/>
+					<br/>
+					<img src="images/role-management-1.png" border="1" alt="Roles" />
+					<br/><br/><br/>
+					This view allows a user to add or edit a role information. Definitions of each field are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/role-management-2.png" border="1" alt="Role" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Name</td>
+							<td>Unique role name.</td>
+						</tr>
+						<tr>
+							<td nowrap>Task</td>
+							<td>All tasks defined by the application.</td>
+						</tr>
+						<tr>
+							<td nowrap>Restricted Task</td>
+							<td>Tasks restricted for access by the role.</td>
+						</tr>
+						<tr>
+							<td nowrap>Group</td>
+							<td>List of field groupings providing access to fields available for authorization.</td>
+						</tr>
+						<tr>
+							<td nowrap>Field</td>
+							<td>All fields defined by the application and associated with the selected group.</td>
+						</tr>
+						<tr>
+							<td nowrap>Read Only Fields</td>
+							<td>Fields authorized with read only access.</td>
+						</tr>
+						<tr>
+							<td nowrap>Restricted Fields</td>
+							<td>Fields authorized with restricted access.</td>
+						</tr>
+						<tr>
+							<td nowrap>Save</td>
+							<td>Saves changes to the role and returns to the view roles page.</td>
+						</tr>
+						<tr>
+							<td nowrap>Cancel</td>
+							<td>Ignores changes to the role and returns to the view roles page.</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+				<h3 class="section-title">Security Manager Component</h3>
+				<div class="section-content">
+					The security manager component provides authentication and authorization services to framework components based on the user and role 
+					information defined using the user and role management interfaces. The security manager is enabled by specifying the fully qualified 
+					security manager factory class name in the application defined "core.properties" file.  The following excerpt provides an example of
+                    the security manager factory configuration using the security manager provided by the security module.
+				</div>
+				<pre class="code-content">
+# Security manager factory class name
+security.manager.factory=com.bws.jdistil.security.SecurityManagerFactory
+				</pre>
+			</div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

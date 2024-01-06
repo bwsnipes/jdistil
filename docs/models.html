@@ -1,0 +1,518 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of models in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Models</h3>
+				<div class="section-content">
+					Models refers to a set of five abstract processor classes in the JDistil framework that support domain specific CRUD based operations. Specifically, these 
+					include support for viewing, selecting, deleting, editing and saving domain specific data objects. The following sections document and provide examples 
+					of each of these classes.
+				</div>
+				<br/>
+				<h3 class="section-title">View Data Objects</h3>
+				<div class="section-content">
+					The "com.bws.jdistil.core.process.model.ViewDataObjects" class supports viewing multiple instances of a single data object type. This includes support for 
+					filtering, sorting, and pagination of data in a data object specific view.
+				</div>
+				<div class="section-content">
+					The following documents the two constructors available in the "com.bws.jdistil.core.process.model.ViewDataObjects" class. The first is used when 
+					pagination is not needed and the second when pagination is needed.
+				</div>
+				<pre class="code-content">
+public ViewDataObjects(Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, FilterCriteriaDefinition filterCriteriaDefinition, 
+        String attributeId, String nextPageId) {
+
+public ViewDataObjects(Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, FilterCriteriaDefinition filterCriteriaDefinition, 
+        String attributeId, String nextPageId, int pageSize, String currentPageNumberFieldId, String selectedPageNumberFieldId, 
+        String previousPageActionId, String nextPageActionId, String selectPageActionId, Set&lt;String&gt; retrieveDataActionIds, 
+        Set&lt;String&gt; refreshDataActionIds, boolean cachePagingIds) {
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Parameter</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>dataManagerClass</td>
+							<td>Data manager class supporting the view specific data object type.</td>
+						</tr>
+						<tr>
+							<td nowrap>filterCriteriaDefinition</td>
+							<td>Filter criteria definition supporting filtering and sorting.</td>
+						</tr>
+						<tr>
+							<td nowrap>attributeId</td>
+							<td>Unique attribute ID used to store a list of view specific data objects in the request attributes.</td>
+						</tr>
+						<tr>
+							<td nowrap>nextPageId</td>
+							<td>Unique page ID identifying the view page.</td>
+						</tr>
+						<tr>
+							<td nowrap>pageSize</td>
+							<td>Number of items to display on each page in the view.</td>
+						</tr>
+						<tr>
+							<td nowrap>currentPageNumberFieldId</td>
+							<td>Unique field ID used to track the current page number.</td>
+						</tr>
+						<tr>
+							<td nowrap>selectedPageNumberFieldId</td>
+							<td>Unique field ID used to submit the selected page number.</td>
+						</tr>
+						<tr>
+							<td nowrap>previousPageActionId</td>
+							<td>Unique action ID identifying the previous page action.</td>
+						</tr>
+						<tr>
+							<td nowrap>nextPageActionId</td>
+							<td>Unique action ID identifying the next page action.</td>
+						</tr>
+						<tr>
+							<td nowrap>selectPageActionId</td>
+							<td>Unique action ID identifying the select page action.</td>
+						</tr>
+						<tr>
+							<td nowrap>retrieveDataActionIds</td>
+							<td>Unique set of action IDs identifying actions requiring the set of viewable data objects to be retrieved.</td>
+						</tr>
+						<tr>
+							<td nowrap>refreshDataActionIds</td>
+							<td>Unique set of action IDs identifying actions that alter the data in the set of viewable data objects and only require a refresh of the current page.</td>
+						</tr>
+						<tr>
+							<td nowrap>cachePagingIds</td>
+							<td>Indicates whether or not the set of viewable data object IDs should be cached in the session.</td>
+						</tr>
+					</table>
+					<br/>
+				</div>
+				<div class="section-content">
+					The following is an example implementation extending the "com.bws.jdistil.core.process.model.ViewDataObjects" class.
+				</div>
+				<pre class="code-content">
+public class ViewCompanies extends ViewDataObjects&lt;Integer, Company&gt; {
+
+    private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(Company.class);
+
+    private static final Set&lt;String&gt; retrieveDataActionIds = new HashSet&lt;String&gt;();
+    private static final Set&lt;String&gt; refreshDataActionIds = new HashSet&lt;String&gt;();
+
+    static {
+        // Create value criterion definition
+        List&lt;ValueCriterionDefinition&gt; valueCriterionDefinitions = new ArrayList&lt;ValueCriterionDefinition&gt;();
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_NAME, FieldIds.COMPANY_NAME_FILTER_OPERATOR, 
+                Operators.CONTAINS, FieldIds.COMPANY_NAME_FILTER, null));
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_TYPE, null, 
+                Operators.EQUALS, FieldIds.COMPANY_TYPE_FILTER, null));
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_ACTIVE, null, 
+                Operators.EQUALS, FieldIds.COMPANY_ACTIVE_FILTER, null));
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_CREATED, FieldIds.COMPANY_CREATED_FILTER_OPERATOR, 
+                Operators.EQUALS, FieldIds.COMPANY_CREATED_FILTER, null));
+
+        // Create order criterion definition
+        OrderCriterionDefinition orderCriterionDefinition = new OrderCriterionDefinition(FieldIds.COMPANY_SORT_FIELD, 
+                FieldIds.COMPANY_SORT_DIRECTION, null);
+
+        // Populate filter criteria definition
+        filterCriteriaDefinition.setIsFilterDataRequired(false);
+        filterCriteriaDefinition.setValueCriterionDefinitions(valueCriterionDefinitions);
+        filterCriteriaDefinition.setOrderCriterionDefinition(orderCriterionDefinition);
+
+        // Populate retrieve data action IDs
+        retrieveDataActionIds.add(ActionIds.VIEW_COMPANIES);
+
+        // Populate refresh data action IDs
+        refreshDataActionIds.add(ActionIds.DELETE_COMPANY);
+        refreshDataActionIds.add(ActionIds.SAVE_COMPANY);
+        refreshDataActionIds.add(ActionIds.CANCEL_COMPANY);
+    }
+
+    public ViewCompanies() {
+        super(CompanyManager.class, filterCriteriaDefinition, AttributeNames.COMPANIES, PageIds.COMPANIES, 
+                5, FieldIds.COMPANY_CURRENT_PAGE_NUMBER, FieldIds.COMPANY_SELECTED_PAGE_NUMBER,
+                ActionIds.VIEW_COMPANY_PREVIOUS_PAGE, ActionIds.VIEW_COMPANY_NEXT_PAGE, ActionIds.VIEW_COMPANY_SELECT_PAGE,
+                retrieveDataActionIds, refreshDataActionIds, false);
+    }
+}
+				</pre>
+				<br/>
+				<h3 class="section-title">Select Data Objects</h3>
+				<div class="section-content">
+					The "com.bws.jdistil.core.process.model.SelectDataObjects" class supports the selection of one or more instances of a single data object type.
+					This is used when selecting one or more instances of a specific data object type that has a many-to-many or many-to-one relationship with 
+					the primary data object. This supports filtering, sorting, and pagination of data in a associative data object specific view.
+				</div>
+				<div class="section-content">
+					The following documents the two constructors available in the "com.bws.jdistil.core.process.model.SelectDataObjects" class. The first is used when 
+					pagination is not needed and the second when pagination is needed.
+				</div>
+				<pre class="code-content">
+public SelectDataObjects(Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, FilterCriteriaDefinition filterCriteriaDefinition, 
+        String attributeId, String nextPageId, String selectedAssociatesAttributeName, String selectedAssociatesFieldId, 
+        String addAssociateActionId, String removeAssociateActionId, String closeActionId) {
+
+public SelectDataObjects(Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, FilterCriteriaDefinition filterCriteriaDefinition, 
+        String attributeId, String nextPageId, int pageSize, String currentPageNumberFieldId, String selectedPageNumberFieldId, 
+        String previousPageActionId, String nextPageActionId, String selectPageActionId, Set&lt;String&gt; retrieveDataActionIds, 
+        Set&lt;String&gt; refreshDataActionIds, boolean cachePagingIds, String selectedAssociatesAttributeName, String selectedAssociatesFieldId, 
+        String addAssociateActionId, String removeAssociateActionId, String closeActionId) {
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Parameter</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>dataManagerClass</td>
+							<td>Data manager class supporting the view specific data object type.</td>
+						</tr>
+						<tr>
+							<td nowrap>filterCriteriaDefinition</td>
+							<td>Filter criteria definition supporting filtering and sorting.</td>
+						</tr>
+						<tr>
+							<td nowrap>attributeId</td>
+							<td>Unique attribute ID used to store a list of view specific data objects in the request attributes.</td>
+						</tr>
+						<tr>
+							<td nowrap>nextPageId</td>
+							<td>Unique page ID identifying the view page.</td>
+						</tr>
+						<tr>
+							<td nowrap>pageSize</td>
+							<td>Number of items to display on each page in the view.</td>
+						</tr>
+						<tr>
+							<td nowrap>currentPageNumberFieldId</td>
+							<td>Unique field ID used to track the current page number.</td>
+						</tr>
+						<tr>
+							<td nowrap>selectedPageNumberFieldId</td>
+							<td>Unique field ID used to submit the selected page number.</td>
+						</tr>
+						<tr>
+							<td nowrap>previousPageActionId</td>
+							<td>Unique action ID identifying the previous page action.</td>
+						</tr>
+						<tr>
+							<td nowrap>nextPageActionId</td>
+							<td>Unique action ID identifying the next page action.</td>
+						</tr>
+						<tr>
+							<td nowrap>selectPageActionId</td>
+							<td>Unique action ID identifying the select page action.</td>
+						</tr>
+						<tr>
+							<td nowrap>retrieveDataActionIds</td>
+							<td>Unique set of action IDs identifying actions requiring the set of viewable data objects to be retrieved.</td>
+						</tr>
+						<tr>
+							<td nowrap>refreshDataActionIds</td>
+							<td>Unique set of action IDs identifying actions that alter the data in the set of viewable data objects and only require a refresh of the current page.</td>
+						</tr>
+						<tr>
+							<td nowrap>cachePagingIds</td>
+							<td>Indicates whether or not the set of viewable data object IDs should be cached in the session.</td>
+						</tr>
+						<tr>
+							<td nowrap>selectedAssociatesAttributeName</td>
+							<td>Unique attribute name used to store a the collection of selected data objects in the request attributes.</td>
+						</tr>
+						<tr>
+							<td nowrap>selectedAssociatesFieldId</td>
+							<td>Unique field ID identifying associates selected on add and remove actions in the selection view.</td>
+						</tr>
+						<tr>
+							<td nowrap>addAssociateActionId</td>
+							<td>Unique action ID identifying the add selected data objects action.</td>
+						</tr>
+						<tr>
+							<td nowrap>removeAssociateActionId</td>
+							<td>Unique action ID identifying the remove selected data objects action.</td>
+						</tr>
+						<tr>
+							<td nowrap>closeActionId</td>
+							<td>Unique action ID identifying close data object selection action.</td>
+						</tr>
+					</table>
+					<br/>
+				</div>
+				<div class="section-content">
+					The following is an example implementation extending the "com.bws.jdistil.core.process.model.SelectDataObjects" class.
+				</div>
+				<pre class="code-content">
+public class SelectCompanies extends SelectDataObjects&lt;Integer, Company&gt; {
+
+    private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(Company.class);
+
+    private static final Set&lt;String&gt; retrieveDataActionIds = new HashSet&lt;String&gt;();
+    private static final Set&lt;String&gt; refreshDataActionIds = new HashSet&lt;String&gt;();
+
+    static {
+        // Create value criterion definition
+        List&lt;ValueCriterionDefinition&gt; valueCriterionDefinitions = new ArrayList&lt;ValueCriterionDefinition&gt;();
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_NAME, FieldIds.COMPANY_NAME_FILTER_OPERATOR, 
+                Operators.CONTAINS, FieldIds.COMPANY_NAME_FILTER, null));
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_TYPE, null, 
+                Operators.EQUALS, FieldIds.COMPANY_TYPE_FILTER, null));
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_ACTIVE, null, 
+                Operators.EQUALS, FieldIds.COMPANY_ACTIVE_FILTER, null));
+        valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.COMPANY_CREATED, FieldIds.COMPANY_CREATED_FILTER_OPERATOR, 
+                Operators.EQUALS, FieldIds.COMPANY_CREATED_FILTER, null));
+
+        // Create order criterion definition
+        OrderCriterionDefinition orderCriterionDefinition = new OrderCriterionDefinition(FieldIds.COMPANY_SORT_FIELD, 
+                FieldIds.COMPANY_SORT_DIRECTION, null);
+
+        // Populate filter criteria definition
+        filterCriteriaDefinition.setIsFilterDataRequired(false);
+        filterCriteriaDefinition.setValueCriterionDefinitions(valueCriterionDefinitions);
+        filterCriteriaDefinition.setOrderCriterionDefinition(orderCriterionDefinition);
+
+        // Populate retrieve data action IDs
+        retrieveDataActionIds.add(ActionIds.SELECT_COMPANIES);
+    }
+
+    public SelectCompanies() {
+        super(CompanyManager.class, filterCriteriaDefinition, AttributeNames.COMPANIES, PageIds.COMPANY_SELECTION, 
+                5, FieldIds.COMPANY_CURRENT_PAGE_NUMBER, FieldIds.COMPANY_SELECTED_PAGE_NUMBER,
+                ActionIds.SELECT_COMPANY_PREVIOUS_PAGE, ActionIds.SELECT_COMPANY_NEXT_PAGE, ActionIds.SELECT_COMPANY_SELECT_PAGE,
+                retrieveDataActionIds, refreshDataActionIds, false, AttributeNames.SELECTED_COMPANIES, FieldIds.COMPANY_ID,
+                ActionIds.SELECT_COMPANY_ADD, ActionIds.SELECT_COMPANY_REMOVE, ActionIds.SELECT_COMPANY_CLOSE);
+    }
+}
+				</pre>
+				<br/>
+				<h3 class="section-title">Delete Data Object</h3>
+				<div class="section-content">
+					The "com.bws.jdistil.core.process.model.DeleteDataObject" class supports the deletion of a single data object type.
+					This is used when deleting a data object from a view data objects page.
+				</div>
+				<div class="section-content">
+					The following documents the constructor available in the "com.bws.jdistil.core.process.model.DeleteDataObject" class.
+				</div>
+				<pre class="code-content">
+public DeleteDataObject(Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, String fieldId, Class&lt;&#63; extends IProcessor&gt; nextProcessorClass) {
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Parameter</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>dataManagerClass</td>
+							<td>Data manager class supporting the deletion of a specific data object type.</td>
+						</tr>
+						<tr>
+							<td nowrap>fieldId</td>
+							<td>Field ID used to reference the unique data object ID from the request parameters identifying which data object to delete.</td>
+						</tr>
+						<tr>
+							<td nowrap>nextProcessorClass</td>
+							<td>Processor class to invoke after processing the delete request.</td>
+						</tr>
+					</table>
+					<br/>
+				</div>
+				<div class="section-content">
+					The following is an example implementation extending the "com.bws.jdistil.core.process.model.DeleteDataObject" class.
+				</div>
+				<pre class="code-content">
+public class DeleteCompany extends DeleteDataObject&lt;Integer, Company&gt; {
+
+    public DeleteCompany() {
+        super(CompanyManager.class, FieldIds.COMPANY_ID, ViewCompanies.class);
+    }
+}
+				</pre>
+				<br/>
+				<h3 class="section-title">Edit Data Object</h3>
+				<div class="section-content">
+					The "com.bws.jdistil.core.process.model.EditDataObject" class supports the creation or modification of a single data object type.
+					This is used when creating a new or editing an existing data object from a view data objects page.
+				</div>
+				<div class="section-content">
+					The following documents the constructor available in the "com.bws.jdistil.core.process.model.EditDataObject" class.
+				</div>
+				<pre class="code-content">
+public EditDataObject(Class&lt;&#63; extends T&gt; dataObjectClass, Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, 
+        String fieldId, String attributeId, String nextPageId, Class&lt;&#63; extends IProcessor&gt; failureProcessorClass, boolean useSession) {
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Parameter</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>dataObjectClass</td>
+							<td>Data object class to be created or modified.</td>
+						</tr>
+						<tr>
+							<td nowrap>dataManagerClass</td>
+							<td>Data manager class supporting the creation or modification of a specific data object type.</td>
+						</tr>
+						<tr>
+							<td nowrap>fieldId</td>
+							<td>Field ID used to reference the unique data object ID from the request parameters identifying which data object to modify.</td>
+						</tr>
+						<tr>
+							<td nowrap>attributeId</td>
+							<td>Attribute ID used to store the data object being created or modified in the request attributes and session attributes if useSession is enabled.</td>
+						<tr>
+						<tr>
+							<td nowrap>nextPageId</td>
+							<td>Page ID identifying the page used to create or modify a specific data object type.</td>
+						<tr>
+						</tr>
+							<td nowrap>failureProcessorClass</td>
+							<td>Processor class to invoke if the edit process encounters an error.</td>
+						</tr>
+						</tr>
+							<td nowrap>useSession</td>
+							<td>
+								Indicates the data object being created or modified should be stored in the session. 
+								This is useful if state needs to be maintained due to other actions being available from the edit page.
+							</td>
+						</tr>
+					</table>
+					<br/>
+				</div>
+				<div class="section-content">
+					The following is an example implementation extending the "com.bws.jdistil.core.process.model.EditDataObject" class.
+				</div>
+				<pre class="code-content">
+public class EditCompany extends EditDataObject&lt;Integer, Company&gt; {
+
+    public EditCompany() {
+        super(Company.class, CompanyManager.class, FieldIds.COMPANY_ID, AttributeNames.COMPANY, PageIds.COMPANY, ViewCompanies.class, false);
+    }
+}
+				</pre>
+				<br/>
+				<h3 class="section-title">Save Data Object</h3>
+				<div class="section-content">
+					The "com.bws.jdistil.core.process.model.SaveDataObject" class supports saving a single data object type. This is used when 
+					saving a new or existing data object from the edit data objects page.
+				</div>
+				<div class="section-content">
+					The following documents the constructor available in the "com.bws.jdistil.core.process.model.SaveDataObject" class.
+				</div>
+				<pre class="code-content">
+public SaveDataObject(Class&lt;&#63; extends DataObject&lt;I&gt;&gt; dataObjectClass, Class&lt;&#63; extends IDataManager&lt;I, T&gt;&gt; dataManagerClass, 
+        String fieldId, String attributeId, boolean doDirtyUpdateCheck, Class&lt;&#63; extends IProcessor&gt; successProcessorClass,
+        Class&lt;&#63; extends IProcessor&gt; failureProcessorClass, boolean useSession) {
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Parameter</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>dataObjectClass</td>
+							<td>Data object class to be saved.</td>
+						</tr>
+						<tr>
+							<td nowrap>dataManagerClass</td>
+							<td>Data manager class responsible for saving a specific data object type.</td>
+						</tr>
+						<tr>
+							<td nowrap>fieldId</td>
+							<td>Field ID used to reference the unique data object ID from the request parameters identifying the data object to be saved.</td>
+						</tr>
+						<tr>
+							<td nowrap>attributeId</td>
+							<td>Attribute ID used to store the data object being saved in the request attributes and session attributes if useSession is enabled.</td>
+						<tr>
+						<tr>
+							<td nowrap>doDirtyUpdateCheck</td>
+							<td>Indicates the version of the data object being saved should be checked to avoid concurrent update issues.</td>
+						<tr>
+						<tr>
+							<td nowrap>successProcessorClass</td>
+							<td>Processor class to invoke if the save process is saved successful.</td>
+						<tr>
+						</tr>
+							<td nowrap>failureProcessorClass</td>
+							<td>Processor class to invoke if the save process encounters an error.</td>
+						</tr>
+						</tr>
+							<td nowrap>useSession</td>
+							<td>
+								Indicates the data object being saved should be stored in the session. 
+								This is useful if state needs to be maintained due to other actions being available from the edit page.
+							</td>
+						</tr>
+					</table>
+					<br/>
+				</div>
+				<div class="section-content">
+					The following is an example implementation extending the "com.bws.jdistil.core.process.model.SaveDataObject" class.
+				</div>
+				<pre class="code-content">
+public class SaveCompany extends SaveDataObject&lt;Integer, Company&gt; {
+
+    public SaveCompany() {
+        super(Company.class, CompanyManager.class, FieldIds.COMPANY_ID, AttributeNames.COMPANY, true, ViewCompanies.class, EditCompany.class, false);
+    }
+}
+				</pre>
+			</div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

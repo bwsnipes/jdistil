@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of security in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Security</h3>
+				<div class="section-content">
+					The JDistil framework uses a security manager to determine action and field level access within an application. This access information is used by the UI components 
+					to preemptively alter the elements displayed in the application UI. This includes hiding action based UI elements when an action is restricted, hiding data based UI 
+					elements when a field is restricted, and displaying data based UI elements as read-only when a field is read-only. Back-end framework components use the access information 
+					to validate and restrict requests submitted for an application. This includes prohibiting invocation of action specific processors when an action is restricted and 
+					ignoring submitted field data when a field is restricted or read-only.<br/>
+					<br/>
+					The "com.bws.jdistil.core.security.DefaultSecurityManager" class is used by default and allows access to all actions and fields defined within an application. 
+                    This security manager can be overridden with an application specific security manager by specifying a security manager factory class in the application 
+                    specific "core.properties" file.
+				</div>
+				<br/>
+                <h3 class="section-title">Security Manager</h3>
+				<div class="section-content">
+					All security managers class must implement the "com.bws.jdistil.core.security.ISecurityManager" interface. An application specific security manager can choose 
+					to implement the interface directly or extend the "com.bws.jdistil.core.security.DefaultSecurityManager" class if only implementing a portion of the interface.
+					The following documents the "com.bws.jdistil.core.security.ISecurityManager" interface.
+                </div>
+				<pre class="code-content">
+public interface ISecurityManager {
+
+    public IDomain getDomain(HttpSession session) throws SecurityException;
+    public boolean isDomainAdmin(HttpSession session) throws SecurityException;
+    public boolean isAuthenticated(HttpSession session) throws SecurityException;
+    public void setAuthenticated(boolean isAuthenticated, HttpSession session) throws SecurityException;
+    public boolean isAuthorizationRequired(String actionId, HttpSession session) throws SecurityException;
+    public boolean isAuthorized(String actionId, HttpSession session) throws SecurityException;
+    public boolean isFieldHidden(String fieldId, HttpSession session) throws SecurityException;
+    public boolean isFieldReadOnly(String fieldId, HttpSession session) throws SecurityException;
+
+}
+				</pre>
+				<br/>
+                <h3 class="section-title">Security Manager Factory</h3>
+				<div class="section-content">
+					An application's security manager is accessible using the "com.bws.jdistil.core.security.SecurityManagerFactory" class. This class returns an instance of the 
+					application specific security manager factory if a class is defined in the "core.properties" file or an instance of a singleton POJO factory supporting access
+                    to the "com.bws.jdistil.core.security.DefaultSecurityManager" if no class is defined. The following excerpt provides an example using the security manager 
+                    factory provided by the JDistil security module. 
+                </div>
+				<pre class="code-content">
+# Security manager factory class name
+security.manager.factory=com.bws.jdistil.security.SecurityManagerFactory
+				</pre>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

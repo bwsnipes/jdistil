@@ -1,0 +1,307 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of application fragments included in the JDistil Eclipse plug-in." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Application Fragment</h3>
+				<div class="section-content">
+					The Application Fragment wizard is used to generate application resources supporting CRUD based management of 
+					domain model entity information.  This includes the following list of resources.
+					<ul>
+						<li>Configuration information defining all actions, fields, pages, data validation and page navigation.</li>
+						<li>Process classes supporting the view, selection, edit, deletion and saving of entity information.</li>
+						<li>Domain class representing the entity information.</li>
+						<li>DAO class supporting the retrieval and persistence of entity information.</li>
+						<li>SQL supporting creation of any defined code lookup categories.</li>
+						<li>SQL supporting creation of tables and relationships used to persist entity information.</li>
+						<li>SQL supporting creation of entity specific security entitlements.</li>
+						<li>JSP page used to filter, sort, delete and page through all defined entities.</li>
+						<li>JSP page used to edit entity information.</li>
+						<li>JSP page used to select one or more entities from other entity pages.</li>
+					</ul>
+                </div>
+				<br>
+				<h3 class="section-title">Fragment Creation</h3>
+				<div class="section-content">
+					Select the new resource wizard and choose the Application Fragment wizard.<br/>
+					<br/>
+					<img src="images/app-fragment-1.png" alt="Wizard Selection" />
+					<br/><br/><br/>
+					Populate all required fields on the Definition wizard page. Definitions of each field are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/app-fragment-2.png" alt="Application Fragment" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Project</td>
+							<td>Workspace project where application resources will be generated.</td>
+						</tr>
+						<tr>
+							<td nowrap>Package</td>
+							<td>Package name to associate with all generated classes.</td>
+						</tr>
+						<tr>
+							<td nowrap>Name</td>
+							<td>Entity name representing the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>Parent</td>
+							<td>Existing application fragment defining a unique one to many hierarchical parent child relationship.</td>
+						</tr>
+						<tr>
+							<td nowrap>Attributes</td>
+							<td>Table of attributes defining the data elements of the application fragment.</td>
+						</tr>
+					</table>
+					<br/><br/>
+					Use the add, edit and delete buttons to define and manage attributes of the Application Fragment. 
+					Definitions of each field on the attribute entry dialog are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/app-fragment-3.png" alt="Fragment Attribute" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Name</td>
+							<td>Attribute name.</td>
+						</tr>
+						<tr>
+							<td nowrap>Type</td>
+							<td>Attribute type which includes Text, Numeric, Boolean, Date, Time, Lookup, Phone Number, Email types.</td>
+						</tr>
+						<tr>
+							<td nowrap>Required</td>
+							<td>Required attribute.</td>
+						</tr>
+						<tr>
+							<td nowrap>Text: Max Length</td>
+							<td>Maximum number of attribute characters.</td>
+						</tr>
+						<tr>
+							<td nowrap>Numeric: Type</td>
+							<td>Type of numeric attribute which includes Positive, Negative, or Any.</td>
+						</tr>
+						<tr>
+							<td nowrap>Numeric: Precision</td>
+							<td>Maximum precision of numeric attribute.</td>
+						</tr>
+						<tr>
+							<td nowrap>Numeric: Scale</td>
+							<td>Maximum scale of numeric attribute.</td>
+						</tr>
+						<tr>
+							<td nowrap>Lookup: Category</td>
+							<td>Code category of lookup attribute.</td>
+						</tr>
+						<tr>
+							<td nowrap>Lookup: Multiple Values</td>
+							<td>Multiple value selection supported by lookup attribute.</td>
+						</tr>
+					</table>
+					<br/><br/>
+					Specify pagination options, select table filters and select table columns used on the view entities page. 
+					Definitions of each field are listed below the screen shot.<br/>
+					<br/>
+					<img src="images/app-fragment-4.png" alt="Fragment View" /><br/>
+					<br/>
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Field</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>Pagination: Enable</td>
+							<td>Pagination supported by view entities page.</td>
+						</tr>
+						<tr>
+							<td nowrap>Pagination: Size</td>
+							<td>Number of items included in table on view entities page.</td>
+						</tr>
+						<tr>
+							<td nowrap>Table Filters</td>
+							<td>Attributes to be used as table filters on view entities page.</td>
+						</tr>
+						<tr>
+							<td nowrap>Table Columns</td>
+							<td>Attributes to be displayed in table on view entities page.</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+                <h3 class="section-title">Fragment Resources</h3>
+				<div class="section-content">
+					The following table documents the project specific resources generated or modified by the Application Fragment wizard.<br/>
+					<br/>					
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Directory</th>
+							<th>Resource</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.ActionIds</td>
+							<td>Adds fragment specific action ID constants.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.AttributeNames</td>
+							<td>Adds fragment specific attribute name constants.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.CategoryIds</td>
+							<td>Adds fragment specific category ID constants.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.Configuration</td>
+							<td>Adds a reference to the fragment specific configuration class.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.FieldIds</td>
+							<td>Adds fragment specific field ID constants.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.PageIds</td>
+							<td>Adds fragment specific page ID constants.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.configuration.fragment.&lt;fragment-name&gt;Configuration</td>
+							<td>Class defining configuration information supporting the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.&lt;fragment-name&gt;.java</td>
+							<td>Class defining the domain object representing the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.&lt;fragment-name&gt;Manager.java</td>
+							<td>Class defining the DAO object supporting the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.View&lt;fragment-name-pluralized&gt;.java</td>
+							<td>Model based process class supporting the ability to view, search, sort, and page through fragment data.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.Select&lt;fragment-name-pluralized&gt;.java</td>
+							<td>Model based process class supporting the ability to view, search, sort, page and select one or more fragments.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.Edit&lt;fragment-name&gt;.java</td>
+							<td>Model based process class supporting the ability to add or edit fragment data.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.Save&lt;fragment-name&gt;.java</td>
+							<td>Model based process class supporting the ability to save fragment data.</td>
+						</tr>
+						<tr>
+							<td nowrap>src</td>
+							<td nowrap>&lt;base-package&gt;.&lt;fragment-name&gt;.Delete&lt;fragment-name&gt;.java</td>
+							<td>Model based process class supporting the ability to delete fragment data.</td>
+						</tr>
+						<tr>
+							<td nowrap>sql</td>
+							<td nowrap>app-category.txt</td>
+							<td>Adds fragment specific SQL statements supporting any new code lookup categories.</td>
+						</tr>
+						<tr>
+							<td nowrap>sql</td>
+							<td nowrap>app-entity.txt</td>
+							<td>Adds SQL statements used to create tables and relationships supporting the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>sql</td>
+							<td nowrap>app-security.txt</td>
+							<td>Adds SQL statements used to populate security entitlements supporting the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>WebContent</td>
+							<td nowrap>Header.jsp</td>
+							<td>Adds fragment specific menu item.</td>
+						</tr>
+						<tr>
+							<td nowrap>WebContent/&lt;fragment-name&gt;</td>
+							<td nowrap>&lt;fragment-name-pluralized&gt;.jsp/td>
+							<td>View entities page supporting the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>WebContent/&lt;fragment-name&gt;</td>
+							<td nowrap>&lt;fragment-name&gt;.jsp/td>
+							<td>Edit entity page supporting the application fragment.</td>
+						</tr>
+						<tr>
+							<td nowrap>WebContent/&lt;fragment-name&gt;</td>
+							<td nowrap>&lt;fragment-name&gt;Selection.jsp/td>
+							<td>Select` entities page supporting the application fragment.</td>
+						</tr>
+					</table>
+                </div>
+			</div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

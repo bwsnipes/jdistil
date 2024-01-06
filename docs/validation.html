@@ -1,0 +1,162 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of validation in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Validation</h3>
+				<div class="section-content">
+					The JDistil framework performs validation for each request submitted to the servlet controller. Specifically, the servlet controller delegates validation 
+					to a validation processor before invoking any processors configured for a submitted action. The "com.bws.jdistil.core.validation.DefaultValidator" 
+					framework processor class is used by default but can be overridden by specifying an application defined validator factory class in the application specific 
+					"core.properties" file.  The custom factory class must implement IFactory interface and instances provided by the factory must implement the IProcessor interface.<br/>
+					<br/>
+					The default framework processor class supporting action validation uses configuration data associated with the submitted action to perform validation. 
+					Specifically, the processor uses the configuration manager to retrieve an action reference using the submitted action ID. This action reference may 
+					contain one or more action rules supporting action level validation and may contain one or more field rules supporting field level validation. These rules 
+					are defined in the application specific configuration data and the processor delegates processing to these rules to perform the actual validation. These 
+					rules are also responsible for populating an error messages collection provided by the processor when validation fails. The error messages are included 
+					in a process context allowing them to be referenced and displayed by an application view.
+				</div>
+				<br/>
+                <h3 class="section-title">Action Rules</h3>
+				<div class="section-content">
+					The following documents the "com.bws.jdistil.core.validation.rules.IActionRule" interface. This interface is implemented by classes used
+					to perform action level validation.
+				</div>
+				<pre class="code-content">
+public interface IActionRule {
+
+    public boolean isValid(String actionId, Map&lt;String, String[]&gt; data, Locale locale, List&lt;String&gt; messages);
+
+}
+				</pre>
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>AtLeastOneFieldRule</td>
+							<td>Validates a field value exists for at least one of multiple specified fields.</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+                <h3 class="section-title">Field Rules</h3>
+				<div class="section-content">
+					The following documents the "com.bws.jdistil.core.validation.rules.IFieldRule" interface. This interface is implemented by classes used
+					to perform field level validation. The framework provides several field rule classes which are documented in the table below.
+				</div>
+				<pre class="code-content">
+public interface IFieldRule {
+
+    public boolean isValid(String id, String value, Locale locale, List&lt;String&gt; messages);
+
+}
+				</pre>
+				<div class="section-content">
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Class</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>ConverterRule</td>
+							<td>Validates a field value using the field specific converter class defined in the application configuration.</td>
+						</tr>
+						<tr>
+							<td nowrap>RegularExpressionRule</td>
+							<td>Validates a field value conforms to a defined regular expression. This class can be used directly or extended to provide a specific field rule.</td>
+						</tr>
+						<tr>
+							<td nowrap>NumberRule</td>
+							<td>
+								Validates a field value conforms to a valid number. This rule supports maximum precision and scale and restrictions on positive and negative values. 
+								These specifics are defined when the rule instance is created.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>EmailRule</td>
+							<td>Validates a field value conforms to a valid email address.</td>
+						</tr>
+						<tr>
+							<td nowrap>PhoneNumberRule</td>
+							<td>Validates a field value conforms to a valid phone number.</td>
+						</tr>
+						<tr>
+							<td nowrap>PostalCodeRule</td>
+							<td>Validates a field value conforms to a valid postal code.</td>
+						</tr>
+						<tr>
+							<td nowrap>MaxLengthRule</td>
+							<td>Validates a field value does not exceed the maximum number of characters defined for a text area.</td>
+						</tr>
+					</table>
+				</div>
+				<br/>
+                <h3 class="section-title">Validator Factory</h3>
+				<div class="section-content">
+					An application's validator is accessible using the "com.bws.jdistil.core.validation.ValidatorFactory" class. This class returns an instance of the 
+					application specific validator factory if the class is defined in the "core.properties" file or an instance of a singleton pojo factory supporting 
+                    access to the "com.bws.jdistil.core.validation.DefaultValidator" if no class is defined. The following excerpt provides an example using an application 
+                    specific validator factory. 
+                </div>
+				<pre class="code-content">
+# Validator factory class name
+validator.factory=org.test.validation.CustomValidatorFactory
+				</pre>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

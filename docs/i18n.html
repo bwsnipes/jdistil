@@ -1,0 +1,320 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of internationalization (i18n) in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Internationalization (i18n)</h3>
+				<div class="section-content">
+                    The JDistil framework includes support for internationalization of all application resources. These resources include
+                    page names, action names, field names, system messages, operator names, and data formats such as date, time, and numeric values.
+                    Internationalized resources need to be defined in locale specific resource bundle classes and the base class names need to be 
+                    configured in the "core.properties" file. There are several properties supporting internationalization in the "core.properties" 
+                    and each property is focused on a specific resource type. Additionally, each property supports specification of multiple base
+                    resource class names using comma delimited values.
+                </div>
+                <h3 class="section-title">Example</h3>
+				<div class="section-content">
+                    This section provides an example supporting the Spanish (es) locale. This includes the configuration used to reference locale specific
+                    resources and specific implementations of resources supporting the Spanish (es) locale. Additional locales can be supported by implementing
+                    locale specific resources in the same package.</br>
+                    </br>
+                    The following is an example configuration used to reference locale specific resources in the "com.bws.demo.i18n" package.
+                </div>
+                <pre class="code-content">
+# List of comma delimited base resource names supporting application descriptions.
+# Resources defining locale specific translations for application descriptions.
+# Default values are used if no resource is defined.
+# See descriptions defined in application configuration for page, action and field keys.
+description.resources=com.bws.demo.i18n.DescriptionResource
+
+# List of comma delimited base resource names supporting application messages.
+# Resources defining locale specific translations for application messages.
+# Default values are used if no locale specific value is defined.
+# See com.bws.jdistil.core.message.MessageResource for all resource keys.
+message.resources=com.bws.demo.i18n.MessageResource
+
+# List of comma delimited base resource names supporting application operators.
+# Resources defining locale specific translations for application operators.
+# Default values are used if no locale specific value is defined.
+# See com.bws.jdistil.core.datasource.database.Operators for operator keys.
+operator.resources=com.bws.demo.i18n.OperatorResource
+
+# List of comma delimited base resource names supporting application formats.
+# Resources defining locale specific translations for application formats.
+# Default values are used if no locale specific value is defined.
+# See com.bws.jdistil.core.conversion.Formats for all resource keys.
+format.resources=com.bws.demo.i18n.FormatResource
+                </pre>
+				<div class="section-content">
+                    The following is an example implementation of the description resource for the Spanish (es) locale. This includes translations
+                    for all application specific text values in addition to the text values associated with the Codes and Security modules.
+                </div>
+                <pre class="code-content">
+package com.bws.demo.i18n;
+
+import java.util.ListResourceBundle;
+
+public class DescriptionResource_es extends ListResourceBundle {
+
+  static final Object[][] contents = {
+	  
+    // Demo application values
+    {"Customer", "Cliente"},
+    {"Customers", "Clientes"},
+    {"Shipper", "Expedidor"},
+    {"Shippers", "Expedidores"},
+    {"Purchase Order", "Orden de Compra"},
+    {"Purchase Orders", "Ordenes de Compra"},
+    {"Order Detail", "Detalle de la Orden"},
+    {"Order Details", "Detalles de la Orden"},
+    {"Supplier", "Proveedor"},
+    {"Suppliers", "Proveedor"},
+    {"Contact", "Contacto"},
+    {"Contacts", "Contactos"},
+    {"Product", "Producto"},
+    {"Products", "Productos"},
+    {"Manage Customers", "Administrar Clientes"},
+    {"Manage Shippers", "Administrar Expedidores"},
+    {"Manage Purchase Orders", "Administrar Ordenes de Compra"},
+    {"Manage Order Details", "Administrar Detalles de la Orden"},
+    {"Manage Suppliers", "Administrar Proveedor"},
+    {"Manage Contacts", "Administrar Contactos"},
+    {"Manage Products", "Administrar Productos"},
+    {"Name", "Nombre"},
+    {"Type", "Escribe"},
+    {"Address", "Direcci&#243;n"},
+    {"City", "Ciudad"},
+    {"State", "Estado"},
+    {"Postal Code", "C&#243;digo Postal"},
+    {"Phone", "Tel&#233;fono"},
+    {"Order Date", "Fecha de Orden"},
+    {"Ship Date", "Fecha de Env&#237;o"},
+    {"Freight", "Carga"},
+    {"Expedite", "Acelerar"},
+    {"Quantity", "Cantidad"},
+    {"Discount", "Descuento"},
+    {"Shipping", "Env&#237;o"},
+    {"Sales Tax", "Impuesto de Venta"},
+    {"Comments", "Comentarios"},
+    {"First Name", "Primer Nombre"},
+    {"Last Name", "Apellido"},
+    {"Title", "T&#237;tulo"},
+    {"Unit Price", "Precio Unitario"},
+    {"Quantity Per Unit", "Cantidad por Unidad"},
+    {"Customer Type", "Tipo de Cliente"},
+    {"Customer Type 1", "Tipo de Cliente 1"},
+    {"Customer Type 2", "Tipo de Cliente 2"},
+    {"Customer Type 3", "Tipo de Cliente 3"},
+    {"Product Type", "Tipo de Producto"},
+    {"Product Type 1", "Tipo de Producto 1"},
+    {"Product Type 2", "Tipo de Producto 2"},
+    {"Product Type 3", "Tipo de Producto 3"},
+
+    // Plug-in application values 
+    {"Admin", "Administraci&#243;n"},
+    {"Data", "Datos"},
+    {"Hide Filter", "Ocultar Filtro"},
+    {"Show Filter", "Mostrar Filtro"},
+    {"Apply", "Aplicar"},
+    {"Clear", "Claro"},
+    {"Page", "P&#225;gina"},
+    {"of", "de"},
+    {"Items", "Art&#237;culos"},
+    {"Yes", "S&#237;"},
+    {"Save", "Ahorrar"},
+    {"Cancel", "Cancelar"},
+    {"Add", "A&#241;adir"},
+    {"Remove", "Eliminar"},
+    {"Close", "Cerca"},
+    
+    // Codes module values
+    {"Codes", "C&#243;digos"},
+    {"Code", "C&#243;digo"},
+    {"Manage Codes", "Administrar C&#243;digos"},
+    {"Category", "Categor&#237;a"},
+    {"Default", "Defecto"},
+    
+    // Security module values
+    {"Roles", "Funciones"},
+    {"Role", "Funcion"},
+    {"Manage Roles", "Administrar Funciones"},
+    {"Task", "Tarea"},
+    {"Group", "Grupo"},
+    {"Field", "Campo"},
+    {"Restricted Task", "Restringido Tarea"},
+    {"Read Only Fields", "S&#243;lo Lectura Campos"},
+    {"Restricted Fields", "Los Campos Restringidos"},
+    {"Users", "Usuarios"},
+    {"User", "Usuario"},
+    {"Manage Users", "Administrar Usuarios"},
+    {"Logon ID", "ID de Acceder"},
+    {"Password", "Clave"},
+    {"Middle Initial", "Inicial del Segundo Nombre"},
+    {"Change Password", "Cambiar la Contrase&#241;a"},
+    {"New Password", "Nueva Clave"},
+    {"Confirm Password", "Confirmar Clave"},
+    {"Incorrect password.", "Incorrecto clave."},
+    {"New password and confirmation password do not match.", "Nueva contrase&#241;a y la contrase&#241;a de confirmaci&#243;n no coinciden."},
+    {"Logon", "Acceder"},
+    {"Logon failed.", "Acceder Fallo"},
+    {"Logoff", "Desconectarse"},
+  };
+
+  public Object[][] getContents() {
+    return contents;
+  }
+
+}
+                </pre>
+				<div class="section-content">
+                    The following is an example implementation of the message resource for the Spanish (es) locale. This includes translations
+                    for all framework specific message values. Any application specific messages would also need to be defined.
+                </div>
+                <pre class="code-content">
+package com.bws.demo.i18n;
+
+import java.util.ListResourceBundle;
+
+import com.bws.jdistil.core.message.Messages;
+
+public class MessageResource_es extends ListResourceBundle {
+
+  static final Object[][] contents = {
+    {Messages.REQUIRED_FIELD, "{0} es un campo obligatorio."},
+    {Messages.NON_UNIQUE, "{0} no es &#250;nico."},
+    {Messages.INVALID_FORMAT, "{0} tiene un formato no v&#225;lido. {1}"},
+    {Messages.INVALID_NUMBER, "{0} es un n&#250;mero no v&#225;lido."},
+    {Messages.GREATER_THAN_VALUE, "{0} debe ser mayor que {1}."},
+    {Messages.GREATER_THAN_OR_EQUAL_VALUE, "{0} debe ser mayor que o igual a {1}."},
+    {Messages.LESS_THAN_VALUE, "{0} debe ser inferior a {1}."},
+    {Messages.LESS_THAN_OR_EQUAL_VALUE, "{0} debe ser menor que o igual a {1}."},
+    {Messages.INVALID_EMAIL, "{0} es una direcci&#243;n de email no es v&#225;lida."},
+    {Messages.GREATER_THAN_TODAYS_DATE, "{0} debe ser mayor que la fecha de hoy."},
+    {Messages.LESS_THAN_TODAYS_DATE, "{0} debe ser menor que la fecha de hoy."},
+    {Messages.LESS_THAN_CHARACTERS, "{0} debe ser inferior a {1} personajes."},
+    {Messages.INVALID_PRECISION, "{0} debe contener menos de {1} dígitos en total."},
+    {Messages.INVALID_SCALE, "{0} debe contener menos de {1} cifras decimales."},
+    {Messages.DELETE_CONFIRMATION, "&#191;Quieres eliminar el elemento seleccionado(s)"},
+  };
+
+  public Object[][] getContents() {
+    return contents;
+  }
+
+}
+                </pre>
+				<div class="section-content">
+                    The following is an example implementation of the operator resource for the Spanish (es) locale. This includes translations
+                    for all framework specific operator values.
+                </div>
+                <pre class="code-content">
+package com.bws.demo.i18n;
+
+import java.util.ListResourceBundle;
+
+import com.bws.jdistil.core.datasource.database.Operators;
+
+public class OperatorResource_es extends ListResourceBundle {
+
+  static final Object[][] contents = {
+    {Operators.BEGINS_WITH, "Empezando con"},
+    {Operators.CONTAINS, "Contiene"},
+    {Operators.ENDS_WITH, "Termina con"},
+    {Operators.EQUALS, "Igual"},
+    {Operators.NOT_EQUALS, "No es igual"},
+    {Operators.GREATER_THAN, "Mas grande que"},
+    {Operators.GREATER_THAN_OR_EQUAL, "Mayor que o igual"},
+    {Operators.LESS_THAN, "Menos que"},
+    {Operators.LESS_THAN_OR_EQUAL, "Menor o igual"},
+    {Operators.IS_NULL, "Es nulo"},
+    {Operators.IS_NOT_NULL, "No es nulo"},
+  };
+
+  public Object[][] getContents() {
+    return contents;
+  }
+
+}
+                </pre>
+				<div class="section-content">
+                    The following is an example implementation of the format resource for the Spanish (es) locale. This includes translations
+                    for all framework specific formats.
+                </div>
+                <pre class="code-content">
+package com.bws.demo.i18n;
+
+import java.util.ListResourceBundle;
+
+import com.bws.jdistil.core.conversion.Formats;
+
+public class FormatResource_es extends ListResourceBundle {
+
+  static final Object[][] contents = {
+    {Formats.DATE_FORMAT, "MM-dd-yyyy"},
+    {Formats.TIME_FORMAT, "HH:mm"},
+    {Formats.DATE_TIME_FORMAT, "MM-dd-yyyy hh:mm a"},
+    {Formats.NUMBER_FORMAT, "#.###"},
+    {Formats.DECIMAL_FORMAT, "#.###,00"},
+    {Formats.CURRENCY_FORMAT, "#.###,00"},
+    {Formats.PERCENTAGE_FORMAT, "#,00%"}
+  };
+
+  public Object[][] getContents() {
+    return contents;
+  }
+
+}
+                </pre>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>

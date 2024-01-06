@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <title>JDistil - Java Web Framework</title>
+        <meta name="description" content="Provides an overview of request processing (MVC) in the JDistil web framework." />
+		<link rel="stylesheet" type="text/css" href="jdistil.css" />
+    </head>
+    <body>
+		<div class="header">
+			<h2>JDistil</h2>
+		</div>
+        <div class="body">
+            <div class="menu">
+                <h3 class="menu-header">General</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="overview.html">Overview</a></li>
+					<li><a class="menu-link" href="demo.html">Demos</a></li>
+					<li><a class="menu-link" href="api-documentation.html">API Documentation</a></li>
+					<li><a class="menu-link" href="downloads.html">Downloads</a></li>
+					<li><a class="menu-link" href="about-us.html">About Us</a></li>
+				</ul>
+                <h3 class="menu-header">Plugin</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="project-facet.html">Project Facet</a></li>
+					<li><a class="menu-link" href="application-fragment.html">Application Fragment</a></li>
+					<li><a class="menu-link" href="fragment-relationship.html">Fragment Relationship</a></li>
+				</ul>
+                <h3 class="menu-header">Modules</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="codes-module.html">Codes</a></li>
+					<li><a class="menu-link" href="security-module.html">Security</a></li>
+				</ul>
+                <h3 class="menu-header">Framework</h3>
+				<ul class="menu-item" >
+					<li><a class="menu-link" href="properties.html">Properites</a></li>
+					<li><a class="menu-link" href="configuration.html">Configuration</a></li>
+					<li><a class="menu-link" href="request-processing.html">Request Processing (MVC)</a></li>
+					<li><a class="menu-link" href="models.html">Models</a></li>
+					<li><a class="menu-link" href="data-access.html">Data Access (ORM)</a></li>
+					<li><a class="menu-link" href="validation.html">Validation</a></li>
+					<li><a class="menu-link" href="security.html">Security</a></li>
+					<li><a class="menu-link" href="ui-components.html">UI Components</a></li>
+					<li><a class="menu-link" href="multitenancy.html">Multi-tenancy</a></li>
+					<li><a class="menu-link" href="i18n.html">Internationalization (i18n)</a></li>
+					<li><a class="menu-link" href="utilities.html">Utilities</a></li>
+				</ul>
+                <ul class="site-link-item" >
+                    <div id="cdSiteSeal2"><script type="text/javascript" src="http://tracedseals.starfieldtech.com/siteseal/get?scriptId=cdSiteSeal2&amp;cdSealType=Seal2&amp;sealId=59851792265f5192feb93bc122cc72fb0396703559629020a25692b25e60a30a"></script></div>
+                </ul>
+				<br/>
+            </div>
+            <div class="content">
+                <h3 class="section-title">Request Processing (MVC)</h3>
+				<div class="section-content">
+					The JDistil framework uses a simple MVC model for request processing. This model is built around a central controller that delegates 
+					authentication and authorization to a pluggable security manager, page and field validation to a pluggable validator, and request processing 
+					to an action specific application process. The controller is also responsible for forwarding the request to a process specified JSP page for 
+					UI presentation. The next section provides more detailed information using a component interaction diagram.
+                </div>
+				<br/>
+				<h3 class="section-title">Diagram</h3>
+				<div class="section-content">
+					The following diagram documents all component interactions involved in request processing. Descriptions of each interaction are listed below the diagram. 
+					<img src="images/request-processing.png" alt="Component Interaction" />
+					<table border="1" cellspacing="1" cellpadding="3">
+						<tr>
+							<th>Step</th>
+							<th>Description</th>
+						</tr>
+						<tr>
+							<td nowrap>1</td>
+							<td>Request specifying an application specific action.</td>
+						</tr>
+						<tr>
+							<td nowrap>2</td>
+							<td>Authentication and authorization verified for submitted action using pluggable security manager.</td>
+						</tr>
+						<tr>
+							<td nowrap>3</td>
+							<td>
+								Data validation performed for submitted action using pluggable validator.<br/>
+								Checks required fields, value formats, custom conditions, etc.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>4</td>
+							<td>
+								Controller creates a process context and invokes an action specific process.<br/>
+								Process can leverage data manager implementations to access and manipulate data.<br/>
+								Process can forward processing to other application defined processes.<br/>
+								Process can specify a target page in the process context or write to the response directly.
+							</td>
+						</tr>
+						<tr>
+							<td nowrap>5</td>
+							<td>
+								Controller forwards the request to a page specified by the process if response has not already been written to directly.<br/> 
+								JSP page uses the pluggable security manager to identify field and action authorizations when building the UI.
+							</td>
+						</tr>
+					</table>
+				</div>
+            </div>
+        </div>
+		<div class="footer">
+			<h2>Copyright (c) 2015</h2>
+		</div>
+    </body>
+</html>
