@@ -28,4 +28,4 @@ JDistil further simplifies application development by providing an Eclipse plugi
 #### Application Stack
 ![Diagram](https://bwsnipes.github.io/jdistil/images/application-stack.png)
 
-For additional information including video demonstrations please visit https://bwsnipes.github.io/jdistil/utilities.html
+For additional information including video demonstrations please visit https://bwsnipes.github.io/jdistil
