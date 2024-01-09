@@ -4,9 +4,9 @@
     Builds the codes library.
   </description>
 
-	<dirname property="home.dir" file="${ant.file}" />
+  <dirname property="home.dir" file="${ant.file}" />
  
-  <property file="${home.dir}/build.properties"/>
+  <property environment="env" file="${home.dir}/build.properties"/>
 
   <target name="codes">
 
@@ -33,13 +33,13 @@
     </zip>
 
     <path id="codes.classpath">
-      <fileset dir="${java.lib.dir}">
+      <fileset dir="${env.JAVA_HOME}\lib">
         <include name="**/*.jar"/>
       </fileset>
-      <fileset dir="${j2ee.lib.dir}">
+      <fileset dir="${env.JAVA_X}">
         <include name="**/*.jar"/>
       </fileset>
-      <fileset dir="${java.mail.lib.dir}">
+      <fileset dir="${env.JAVA_EE}">
         <include name="**/*.jar"/>
       </fileset>
       <fileset dir="${core.lib.dir}">
@@ -47,7 +47,7 @@
       </fileset>
     </path>
 
-    <javac target="1.6" source="1.6" debug="true" debuglevel="lines,vars,source" srcdir="${codes.source.dir}" destdir="${ant.build.dir}">
+    <javac debug="true" debuglevel="lines,vars,source" srcdir="${codes.source.dir}" destdir="${ant.build.dir}">
       <classpath refid="codes.classpath"/>
     </javac>
 
