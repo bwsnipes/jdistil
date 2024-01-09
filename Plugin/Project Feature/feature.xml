@@ -72,29 +72,8 @@ www.jdistil.com
 Copyright (C) 2015 Bryan W. Snipes
    </license>
 
-   <requires>
-      <import plugin="org.eclipse.wst.common.project.facet.ui"/>
-      <import plugin="org.eclipse.wst.common.modulecore"/>
-      <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.jdt.ui"/>
-      <import plugin="org.eclipse.jst.j2ee"/>
-      <import plugin="org.eclipse.jst.j2ee.core"/>
-      <import plugin="org.eclipse.jst.j2ee.web"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.text"/>
-      <import plugin="org.eclipse.wst.common.project.facet.core"/>
-   </requires>
-
    <plugin
          id="com.bws.jdistil.project"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         fragment="true"
-         unpack="false"/>
+         version="0.0.0"/>
 
 </feature>
