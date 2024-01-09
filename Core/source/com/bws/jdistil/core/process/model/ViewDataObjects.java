@@ -598,7 +598,7 @@ public class ViewDataObjects<I, T extends DataObject<I>> extends Processor {
     @param dataManager Data manager.
     @param dataObjectIds List of data object IDs.
     @param processContext Process context.
-    @return List<T> List of data objects.
+    @return List List of data objects.
   */
 	protected List<T> retrieveDataObjects(IDataManager<I, T> dataManager, List<I> dataObjectIds, ProcessContext processContext) throws ProcessException {
   

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.bws.jdistil.security.app"},{"l":"com.bws.jdistil.security.app.configuration"},{"l":"com.bws.jdistil.security.app.domain"},{"l":"com.bws.jdistil.security.app.role"},{"l":"com.bws.jdistil.security.app.user"}];updateSearchResults();

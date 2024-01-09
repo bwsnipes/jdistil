@@ -47,7 +47,7 @@ import javax.servlet.ServletRequest;
 public class Loader {
   
   /**
-    Creates a new instance of the ParameterExtractor class.&nbsp Defined with
+    Creates a new instance of the ParameterExtractor class.&nbsp; Defined with
     private access to prohibit instance creation.
   */
   private Loader() {

@@ -185,7 +185,7 @@ public class TableBasedSequenceProvider implements ISequenceProvider {
       int index = 1;
       DbUtil.setString(sqlStatement, index++, tableName);
       DbUtil.setString(sqlStatement, index++, columnName);
-      DbUtil.setInteger(sqlStatement, index++, new Integer(1));
+      DbUtil.setInteger(sqlStatement, index++, Integer.valueOf(1));
   
       // Execute SQL statement
       sqlStatement.executeUpdate();
@@ -231,7 +231,7 @@ public class TableBasedSequenceProvider implements ISequenceProvider {
   
       // Set SQL parameters
       int index = 1;
-      DbUtil.setInteger(sqlStatement, index++, new Integer(sequenceValue));
+      DbUtil.setInteger(sqlStatement, index++, Integer.valueOf(sequenceValue));
       DbUtil.setString(sqlStatement, index++, tableName);
       DbUtil.setString(sqlStatement, index++, columnName);
   

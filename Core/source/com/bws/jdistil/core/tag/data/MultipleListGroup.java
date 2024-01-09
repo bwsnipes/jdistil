@@ -69,7 +69,7 @@ public class MultipleListGroup extends ValueComponent {
 
   /**
    * Returns the collection of selected values.
-   * @return Collection<Object> Collection of objects.
+   * @return Collection<java.lang.Object> Collection of objects.
    */
   private Collection<Object> getSelectedValues() {
     return getFieldValues();

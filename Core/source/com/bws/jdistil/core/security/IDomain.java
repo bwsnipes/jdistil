@@ -27,7 +27,7 @@ public interface IDomain {
   /**
     Default domain ID.
   */
-  public static final Integer DEFAULT_ID = new Integer(0);
+  public static final Integer DEFAULT_ID = Integer.valueOf(0);
 
   /**
     Default domain name.

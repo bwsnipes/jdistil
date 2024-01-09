@@ -273,7 +273,7 @@ private class LockReference extends WeakReference<Object> {
     super(referent);
 
     // Set ID using referent's hash code
-    id = new Integer(referent.hashCode());
+    id = Integer.valueOf(referent.hashCode());
   }
 
   /**
@@ -285,7 +285,7 @@ private class LockReference extends WeakReference<Object> {
     super(referent, referenceQueue);
 
     // Set ID using referent's hash code
-    id = new Integer(referent.hashCode());
+    id = Integer.valueOf(referent.hashCode());
   }
 
   /**

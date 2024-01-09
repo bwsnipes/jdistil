@@ -86,7 +86,7 @@ public class FilterCriteriaDefinition {
   
   /**
     Returns the list of value criterion definitions.
-    @return List<ValueCriterionDefinition> - List of value criterion definitions.
+    @return List - List of value criterion definitions.
   */
   public List<ValueCriterionDefinition> getValueCriterionDefinitions() {
     return Collections.unmodifiableList(valueCriterionDefinitions);

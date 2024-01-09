@@ -139,7 +139,7 @@ public class DbUtil {
   public static final int BYTE_ARRAY = 14;
 
   /**
-    Creates an empty DbUtil object.&nbsp Private access because all methods are static.
+    Creates an empty DbUtil object.&nbsp; Private access because all methods are static.
   */
   private DbUtil() {
     super();
@@ -149,6 +149,7 @@ public class DbUtil {
     Returns a pooled database connection using the primary data source defined
     in the core properties file.
     @return Connection - Connection from connection pool.
+    @throws com.bws.jdistil.core.datasource.DataSourceException
   */
   public static Connection openConnection() throws DataSourceException {
     return openConnection(null);
@@ -422,7 +423,7 @@ public class DbUtil {
       // Populate list
       while (resultSet.next()) {
         boolean value = getBoolean(resultSet, columnName);
-        values.add(new Boolean(value));
+        values.add(Boolean.valueOf(value));
       }
     }
 
@@ -576,7 +577,7 @@ public class DbUtil {
 
       // Check for null value
       if (!resultSet.wasNull()) {
-        value = new Byte(columnValue);
+        value = Byte.valueOf(columnValue);
       }
     }
 
@@ -626,7 +627,7 @@ public class DbUtil {
 
       // Check for null value
       if (!resultSet.wasNull()) {
-        value = new Short(columnValue);
+        value = Short.valueOf(columnValue);
       }
     }
 
@@ -676,7 +677,7 @@ public class DbUtil {
 
       // Check for null value
       if (!resultSet.wasNull()) {
-        value = new Integer(columnValue);
+        value = Integer.valueOf(columnValue);
       }
     }
 
@@ -726,7 +727,7 @@ public class DbUtil {
 
       // Check for null value
       if (!resultSet.wasNull()) {
-        value = new Long(columnValue);
+        value = Long.valueOf(columnValue);
       }
     }
 
@@ -776,7 +777,7 @@ public class DbUtil {
 
       // Check for null value
       if (!resultSet.wasNull()) {
-        value = new Float(columnValue);
+        value = Float.valueOf(columnValue);
       }
     }
 
@@ -826,7 +827,7 @@ public class DbUtil {
 
       // Check for null value
       if (!resultSet.wasNull()) {
-        value = new Double(columnValue);
+        value = Double.valueOf(columnValue);
       }
     }
 
@@ -1097,7 +1098,7 @@ public class DbUtil {
           value = getString(resultSet, columnName);
           break;
         case BOOLEAN:
-          value = new Boolean(getBoolean(resultSet, columnName));
+          value = Boolean.valueOf(getBoolean(resultSet, columnName));
           break;
         case DATE:
           value = getDate(resultSet, columnName);
@@ -1521,7 +1522,7 @@ public class DbUtil {
   /**
     Returns a SQL condition using a given column name, column type, value,
     a string containing valid wildcard characters, and an Oracle database
-    indicator.&nbsp Column type must be a valid type defined by the java.sql.Types
+    indicator.&nbsp; Column type must be a valid type defined by the java.sql.Types
     class.
 
     Example 1:
@@ -1539,7 +1540,7 @@ public class DbUtil {
     @param convertLowerCase - Lower case return value indicator.
     @param isOracle - Oracle database indicator.
     @return String - SQL condition.
-    @throws com.bws.jdistil.core.util.DataSourceException
+    @throws com.bws.jdistil.core.datasource.DataSourceException
   */
   public static String getCondition(String columnName, int columnType,
       String value, String wildCards, boolean convertLowerCase, boolean isOracle)
@@ -1612,7 +1613,7 @@ public class DbUtil {
     @param value - Date value.
     @param isOracle - Oracle database indicator.
     @return String - SQL condition.
-    @throws com.bws.jdistil.core.util.DataSourceException
+    @throws com.bws.jdistil.core.datasource.DataSourceException
   */
   private static String getDateTimeCondition(String columnName, int columnType,
       String value, boolean isOracle) throws DataSourceException {
@@ -1640,7 +1641,7 @@ public class DbUtil {
       if (element.indexOf("%") == -1) {
 
         // Figure out if padding is needed
-        String intVal = String.valueOf((new Integer(element)).intValue());
+        String intVal = String.valueOf((Integer.valueOf(element)).intValue());
 
         // Pad any single numeric values
         if (intVal.length() == 1) {
@@ -1674,7 +1675,7 @@ public class DbUtil {
       if (element.indexOf("%") == -1) {
 
         // Figure out if padding is needed
-        String intVal = String.valueOf((new Integer(element)).intValue());
+        String intVal = String.valueOf((Integer.valueOf(element)).intValue());
 
         // Pad any single numeric values
         if (intVal.length() == 1) {
@@ -1727,7 +1728,7 @@ public class DbUtil {
     result object encapsulating the results.
     @param sqlString - SQL query string.
     @return MappedResult - Mapped result object.
-    @throws java.sql.SQLException
+    @throws com.bws.jdistil.core.datasource.DataSourceException
   */
   public static MappedResult executeQuery(String name, String sqlString)
       throws DataSourceException {

@@ -162,7 +162,7 @@ public class StringUtil {
 
   /**
     Replaces carriage return, line feed, and tab formatting characters using
-    specified replacement values.&nbsp Null replacement values will be ignored.
+    specified replacement values.&nbsp; Null replacement values will be ignored.
     @param source - Source string.
     @param carriageReturn - Carriage return value.
     @param lineFeed - Line feed value.

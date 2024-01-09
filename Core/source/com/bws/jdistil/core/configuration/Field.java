@@ -37,67 +37,67 @@ public class Field {
   /**
     String field type constant.
   */
-  public static final Integer STRING = new Integer(0);
+  public static final Integer STRING = Integer.valueOf(0);
 
   /**
     Number field type constant.
   */
-  public static final Integer NUMBER = new Integer(1);
+  public static final Integer NUMBER = Integer.valueOf(1);
 
   /**
     Byte field type constant.
   */
-  public static final Integer BYTE = new Integer(2);
+  public static final Integer BYTE = Integer.valueOf(2);
 
   /**
     Short field type constant.
   */
-  public static final Integer SHORT = new Integer(3);
+  public static final Integer SHORT = Integer.valueOf(3);
 
   /**
     Integer field type constant.
   */
-  public static final Integer INTEGER = new Integer(4);
+  public static final Integer INTEGER = Integer.valueOf(4);
 
   /**
     Long field type constant.
   */
-  public static final Integer LONG = new Integer(5);
+  public static final Integer LONG = Integer.valueOf(5);
 
   /**
     Float field type constant.
   */
-  public static final Integer FLOAT = new Integer(6);
+  public static final Integer FLOAT = Integer.valueOf(6);
 
   /**
     Double field type constant.
   */
-  public static final Integer DOUBLE = new Integer(7);
+  public static final Integer DOUBLE = Integer.valueOf(7);
 
   /**
     Date field type constant.
   */
-  public static final Integer DATE = new Integer(8);
+  public static final Integer DATE = Integer.valueOf(8);
 
   /**
     Time field type constant.
   */
-  public static final Integer TIME = new Integer(9);
+  public static final Integer TIME = Integer.valueOf(9);
 
   /**
     Date/time field type constant.
   */
-  public static final Integer DATE_TIME = new Integer(10);
+  public static final Integer DATE_TIME = Integer.valueOf(10);
 
   /**
     Boolean field type constant.
   */
-  public static final Integer BOOLEAN = new Integer(11);
+  public static final Integer BOOLEAN = Integer.valueOf(11);
 
   /**
     Custom class constant.
   */
-  public static final Integer CUSTOM_CLASS = new Integer(12);
+  public static final Integer CUSTOM_CLASS = Integer.valueOf(12);
 
   /**
     Unique ID.

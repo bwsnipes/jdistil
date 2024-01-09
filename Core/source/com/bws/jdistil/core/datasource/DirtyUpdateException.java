@@ -58,7 +58,7 @@ public class DirtyUpdateException extends DataSourceException {
 
   /**
     Returns a data object containing the most recent copy of data that caused
-    the dirty update exception.&nbsp This is a read only property that can only
+    the dirty update exception.&nbsp; This is a read only property that can only
     be set when the exception is created.
     @return DataObject - Most recent data.
   */

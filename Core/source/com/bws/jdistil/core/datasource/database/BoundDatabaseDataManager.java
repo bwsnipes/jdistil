@@ -163,7 +163,7 @@ public abstract class BoundDatabaseDataManager<I, T extends DataObject<I>> exten
         int value = sequenceProvider.nextValue(tableName, columnName, domain);
 
         // Set property value
-        Introspector.setPropertyValue(dataObject, propertyName, new Integer(value));
+        Introspector.setPropertyValue(dataObject, propertyName, Integer.valueOf(value));
     	}
     	finally {
     		

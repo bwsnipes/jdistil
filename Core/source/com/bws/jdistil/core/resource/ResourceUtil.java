@@ -55,7 +55,7 @@ public class ResourceUtil {
   protected static final String className = "com.bws.jdistil.core.resource.ResourceUtil";
 
   /**
-    Creates an empty ResourceUtil object.&nbsp Private access because all methods are static.
+    Creates an empty ResourceUtil object.&nbsp; Private access because all methods are static.
   */
   private ResourceUtil() {
     super();
@@ -87,7 +87,7 @@ public class ResourceUtil {
   }
 
   /**
-    Returns a resource bundle using a given resource name.&nbsp If the provided
+    Returns a resource bundle using a given resource name.&nbsp; If the provided
     resource name contains a comma delimited list of resource bundle names, a
     MergedResource bundle containing the contents of all resource bundles defined
     in the list is returned.

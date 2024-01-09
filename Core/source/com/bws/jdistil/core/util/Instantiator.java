@@ -37,7 +37,7 @@ public class Instantiator {
   private static final String className = "Instantiator";
   
   /**
-    Creates an Instantiator object.&nbsp Defined with private access
+    Creates an Instantiator object.&nbsp; Defined with private access
     to avoid object instantiation.
   */
   private Instantiator() {

@@ -50,7 +50,7 @@ public abstract class DataObject<I> implements Serializable {
   /**
     Latest version of data object.
   */
-  private Long version = new Long(1L);
+  private Long version = Long.valueOf(1L);
 
   /**
     Creates a new DataObject object.
@@ -164,7 +164,7 @@ public abstract class DataObject<I> implements Serializable {
 
     // Default data
     text.append("Class: ").append(getClass().getName()).append("\n");
-    text.append("Modified: ").append(new Boolean(isModified()).toString()).append("\n");
+    text.append("Modified: ").append(Boolean.valueOf(isModified()).toString()).append("\n");
 
     return text.toString();
   }

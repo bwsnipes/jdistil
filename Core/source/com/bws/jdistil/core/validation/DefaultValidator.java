@@ -115,7 +115,7 @@ public class DefaultValidator implements IProcessor {
   /**
     Validates page data and returns a list of all encountered errors.
     @param processContext Process context.
-    @return List<String> - List of error messages.
+    @return List - List of error messages.
   */
   protected List<String> validatePage(ProcessContext processContext) throws ProcessException {
 

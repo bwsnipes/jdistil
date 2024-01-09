@@ -64,7 +64,7 @@ public class CurrentPageNumber extends TagSupport {
 
     // Default to zero if not found
     if (currentPageNumber == null) {
-      currentPageNumber = new Integer(0);
+      currentPageNumber = Integer.valueOf(0);
     }
 
     // Get number formatter based on current locale

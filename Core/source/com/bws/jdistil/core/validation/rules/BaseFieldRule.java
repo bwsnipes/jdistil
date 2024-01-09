@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
-  Abstract base class implementing the IFieldRule interface.&nbsp Provides default
+  Abstract base class implementing the IFieldRule interface.&nbsp; Provides default
   validation checking, support for storing and retrieving the error text and
   support for retrieving field descriptions based on a field ID.
   @author - Bryan Snipes

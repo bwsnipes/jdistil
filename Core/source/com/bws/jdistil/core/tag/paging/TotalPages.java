@@ -64,7 +64,7 @@ public class TotalPages extends TagSupport {
 
     // Default to zero if not found
     if (totalPages == null) {
-      totalPages = new Integer(0);
+      totalPages = Integer.valueOf(0);
     }
 
     // Get number formatter based on current locale

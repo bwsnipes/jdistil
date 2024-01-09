@@ -513,7 +513,7 @@ public abstract class ValueComponent extends Component {
 
   /**
 	  Returns the field values associated with this component.
-	  @return Collection<Object> - Field values.
+	  @return Collection - Field values.
 	*/
 	@SuppressWarnings("unchecked")
 	protected Collection<Object> getFieldValues() {
@@ -544,7 +544,7 @@ public abstract class ValueComponent extends Component {
 
   /**
 	  Returns the field values associated with this component as formatted strings.
-	  @return Collection<String> - Formatted field values.
+	  @return Collection - Formatted field values.
 	  @throws com.bws.jdistil.core.tag.UiException
 	*/
 	public Collection<String> getFormattedFieldValues() throws UiException {

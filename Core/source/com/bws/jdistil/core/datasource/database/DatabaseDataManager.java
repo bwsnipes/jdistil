@@ -175,7 +175,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
       throws DataSourceException;
   
   /**
-    Returns a data object using data from a list of result set objects.&nbsp
+    Returns a data object using data from a list of result set objects.&nbsp;
     Used in conjunction with the find method.
     @param resultSets List of result set objects.
     @return DataObject Data object.
@@ -259,7 +259,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
   }
 
   /**
-    Returns a prepared statement used to check for duplicate data objects.&nbsp
+    Returns a prepared statement used to check for duplicate data objects.&nbsp;
     Considered a duplicate if one or more result sets are created using the
     returned SQL statement.
     @param connection Database connection.
@@ -290,7 +290,7 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
     }
 
     // Set version
-    dataObject.setVersion(new Long(1L));
+    dataObject.setVersion(Long.valueOf(1L));
     
     // Initialize processing variables
     Connection connection = null;
@@ -388,10 +388,10 @@ public abstract class DatabaseDataManager<I, T extends DataObject<I>> implements
 
     // Update version
     if (currentVersion == null) {
-      dataObject.setVersion(new Long(1L));
+      dataObject.setVersion(Long.valueOf(1L));
     }
     else {
-      dataObject.setVersion(new Long(currentVersion.longValue() + 1));
+      dataObject.setVersion(Long.valueOf(currentVersion.longValue() + 1));
     }
     
     // Initialize processing variables

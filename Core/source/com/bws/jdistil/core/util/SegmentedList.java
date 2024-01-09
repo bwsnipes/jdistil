@@ -23,7 +23,7 @@ import java.util.ArrayList;
 
 /**
   An enhanced list that can be used to retrieve groups of items based on a
-  specified segment size.&nbsp By default the segment size is equal to one.&nbsp
+  specified segment size.&nbsp; By default the segment size is equal to one.&nbsp;
   Methods are provided for retrieving and setting the segment size, and
   retrieving the current, next, previous, first and last segments.
   @author - Bryan Snipes

@@ -64,7 +64,7 @@ public class TotalItems extends TagSupport {
 
     // Default to zero if not found
     if (totalItems == null) {
-      totalItems = new Integer(0);
+      totalItems = Integer.valueOf(0);
     }
 
     // Get number formatter based on current locale

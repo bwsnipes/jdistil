@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.bws.jdistil.codes"},{"l":"com.bws.jdistil.codes.configuration"},{"l":"com.bws.jdistil.codes.lookup"},{"l":"com.bws.jdistil.codes.tag"}];updateSearchResults();

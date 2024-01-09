@@ -53,7 +53,7 @@ public class ParameterExtractor {
   private static NumberConverter defaultNumberConverter = NumberConverter.getInstance();
 
   /**
-    Creates a new instance of the ParameterExtractor class.&nbsp Defined with
+    Creates a new instance of the ParameterExtractor class.&nbsp; Defined with
     private access to prohibit instance creation.
   */
   private ParameterExtractor() {
@@ -64,7 +64,7 @@ public class ParameterExtractor {
     Returns a list of all instance numbers for a given field ID. 
     @param request - Servlet request object.
     @param fieldId - Field ID.
-    @return List<Integer> - List of instance numbers.
+    @return List - List of instance numbers.
    */
   public static List<Integer> getInstances(ServletRequest request, String fieldId) {
 
@@ -998,7 +998,7 @@ public class ParameterExtractor {
 
         // Use converter if one is available
         if (converter == null) {
-          value = new Boolean(fieldValue);
+          value = Boolean.valueOf(fieldValue);
         }
         else {
           value = (Boolean)converter.parse(fieldValue, request.getLocale());
@@ -1072,7 +1072,7 @@ public class ParameterExtractor {
 
           // Use converter if one is available
           if (converter == null) {
-            value = new Boolean(fieldValue);
+            value = Boolean.valueOf(fieldValue);
           }
           else {
             value = (Boolean)converter.parse(fieldValue, request.getLocale());
@@ -1272,7 +1272,7 @@ public class ParameterExtractor {
 
     // Create integer value
     if (number != null) {
-      value = new Integer(number.intValue());
+      value = Integer.valueOf(number.intValue());
     }
 
     return value;
@@ -1346,7 +1346,7 @@ public class ParameterExtractor {
 
           // Add to values list
           if (value != null) {
-            values.add(new Integer(value.intValue()));
+            values.add(Integer.valueOf(value.intValue()));
           }
         }
       }
@@ -1395,7 +1395,7 @@ public class ParameterExtractor {
 
     // Create double value
     if (number != null) {
-      value = new Double(number.doubleValue());
+      value = Double.valueOf(number.doubleValue());
     }
 
     return value;
@@ -1469,7 +1469,7 @@ public class ParameterExtractor {
 
           // Add to values list
           if (value != null) {
-            values.add(new Double(value.doubleValue()));
+            values.add(Double.valueOf(value.doubleValue()));
           }
         }
       }
@@ -1518,7 +1518,7 @@ public class ParameterExtractor {
 
     // Create long value
     if (number != null) {
-      value = new Long(number.longValue());
+      value = Long.valueOf(number.longValue());
     }
 
     return value;
@@ -1592,7 +1592,7 @@ public class ParameterExtractor {
 
           // Add to values list
           if (value != null) {
-            values.add(new Long(value.longValue()));
+            values.add(Long.valueOf(value.longValue()));
           }
         }
       }
@@ -1641,7 +1641,7 @@ public class ParameterExtractor {
 
     // Create short value
     if (number != null) {
-      value = new Short(number.shortValue());
+      value = Short.valueOf(number.shortValue());
     }
 
     return value;
@@ -1715,7 +1715,7 @@ public class ParameterExtractor {
 
           // Add to values list
           if (value != null) {
-            values.add(new Short(value.shortValue()));
+            values.add(Short.valueOf(value.shortValue()));
           }
         }
       }
@@ -1764,7 +1764,7 @@ public class ParameterExtractor {
 
     // Create float value
     if (number != null) {
-      value = new Float(number.floatValue());
+      value = Float.valueOf(number.floatValue());
     }
 
     return value;
@@ -1838,7 +1838,7 @@ public class ParameterExtractor {
 
           // Add to values list
           if (value != null) {
-            values.add(new Float(value.floatValue()));
+            values.add(Float.valueOf(value.floatValue()));
           }
         }
       }
@@ -1887,7 +1887,7 @@ public class ParameterExtractor {
 
     // Create byte value
     if (number != null) {
-      value = new Byte(number.byteValue());
+      value = Byte.valueOf(number.byteValue());
     }
 
     return value;
@@ -1961,7 +1961,7 @@ public class ParameterExtractor {
 
           // Add to values list
           if (value != null) {
-            values.add(new Byte(value.byteValue()));
+            values.add(Byte.valueOf(value.byteValue()));
           }
         }
       }

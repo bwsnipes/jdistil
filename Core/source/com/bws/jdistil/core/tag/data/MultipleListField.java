@@ -696,7 +696,7 @@ private class Group {
 
 	/**
     Returns a collection of values.
-    @return Collection<Object> Collection of values.
+    @return Collection<java.lang.Object> Collection of values.
   */
   public Collection<Object> getValues() {
     return values;

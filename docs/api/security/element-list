@@ -1,0 +1,6 @@
+com.bws.jdistil.security
+com.bws.jdistil.security.configuration
+com.bws.jdistil.security.domain
+com.bws.jdistil.security.role
+com.bws.jdistil.security.tag
+com.bws.jdistil.security.user

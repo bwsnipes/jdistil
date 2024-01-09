@@ -31,7 +31,7 @@ import java.util.logging.Logger;
 
 /**
   Resource bundle class used to handle merging the contents of multiple resource
-  bundles.&nbsp Required to get around problem in JDK 1.3 where the parent
+  bundles.&nbsp; Required to get around problem in JDK 1.3 where the parent
   of a resource bundle is not searched for values.
   @author - Bryan Snipes
 */
@@ -49,7 +49,7 @@ public class MergedResource extends ResourceBundle {
 
   /**
     Creates a new MergedResource object using the contents from a list of
-    resource bundles.&nbsp Illegal argument is thrown if all items in the provided
+    resource bundles.&nbsp; Illegal argument is thrown if all items in the provided
     list are not of type ResourceBundle.
     @param resourceBundles - List of resource bundles.
     @throws java.lang.IllegalArgumentException

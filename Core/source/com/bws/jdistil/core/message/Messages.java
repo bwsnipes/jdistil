@@ -185,9 +185,9 @@ public class Messages {
   }
   
   /**
-    Returns a formatted standard predefined message.&nbsp The detailKey is used
+    Returns a formatted standard predefined message.&nbsp; The detailKey is used
     to retrieve a standard predefined message that is formatted using information
-    supplied in the value parameter.&nbsp Provided for convience when using
+    supplied in the value parameter.&nbsp; Provided for convience when using
     standard messages requiring only one value parameter.
     @param locale - Locale.
     @param messageKey - Key used to retrieve a standard predefined message.

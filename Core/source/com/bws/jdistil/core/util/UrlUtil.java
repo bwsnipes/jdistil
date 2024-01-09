@@ -28,14 +28,14 @@ import com.bws.jdistil.core.util.StringUtil;
 public class UrlUtil {
 
   /**
-    Creates a new UrlUtil object.&nbsp Defined with private access to avoid instantiation.
+    Creates a new UrlUtil object.&nbsp; Defined with private access to avoid instantiation.
   */
   private UrlUtil() {
     super();
   }
 
   /**
-    Used to append a name and value to a given resource name.&nbsp Resource is
+    Used to append a name and value to a given resource name.&nbsp; Resource is
     typically a query string or a URL.
     @param resourceName - Resource string.
     @param name - Attribute name.
@@ -65,7 +65,7 @@ public class UrlUtil {
   }
 
   /**
-    Used to append a query string to a given resource name.&nbsp Resource is
+    Used to append a query string to a given resource name.&nbsp; Resource is
     typically a servlet name, JSP name, or URL.
     @param resourceName - Resource string.
     @param queryString - Query string.
