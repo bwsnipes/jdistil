@@ -5,7 +5,7 @@
   </description>
 
   <target name="jdistil-framework">
-    <ant dir="Core/ant/" target="core" inheritAll="true" useNativeBasedir="true" />        
+    <ant dir="Core/ant/" target="core" inheritAll="false" useNativeBasedir="true" />        
     <ant dir="Codes/ant/" target="codes" inheritAll="false" useNativeBasedir="true"/>        
     <ant dir="Security/ant/" target="security" inheritAll="false" useNativeBasedir="true"/>        
     <ant dir="CodesApp/ant/" target="codes-app" inheritAll="false" useNativeBasedir="true"/>        
