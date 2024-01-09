@@ -1,11 +1,11 @@
-<project name="jdistil" default="jdistil-plugin" basedir=".">
+<project name="jdistil" default="jdistil-website" basedir=".">
 
   <description>
     Builds the JDistil framework libraries, copies updated files to Plugin resources and copies documentation to website directory.
   </description>
 
   <target name="jdistil-framework">
-    <ant dir="Core/ant/" target="core" inheritAll="false" useNativeBasedir="true" />        
+    <ant dir="Core/ant/" target="core" inheritAll="true" useNativeBasedir="true" />        
     <ant dir="Codes/ant/" target="codes" inheritAll="false" useNativeBasedir="true"/>        
     <ant dir="Security/ant/" target="security" inheritAll="false" useNativeBasedir="true"/>        
     <ant dir="CodesApp/ant/" target="codes-app" inheritAll="false" useNativeBasedir="true"/>        
@@ -97,6 +97,48 @@
       <fileset dir="SecurityApp/WebContent/security/" />
     </copy>
     
+  </target>
+
+  <target name="jdistil-website" depends="jdistil-plugin">
+  
+    <delete includeEmptyDirs="true">
+      <fileset dir="docs/api/core/" includes="**/*"/>
+      <fileset dir="docs/api/codes/" includes="**/*"/>
+      <fileset dir="docs/api/codes_app/" includes="**/*"/>
+      <fileset dir="docs/api/security/" includes="**/*"/>
+      <fileset dir="docs/api/security_app/" includes="**/*"/>
+    </delete>
+    
+    <copy todir="docs/api/core">
+      <fileset dir="Core/ant/doc/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="docs/api/codes">
+      <fileset dir="Codes/ant/doc/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="docs/api/codes_app">
+      <fileset dir="CodesApp/ant/doc/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="docs/api/security">
+      <fileset dir="Security/ant/doc/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="docs/api/security_app">
+      <fileset dir="SecurityApp/ant/doc/">
+        <include name="**/*"/>
+      </fileset>
+    </copy>
+
   </target>
   
 </project>
