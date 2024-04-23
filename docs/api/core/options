@@ -1,0 +1,23 @@
+-classpath
+'C:/Users/Kksni/.m2/repository/javax/javaee-api/8.0.1/javaee-api-8.0.1.jar;C:/Users/Kksni/.m2/repository/com/sun/mail/javax.mail/1.6.2/javax.mail-1.6.2.jar;C:/Users/Kksni/.m2/repository/javax/mail/mail/1.4.7/mail-1.4.7.jar;C:/Users/Kksni/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar;C:/Users/Kksni/.m2/repository/javax/xml/bind/jaxb-api/2.3.1/jaxb-api-2.3.1.jar;C:/Users/Kksni/.m2/repository/javax/activation/javax.activation-api/1.2.0/javax.activation-api-1.2.0.jar'
+-encoding
+'UTF-8'
+-private
+-sourcepath
+'C:/Users/Kksni/Projects/JDistil/Framework/Core/src/main/java;C:/Users/Kksni/Projects/JDistil/Framework/Core/target/generated-sources/annotations'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Kksni/Projects/JDistil/Framework/Core/target/apidocs'
+-docencoding
+'UTF-8'
+-Xdoclint:all,-missing
+-doctitle
+'jdistil-core 3.0.0 API'
+-use
+-version
+-windowtitle
+'jdistil-core 3.0.0 API'
