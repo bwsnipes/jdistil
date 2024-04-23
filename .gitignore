@@ -1,2 +1,4 @@
 Core/classes/META-INF/core.tld
 *.MF
+build.bat
+Builder/.project
