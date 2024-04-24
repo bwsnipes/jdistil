@@ -163,7 +163,7 @@ public class Instantiator {
 
         if (parameterTypes == null || parameterTypes.size() == 0) {
 
-          object = objectClass.newInstance();
+          object = objectClass.getDeclaredConstructor().newInstance();
         }
         else {
 

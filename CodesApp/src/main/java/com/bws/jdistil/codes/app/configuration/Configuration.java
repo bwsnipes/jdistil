@@ -20,7 +20,6 @@ package com.bws.jdistil.codes.app.configuration;
 
 import java.util.Set;
 
-import com.bws.jdistil.codes.app.configuration.FieldIds;
 import com.bws.jdistil.codes.app.lookup.DeleteCode;
 import com.bws.jdistil.codes.app.lookup.EditCode;
 import com.bws.jdistil.codes.app.lookup.SaveCode;

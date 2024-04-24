@@ -22,7 +22,6 @@ import java.util.Set;
 
 import com.bws.jdistil.core.configuration.Field;
 import com.bws.jdistil.core.configuration.ObjectBinding;
-import com.bws.jdistil.security.configuration.FieldIds;
 import com.bws.jdistil.security.domain.Domain;
 import com.bws.jdistil.security.role.Action;
 import com.bws.jdistil.security.role.Group;

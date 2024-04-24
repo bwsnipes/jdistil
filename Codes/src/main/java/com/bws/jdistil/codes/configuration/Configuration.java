@@ -20,7 +20,6 @@ package com.bws.jdistil.codes.configuration;
 
 import java.util.Set;
 
-import com.bws.jdistil.codes.configuration.FieldIds;
 import com.bws.jdistil.codes.lookup.Category;
 import com.bws.jdistil.codes.lookup.Code;
 import com.bws.jdistil.core.configuration.Field;

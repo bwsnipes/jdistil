@@ -20,8 +20,6 @@ package com.bws.jdistil.core.configuration;
 
 import java.util.Set;
 
-import com.bws.jdistil.core.configuration.FieldIds;
-
 /**
   Configuration responsible for loading framework dependent application resources.
   @author - Bryan Snipes

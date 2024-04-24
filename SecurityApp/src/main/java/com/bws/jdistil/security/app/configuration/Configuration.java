@@ -26,7 +26,6 @@ import com.bws.jdistil.core.configuration.Field;
 import com.bws.jdistil.core.configuration.ObjectBinding;
 import com.bws.jdistil.core.configuration.Page;
 import com.bws.jdistil.core.validation.rules.AtLeastOneFieldRule;
-import com.bws.jdistil.security.app.configuration.FieldIds;
 import com.bws.jdistil.security.app.domain.ChangeDomain;
 import com.bws.jdistil.security.app.domain.DeleteDomain;
 import com.bws.jdistil.security.app.domain.EditDomain;

@@ -18,8 +18,6 @@
  */
 package com.bws.jdistil.core.util;
 
-import com.bws.jdistil.core.util.StringUtil;
-
 /**
   Utility class providing static methods for building URL strings, appending query strings
   to existing URL's, and appending query string name/value pairs to existing URL's.

@@ -23,7 +23,6 @@ import com.bws.jdistil.core.process.ProcessException;
 import com.bws.jdistil.core.process.model.EditDataObject;
 import com.bws.jdistil.security.app.configuration.FieldIds;
 import com.bws.jdistil.security.app.configuration.PageIds;
-import com.bws.jdistil.security.app.user.ViewUsers;
 import com.bws.jdistil.security.configuration.AttributeNames;
 import com.bws.jdistil.security.role.RoleManager;
 import com.bws.jdistil.security.user.User;

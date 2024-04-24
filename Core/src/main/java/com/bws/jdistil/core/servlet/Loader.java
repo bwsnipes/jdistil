@@ -18,6 +18,16 @@
  */
 package com.bws.jdistil.core.servlet;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import com.bws.jdistil.core.configuration.Action;
 import com.bws.jdistil.core.configuration.ConfigurationManager;
 import com.bws.jdistil.core.configuration.Field;
@@ -25,19 +35,8 @@ import com.bws.jdistil.core.configuration.FieldBinding;
 import com.bws.jdistil.core.configuration.ObjectBinding;
 import com.bws.jdistil.core.security.ISecurityManager;
 import com.bws.jdistil.core.security.SecurityException;
-import com.bws.jdistil.core.servlet.ParameterExtractor;
 import com.bws.jdistil.core.util.Instantiator;
 import com.bws.jdistil.core.util.Introspector;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.ServletRequest;
 
 /**
   This class provides static methods used to load objects with data contained 
