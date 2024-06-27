@@ -1,0 +1,1 @@
+    Action ACTION-NAME = new Action(ActionIds.ACTION-ID, "ACTION-LABEL");

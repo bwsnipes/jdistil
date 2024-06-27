@@ -1,0 +1,1 @@
+insert into bws_id_lookup (table_name, column_name, max_value) values ('TABLE-NAME', 'COLUMN-NAME', 1);

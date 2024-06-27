@@ -1,0 +1,56 @@
+package PACKAGE-NAME;
+
+import CONFIGURATION-PACKAGE-NAME.ActionIds;
+import CONFIGURATION-PACKAGE-NAME.AttributeNames;
+import CONFIGURATION-PACKAGE-NAME.FieldIds;
+import CONFIGURATION-PACKAGE-NAME.PageIds;
+import com.bws.jdistil.core.datasource.database.Operators;
+import com.bws.jdistil.core.process.model.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Retrieves data supporting the ENTITY-NAME view.
+ */
+public class VIEW-CLASS-NAME extends ViewDataObjects<Integer, ENTITY-NAME> {
+
+  /**
+   * Filter criteria definition.
+   */
+  private static final FilterCriteriaDefinition filterCriteriaDefinition = new FilterCriteriaDefinition(ENTITY-NAME.class);
+
+  /**
+   * Set of retrieve data action IDs.
+   */ 
+  private static final Set<String> retrieveDataActionIds = new HashSet<String>();
+  
+  /**
+   * Set of refresh data action IDs.
+   */
+  private static final Set<String> refreshDataActionIds = new HashSet<String>();
+
+  static {
+FILTER-CRITERIA-DEFINITION
+    // Populate retrieve data action IDs
+    retrieveDataActionIds.add(ActionIds.VIEW-ACTION-NAME);
+
+    // Populate refresh data action IDs
+    refreshDataActionIds.add(ActionIds.DELETE-ACTION-NAME);
+    refreshDataActionIds.add(ActionIds.SAVE-ACTION-NAME);
+    refreshDataActionIds.add(ActionIds.CANCEL-ACTION-NAME);
+  }
+
+  /**
+   *  Creates a new VIEW-CLASS-NAME object.
+   */
+  public VIEW-CLASS-NAME() {
+    super(MANAGER-CLASS-NAME.class, filterCriteriaDefinition, AttributeNames.ATTRIBUTE-NAME, PageIds.PAGE-NAME,
+    		PAGE-SIZE, FieldIds.CURRENT-PAGE-NUMBER-FIELD-NAME, FieldIds.SELECTED-PAGE-NUMBER-FIELD-NAME, 
+    		ActionIds.PREVIOUS-PAGE-ACTION-NAME, ActionIds.NEXT-PAGE-ACTION-NAME, ActionIds.SELECT-PAGE-ACTION-NAME,
+        retrieveDataActionIds, refreshDataActionIds, false);
+  }
+
+}

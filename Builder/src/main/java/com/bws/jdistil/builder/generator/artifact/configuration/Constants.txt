@@ -1,0 +1,12 @@
+package PACKAGE_NAME;
+
+/**
+ * Class defining all application constants.
+ */
+public class Constants extends com.bws.jdistil.core.configuration.Constants {
+
+  private Constants() {
+    super();
+  }
+  
+}

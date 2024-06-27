@@ -1,0 +1,12 @@
+package PACKAGE_NAME;
+
+/**
+ * Class defining all application category IDs.
+ */
+public class CategoryIds {
+  
+  private CategoryIds() {
+    super();
+  }
+  
+}

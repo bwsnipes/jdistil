@@ -1,0 +1,1 @@
+    FIELD-NAME.addRule(new PostalCodeRule());

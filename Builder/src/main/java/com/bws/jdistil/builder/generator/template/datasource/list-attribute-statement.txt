@@ -1,0 +1,4 @@
+  /**
+   * ATTRIBUTE-DESCRIPTION.
+   */
+  private List<ATTRIBUTE-TYPE> ATTRIBUTE-NAME = new ArrayList<ATTRIBUTE-TYPE>();

@@ -1,0 +1,83 @@
+package CONFIG-PACKAGE-NAME.fragments;
+
+import java.util.Map;
+import java.util.Set;
+
+import com.bws.jdistil.core.configuration.Action;
+import com.bws.jdistil.core.configuration.Field;
+import com.bws.jdistil.core.configuration.Page;
+import com.bws.jdistil.core.configuration.ObjectBinding;
+import com.bws.jdistil.core.conversion.*;
+import com.bws.jdistil.core.factory.IFactoryProvider;
+import com.bws.jdistil.core.factory.SingletonPojoFactory;
+import com.bws.jdistil.core.factory.PojoFactory;
+import com.bws.jdistil.core.resource.ResourceUtil;
+import com.bws.jdistil.core.util.Instantiator;
+import com.bws.jdistil.core.util.StringUtil;
+import com.bws.jdistil.core.validation.rules.*;
+import CONFIG-PACKAGE-NAME.*;
+import ENTITY-PACKAGE-NAME.*;
+
+/**
+ * Defines the ENTITY-NAME specific configuration.
+ */
+public class ENTITY-NAMEConfiguration extends com.bws.jdistil.core.configuration.Configuration {
+
+  /**
+    Creates a new ENTITY-NAME configuration object.
+  */
+  public ENTITY-NAMEConfiguration() {
+    super();
+  }
+
+  /**
+   * Registers factory providers used by an application by package or class name.
+   * @param factoryProviders - Set of factory providers keyed by package or class name.
+   */
+  @Override
+  public void registerFactoryProviders(Map<String, Class<? extends IFactoryProvider>> factoryProviders) {
+      
+    super.registerFactoryProviders(factoryProviders);
+  }
+
+  /**
+   * Register fields.
+   * @see com.bws.jdistil.core.config.Configuration#registerFields(Set)
+   */
+  @Override
+  public void registerFields(Set<Field> fields) {
+    
+    super.registerFields(fields);
+  }
+
+  /**
+   * Registers actions used by an application.
+   * @param actions - Set of actions to be populated.
+   */
+  @Override
+  public void registerActions(Set<Action> actions) {
+  
+  	super.registerActions(actions);
+  }
+
+  /**
+   * Registers pages used by an application.
+   * @param pages - Set of pages to be populated.
+   */
+  @Override
+  public void registerPages(Set<Page> pages) {
+
+    super.registerPages(pages);
+	}
+    
+  /**
+   * Registers object bindings used by an application.
+   * @param objectBindings - Set of object bindings to be populated.
+   */
+  @Override
+  public void registerObjectBindings(Set<ObjectBinding> objectBindings) {
+    
+    super.registerObjectBindings(objectBindings);
+  }
+  
+}

@@ -1,0 +1,8 @@
+        <tr>
+          <td valign="top"><core:label fieldId="<%= FieldIds.ASSOCIATE-FIELD-ID %>" /></td>
+          <td>
+            <core:ASSOCIATE-COMPONENT-TYPE fieldId="<%= FieldIds.ASSOCIATE-FIELD-ID %>" attributeName="<%= AttributeNames.ATTRIBUTE-NAME %>"
+               associateDataManagerClass="<%= MANAGER-CLASS-NAME.class %>" associateDisplayFieldId="<%= FieldIds.DISPLAY-FIELD-ID %>" 
+               selectAssociateActionId="<%= ActionIds.ACTION-ID %>" />
+          </td>
+        </tr>

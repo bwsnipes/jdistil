@@ -1,0 +1,3 @@
+          <core:td>
+	          <core:display fieldId="<%= FieldIds.FIELD-NAME %>" />
+          </core:td>

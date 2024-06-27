@@ -1,0 +1,1 @@
+      <core:hidden fieldId="<%= FieldIds.FIELD-NAME %>" />

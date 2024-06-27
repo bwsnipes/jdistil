@@ -1,0 +1,8 @@
+				<tr>
+					<td valign="top"><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
+					<td>
+						<codes:multipleList fieldId="<%= FieldIds.FIELD-NAME %>" categoryId="<%= CategoryIds.CATEGORY-ID %>" isHeaderDisplayed="<%= false %>">
+							<core:multipleListGroup fieldId="<%= FieldIds.FIELD-NAME %>" />
+						</codes:multipleList>
+					</td>
+				</tr>

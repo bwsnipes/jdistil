@@ -1,0 +1,7 @@
+  /**
+   * Returns the ATTRIBUTE-DESCRIPTION.
+   * @return ATTRIBUTE-TYPE PROPERTY-NAME.
+   */
+  public ATTRIBUTE-TYPE getPROPERTY-NAME() {
+    return ATTRIBUTE-NAME;
+  }

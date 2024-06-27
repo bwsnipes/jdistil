@@ -1,0 +1,14 @@
+
+  static {
+  
+    // Create value criterion definition
+    List<ValueCriterionDefinition> valueCriterionDefinitions = new ArrayList<ValueCriterionDefinition>();
+  FILTER-CRITERIA-STATEMENTS
+    // Create order criterion definition
+    OrderCriterionDefinition orderCriterionDefinition = new OrderCriterionDefinition(FieldIds.SORT-FIELD-NAME, FieldIds.SORT-DIRECTION-NAME, null);
+    
+    // Populate filter criteria definition
+    filterCriteriaDefinition.setIsFilterDataRequired(false);
+    filterCriteriaDefinition.setValueCriterionDefinitions(valueCriterionDefinitions);
+    filterCriteriaDefinition.setOrderCriterionDefinition(orderCriterionDefinition);
+  }

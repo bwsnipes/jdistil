@@ -1,0 +1,3 @@
+          <core:td align="center">
+            <core:check fieldId="<%= FieldIds.FIELD-NAME %>" />
+          </core:td>

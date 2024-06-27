@@ -1,0 +1,25 @@
+  /**
+   * Returns the list of ATTRIBUTE-DESCRIPTION.
+   * @return List<ATTRIBUTE-TYPE> List of PROPERTY-NAME.
+   */
+  public List<ATTRIBUTE-TYPE> getPROPERTY-NAME() {
+    return Collections.unmodifiableList(ATTRIBUTE-NAME);
+  }
+  
+  /**
+   * Sets the list of ATTRIBUTE-DESCRIPTION.
+   * @param ATTRIBUTE-NAME List of PROPERTY-NAME.
+   */
+  public void setPROPERTY-NAME(List<ATTRIBUTE-TYPE> ATTRIBUTE-NAME) {
+    
+    // Update modified status
+    updateModifiedStatus(this.ATTRIBUTE-NAME, ATTRIBUTE-NAME);
+
+     // Clear existing values
+    this.ATTRIBUTE-NAME.clear();
+    
+    // Set new values
+    if (ATTRIBUTE-NAME != null) {
+      this.ATTRIBUTE-NAME.addAll(ATTRIBUTE-NAME);
+    }
+  }
