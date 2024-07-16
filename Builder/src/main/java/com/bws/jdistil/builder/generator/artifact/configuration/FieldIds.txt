@@ -5,6 +5,8 @@ package PACKAGE_NAME;
  */
 public class FieldIds extends com.bws.jdistil.core.configuration.FieldIds {
   
+  FIELD-ID-CONSTANTS
+  
   private FieldIds() {
     super();
   }

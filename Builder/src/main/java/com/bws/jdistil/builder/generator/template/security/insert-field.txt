@@ -2,7 +2,7 @@ insert into bws_field (field_id, name, secure_id, group_id)
 	select 
 		a.field_id,
 		'FIELD-NAME',
-    SECURE-ID,
+    'SECURE-ID',
 		b.group_id
 	from
 		(select coalesce(max(field_id), 0) + 1 as field_id from bws_field) a,

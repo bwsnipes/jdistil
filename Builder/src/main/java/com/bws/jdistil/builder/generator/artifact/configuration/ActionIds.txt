@@ -7,6 +7,8 @@ public class ActionIds extends com.bws.jdistil.core.configuration.ActionIds {
 
 	public static final String VIEW_HOME = "A1";
 
+	ACTION-ID-CONSTANTS
+	
   private ActionIds() {
     super();
   }

@@ -1,0 +1,58 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>PROJECT_NAME</artifactId>
+  <packaging>war</packaging>
+  
+  <name>PROJECT_NAME</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+		</dependency>
+	  <dependency>
+		  <groupId>javax.mail</groupId>
+		  <artifactId>mail</artifactId>
+	  </dependency>
+	  <dependency>
+		  <groupId>javax.xml.bind</groupId>
+		  <artifactId>jaxb-api</artifactId>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.bws.jdistil</groupId>
+		  <artifactId>jdistil-core</artifactId>
+		  <version>3.0.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.bws.jdistil</groupId>
+		  <artifactId>jdistil-codes</artifactId>
+		  <version>3.0.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.bws.jdistil</groupId>
+		  <artifactId>jdistil-codes-app</artifactId>
+		  <version>3.0.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.bws.jdistil</groupId>
+		  <artifactId>jdistil-security</artifactId>
+		  <version>3.0.0</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>com.bws.jdistil</groupId>
+		  <artifactId>jdistil-security-app</artifactId>
+		  <version>3.0.0</version>
+	  </dependency>
+  </dependencies>
+  
+  <build>
+	  <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+			</plugin>
+		</plugins>
+  </build>
+  
+</project>

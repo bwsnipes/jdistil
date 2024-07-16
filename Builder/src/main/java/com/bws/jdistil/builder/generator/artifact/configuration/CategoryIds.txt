@@ -5,6 +5,8 @@ package PACKAGE_NAME;
  */
 public class CategoryIds {
   
+  CATEGORY-ID-CONSTANTS
+  
   private CategoryIds() {
     super();
   }

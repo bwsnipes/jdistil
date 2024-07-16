@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@ page import="BASE-PACKAGE-NAME.configuration.PageIds" %>
+
+<%@ taglib uri="com/bws/jdistil/core" prefix="core" %>
+
+<html>
+	
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" type="text/css" href="core.css" />
+		<script type="text/javascript" src="core.js"></script>
+		<title><core:pageDescription pageId="<%= PageIds.HOME %>" /></title>
+	</head>
+	
+	<core:body pageId="<%= PageIds.HOME %>">
+	
+	  <jsp:include page="Header.jsp" />
+	  
+	</core:body>
+	
+</html>

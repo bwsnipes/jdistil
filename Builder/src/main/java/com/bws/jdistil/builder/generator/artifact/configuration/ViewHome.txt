@@ -5,7 +5,7 @@ import com.bws.jdistil.core.configuration.Page;
 import com.bws.jdistil.core.process.Processor;
 import com.bws.jdistil.core.process.ProcessContext;
 import com.bws.jdistil.core.process.ProcessException;
-import PACKAGE_NAME.PageIds;
+import BASE_PACKAGE_NAME.configuration.PageIds;
 
 /**
   Displays the home page.

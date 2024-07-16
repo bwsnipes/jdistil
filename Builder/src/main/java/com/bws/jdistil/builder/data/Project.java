@@ -99,4 +99,20 @@ public class Project {
 			this.relationships.addAll(relationships);
 		}
 	}
+	
+	public List<Fragment> getDependentFragments(String fragmentName) {
+		
+		return fragments.stream().filter(f -> f.getParentName().equalsIgnoreCase(fragmentName)).toList();
+	}
+	
+	public List<Relationship> getSourceFragmentRelationships(String fragmentName) {
+		
+		return relationships.stream().filter(r -> r.getSourceFragmentName().equalsIgnoreCase(fragmentName)).toList();
+	}
+
+	public List<Relationship> getTargetFragmentRelationships(String fragmentName) {
+		
+		return relationships.stream().filter(r -> r.getTargetFragmentName().equalsIgnoreCase(fragmentName)).toList();
+	}
+
 }

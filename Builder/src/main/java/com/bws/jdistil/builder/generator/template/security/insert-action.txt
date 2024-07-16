@@ -1,7 +1,7 @@
 insert into bws_action (action_id, secure_id, task_id) 
 	select 
 		a.action_id, 
-    SECURE-ID,
+    'SECURE-ID',
 		b.task_id
 	from
 		(select coalesce(max(action_id), 0) + 1 as action_id from bws_action) a, 

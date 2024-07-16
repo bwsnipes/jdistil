@@ -10,7 +10,7 @@
 <%@ page import="CONFIGURATION-PACKAGE-NAME.CategoryIds" %>
 <%@ page import="CONFIGURATION-PACKAGE-NAME.FieldIds" %>
 <%@ page import="CONFIGURATION-PACKAGE-NAME.PageIds" %>
-
+IMPORTS
 <%@ taglib uri="com/bws/jdistil/core" prefix="core" %>
 <%@ taglib uri="com/bws/jdistil/codes" prefix="codes" %>
 

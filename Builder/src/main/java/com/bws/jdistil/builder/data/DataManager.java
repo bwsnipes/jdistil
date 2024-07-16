@@ -168,8 +168,8 @@ public class DataManager {
 		project.setBasePackageName("base package");
 		project.setName("name");
 		project.setCreated(LocalDateTime.now());
-		project.setUpdated(LocalDateTime.now().minusDays(1));
-		project.setLastGenerated(LocalDateTime.now().minusDays(2));
+		project.setUpdated(LocalDateTime.now().minusDays(1L));
+		project.setLastGenerated(LocalDateTime.now().minusDays(2L));
 		project.setFragments(fragments);
 		
 		DataManager dataManager = new DataManager();

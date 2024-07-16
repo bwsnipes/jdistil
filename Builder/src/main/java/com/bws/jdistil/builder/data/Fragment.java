@@ -71,6 +71,16 @@ public class Fragment {
 		}
 	}
 	
+	public List<Attribute> getSearchFilterAttributes() {
+	
+		return attributes.stream().filter(a -> a.getIsIncludedInSearchFilter()).toList();
+	}
+	
+	public List<Attribute> getSearchResultAttributes() {
+		
+		return attributes.stream().filter(a -> a.getIsIncludedInSearchResults()).toList();
+	}
+	
 	public Fragment copy() {
 		
 		Fragment copy = new Fragment();

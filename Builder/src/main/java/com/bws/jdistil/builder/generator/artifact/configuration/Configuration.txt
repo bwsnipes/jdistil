@@ -1,4 +1,4 @@
-package PACKAGE_NAME;
+package BASE_PACKAGE_NAME.configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import com.bws.jdistil.core.configuration.Page;
 import com.bws.jdistil.core.configuration.ObjectBinding;
 import com.bws.jdistil.core.factory.IFactoryProvider;
 import BASE_PACKAGE_NAME.ViewHome;
-import PACKAGE_NAME.fragments.*;
+import BASE_PACKAGE_NAME.configuration.fragments.*;
 
 /**
  * Defines the application configuration.
@@ -28,6 +28,7 @@ public class Configuration extends com.bws.jdistil.core.configuration.Configurat
   public Configuration() {
     super();
     
+    FRAGMENT-CONFIGURATION-STATEMENTS
   }
 
   /**

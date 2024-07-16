@@ -48,6 +48,8 @@ public class ENTITY-NAMEConfiguration extends com.bws.jdistil.core.configuration
   public void registerFields(Set<Field> fields) {
     
     super.registerFields(fields);
+    
+    REGISTERED-FIELDS
   }
 
   /**
@@ -58,6 +60,8 @@ public class ENTITY-NAMEConfiguration extends com.bws.jdistil.core.configuration
   public void registerActions(Set<Action> actions) {
   
   	super.registerActions(actions);
+  	
+  	REGISTERED-ACTIONS
   }
 
   /**
@@ -68,6 +72,8 @@ public class ENTITY-NAMEConfiguration extends com.bws.jdistil.core.configuration
   public void registerPages(Set<Page> pages) {
 
     super.registerPages(pages);
+    
+    REGISTERED-PAGES
 	}
     
   /**
@@ -78,6 +84,8 @@ public class ENTITY-NAMEConfiguration extends com.bws.jdistil.core.configuration
   public void registerObjectBindings(Set<ObjectBinding> objectBindings) {
     
     super.registerObjectBindings(objectBindings);
+    
+    REGISTERED-OBJECT-BINDINGS
   }
   
 }

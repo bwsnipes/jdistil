@@ -6,7 +6,9 @@ package PACKAGE_NAME;
 public class PageIds extends com.bws.jdistil.core.configuration.PageIds {
 
   public static final String HOME = "P1";
-
+	
+	PAGE-ID-CONSTANTS
+	
   private PageIds() {
     super();
   }

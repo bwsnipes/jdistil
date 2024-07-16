@@ -7,7 +7,9 @@ public enum AttributeType {
 	DATE("Date"), 
 	TIME("Time"), 
 	LOOKUP("Lookup"), 
+	MEMO("Memo"), 
 	PHONE("Phone"), 
+	POSTAL_CODE("Postal Code"), 
 	EMAIL("Email");
 	
     private final String name;       
@@ -23,4 +25,5 @@ public enum AttributeType {
     public String toString() {
        return this.name;
     }
+    
 }

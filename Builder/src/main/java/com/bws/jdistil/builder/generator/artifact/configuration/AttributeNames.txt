@@ -5,6 +5,8 @@ package PACKAGE_NAME;
  */
 public class AttributeNames extends com.bws.jdistil.core.configuration.AttributeNames {
   
+  ATTRIBUTE-NAME-CONSTANTS
+  
   private AttributeNames() {
     super();
   }
