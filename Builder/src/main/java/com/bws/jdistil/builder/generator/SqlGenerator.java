@@ -444,15 +444,21 @@ public class SqlGenerator {
 		AttributeType type = attribute.getType();
 
 		if (type.equals(AttributeType.TEXT) ||
-			type.equals(AttributeType.MEMO) ||
-			type.equals(AttributeType.EMAIL) ||
-			type.equals(AttributeType.PHONE) ||
-			type.equals(AttributeType.POSTAL_CODE)) {
+			type.equals(AttributeType.MEMO)) {
 
 			String maxLength = String.valueOf(attribute.getTextMaxLength());
 
 			// Build data type
 			dataType = "VARCHAR(" + maxLength + ")";
+		} 
+		else if (type.equals(AttributeType.EMAIL)) {
+			dataType = "VARCHAR(40)";
+		} 
+		else if (type.equals(AttributeType.PHONE)) {
+			dataType = "VARCHAR(12)";
+		} 
+		else if (type.equals(AttributeType.POSTAL_CODE)) {
+			dataType = "VARCHAR(10)";
 		} 
 		else if (type.equals(AttributeType.DATE)) {
 			dataType = "DATE";
