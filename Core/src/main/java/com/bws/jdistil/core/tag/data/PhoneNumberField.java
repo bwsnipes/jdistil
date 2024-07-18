@@ -78,7 +78,7 @@ public class PhoneNumberField extends ValueComponent {
       else {
       	
       	// Use date field for editable values
-        setDynamicAttribute(null, "type", "phone");
+        setDynamicAttribute(null, "type", "tel");
       }
       
       // Get formatted field value
