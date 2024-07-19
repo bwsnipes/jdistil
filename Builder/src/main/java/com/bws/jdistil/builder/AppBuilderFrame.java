@@ -41,12 +41,15 @@ import com.bws.jdistil.builder.data.Attribute;
 import com.bws.jdistil.builder.data.DataManager;
 import com.bws.jdistil.builder.data.Fragment;
 import com.bws.jdistil.builder.data.Project;
+import com.bws.jdistil.builder.generator.AppGenerator;
 
 public class AppBuilderFrame extends JFrame {
 
 	private static final long serialVersionUID = 3454061926559852133L;
 	
 	private static final Pattern packagePattern = Pattern.compile("^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+[0-9a-z_]$");
+	
+	private AppGenerator appGenerator = new AppGenerator();
 	
 	private JTextField projectNameTextField = null;
 	private JTextField basePackageTextField = null;
@@ -284,9 +287,10 @@ public class AppBuilderFrame extends JFrame {
 	private void buildMenuBar(JFrame frame) {
 		
 		// Create file menu items
-		JMenuItem newMenuItem = new JMenuItem("New...");
-		JMenuItem openMenuItem = new JMenuItem("Open...");
-		JMenuItem saveMenuItem = new JMenuItem("Save");
+		JMenuItem newMenuItem = new JMenuItem("New Project...");
+		JMenuItem openMenuItem = new JMenuItem("Open Project...");
+		JMenuItem saveMenuItem = new JMenuItem("Save Project");
+		JMenuItem generateMenuItem = new JMenuItem("Generate Project");
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		
 		// Create file menu
@@ -295,6 +299,8 @@ public class AppBuilderFrame extends JFrame {
 		fileMenu.add(newMenuItem);
 		fileMenu.add(openMenuItem);
 		fileMenu.add(saveMenuItem);
+		fileMenu.addSeparator();
+		fileMenu.add(generateMenuItem);
 		fileMenu.addSeparator();
 		fileMenu.add(exitMenuItem);
 		
@@ -340,6 +346,18 @@ public class AppBuilderFrame extends JFrame {
 				if (workingProject != null) {
 					
 					saveData();
+				}
+			}
+		});
+			
+		generateMenuItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (workingProject != null) {
+					
+					generateArtifacts();
 				}
 			}
 		});
@@ -519,6 +537,20 @@ public class AppBuilderFrame extends JFrame {
 		}
 		
 		return isSaved;
+	}
+	
+	private void generateArtifacts() {
+		
+		if (isValidData()) {
+			
+			try {
+				appGenerator.execute(workingProject);
+			}
+			catch (Exception exception) {
+				
+				JOptionPane.showMessageDialog(this, exception.getMessage(), "Errors", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 	
 	private boolean isValidData() {

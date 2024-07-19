@@ -5,6 +5,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -17,6 +19,8 @@ public class AppGenerator {
 
 	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
+	private static final DateTimeFormatter dataTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+	
 	private Path workingDirectoryPath = null;
 	private Path outputPath = null;
 	private Path projectPath = null;
@@ -32,7 +36,7 @@ public class AppGenerator {
 
 	private ResourceReader resourceReader = new ResourceReader();
 
-	public AppGenerator(Project project) {
+	public AppGenerator() {
 		super();
 	}
 
@@ -97,7 +101,7 @@ public class AppGenerator {
 
 		try {
 			// Get current working directory
-			workingDirectoryPath = FileSystems.getDefault().getPath(".").toAbsolutePath();
+			workingDirectoryPath = FileSystems.getDefault().getPath("").toAbsolutePath();
 			
 			// Build output path
 			outputPath = workingDirectoryPath.resolve("Output");
@@ -107,7 +111,8 @@ public class AppGenerator {
 			
 			
 			// Build project directory
-			projectPath = outputPath.resolve(project.getName());
+			String projectName = project.getName() + "-" + dataTimeFormatter.format(LocalDateTime.now());
+			projectPath = outputPath.resolve(projectName);
 			
 			// Create project path directory
 			Files.createDirectories(projectPath);
@@ -484,7 +489,7 @@ public class AppGenerator {
 			String coreSqlContent = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/sql/core.sql");
 	
 			// Create core sql file
-			Path coreSqlPath = webAppPath.resolve("core.sql");
+			Path coreSqlPath = sqlPath.resolve("core.sql");
 			Files.writeString(coreSqlPath, coreSqlContent, StandardOpenOption.CREATE_NEW);
 
 			
@@ -492,7 +497,7 @@ public class AppGenerator {
 			String codesSqlContent = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/sql/codes.sql");
 	
 			// Create codes sql file
-			Path codesSqlPath = webAppPath.resolve("codes.sql");
+			Path codesSqlPath = sqlPath.resolve("codes.sql");
 			Files.writeString(codesSqlPath, codesSqlContent, StandardOpenOption.CREATE_NEW);
 
 			
@@ -500,7 +505,7 @@ public class AppGenerator {
 			String securitySqlContent = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/sql/security.sql");
 	
 			// Create security sql file
-			Path securitySqlPath = webAppPath.resolve("security.sql");
+			Path securitySqlPath = sqlPath.resolve("security.sql");
 			Files.writeString(securitySqlPath, securitySqlContent, StandardOpenOption.CREATE_NEW);
 
 			
@@ -508,7 +513,7 @@ public class AppGenerator {
 			String permissionSqlContent = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/sql/permission.sql");
 	
 			// Create permission sql file
-			Path permissionSqlPath = webAppPath.resolve("permission.sql");
+			Path permissionSqlPath = sqlPath.resolve("permission.sql");
 			Files.writeString(permissionSqlPath, permissionSqlContent, StandardOpenOption.CREATE_NEW);
 		} 
 		catch (IOException ioException) {
