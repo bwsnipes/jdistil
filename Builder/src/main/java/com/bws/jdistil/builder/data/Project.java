@@ -102,7 +102,7 @@ public class Project {
 	
 	public List<Fragment> getDependentFragments(String fragmentName) {
 		
-		return fragments.stream().filter(f -> f.getParentName().equalsIgnoreCase(fragmentName)).toList();
+		return fragments.stream().filter(f -> f.getParentName() != null && f.getParentName().equalsIgnoreCase(fragmentName)).toList();
 	}
 	
 	public List<Relationship> getSourceFragmentRelationships(String fragmentName) {
