@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -43,6 +45,8 @@ import com.bws.jdistil.builder.data.Project;
 public class AppBuilderFrame extends JFrame {
 
 	private static final long serialVersionUID = 3454061926559852133L;
+	
+	private static final Pattern packagePattern = Pattern.compile("^[a-z][a-z0-9_]*(\\.[a-z0-9_]+)+[0-9a-z_]$");
 	
 	private JTextField projectNameTextField = null;
 	private JTextField basePackageTextField = null;
@@ -533,6 +537,15 @@ public class AppBuilderFrame extends JFrame {
 		if (basePackageTextField.getText() == null || basePackageTextField.getText().isBlank()) {
 			errorMessages.add("Base Package is a required field.");
 		}
+		else {
+			
+			Matcher packageMatcher = packagePattern.matcher(basePackageTextField.getText());
+			
+			if (!packageMatcher.matches()) {
+				errorMessages.add("Invalid base package name.");
+			}
+		}
+		
 		
 		if (fragmentsTableModel.getRowCount() == 0) {
 			errorMessages.add("At least one fragment must be defined.");
