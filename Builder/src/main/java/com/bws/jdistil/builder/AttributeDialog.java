@@ -487,7 +487,7 @@ public class AttributeDialog extends JDialog {
 		
 		if (type != null) {
 			
-			if (type.equals(AttributeType.TEXT)) {
+			if (type.equals(AttributeType.TEXT) || type.equals(AttributeType.MEMO)) {
 				maxLengthTextField.setEnabled(true);
 			}
 			else if (type.equals(AttributeType.NUMERIC)) {
