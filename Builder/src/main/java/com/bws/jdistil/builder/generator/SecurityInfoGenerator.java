@@ -35,19 +35,19 @@ public class SecurityInfoGenerator {
 		try {
 			// Load templates
 			if (insertTaskTemplate == null) {
-				insertTaskTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/security/insert-task.txt");
+				insertTaskTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/security/insert-task.txt");
 			}
 
 			if (insertActionTemplate == null) {
-				insertActionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/security/insert-action.txt");
+				insertActionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/security/insert-action.txt");
 			}
 
 			if (insertFieldTemplate == null) {
-				insertFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/security/insert-field.txt");
+				insertFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/security/insert-field.txt");
 			}
 
 			if (insertFieldGroupTemplate == null) {
-				insertFieldGroupTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/security/insert-field-group.txt");
+				insertFieldGroupTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/security/insert-field-group.txt");
 			}
 		}
 		catch (IOException ioException) {

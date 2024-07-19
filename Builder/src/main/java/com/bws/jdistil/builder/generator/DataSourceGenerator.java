@@ -46,63 +46,63 @@ public class DataSourceGenerator {
 		try {
 			// Load templates
 			if (dataObjectTemplate == null) {
-				dataObjectTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/data-object.txt");
+				dataObjectTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/data-object.txt");
 			}
 
 			if (attributeStatementTemplate == null) {
-				attributeStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/attribute-statement.txt");
+				attributeStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/attribute-statement.txt");
 			}
 
 			if (propertyStatementTemplate == null) {
-				propertyStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/property-statement.txt");
+				propertyStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/property-statement.txt");
 			}
 
 			if (propertyGetterStatementTemplate == null) {
-				propertyGetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/property-getter-statement.txt");
+				propertyGetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/property-getter-statement.txt");
 			}
 
 			if (propertySetterStatementTemplate == null) {
-				propertySetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/property-setter-statement.txt");
+				propertySetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/property-setter-statement.txt");
 			}
 
 			if (listAttributeStatementTemplate == null) {
-				listAttributeStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/list-attribute-statement.txt");
+				listAttributeStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/list-attribute-statement.txt");
 			}
 
 			if (listPropertyStatementTemplate == null) {
-				listPropertyStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/list-property-statement.txt");
+				listPropertyStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/list-property-statement.txt");
 			}
 
 			if (listPropertyGetterStatementTemplate == null) {
-				listPropertyGetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/list-property-getter-statement.txt");
+				listPropertyGetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/list-property-getter-statement.txt");
 			}
 
 			if (listPropertySetterStatementTemplate == null) {
-				listPropertySetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/list-property-setter-statement.txt");
+				listPropertySetterStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/list-property-setter-statement.txt");
 			}
 
 			if (dataManagerTemplate == null) {
-				dataManagerTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/data-manager.txt");
+				dataManagerTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/data-manager.txt");
 			}
 
 			if (columnBindingStatementTemplate == null) {
-				columnBindingStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/column-binding-statement.txt");
+				columnBindingStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/column-binding-statement.txt");
 			}
 
 			if (columnBindingReferenceStatementTemplate == null) {
-				columnBindingReferenceStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/column-binding-reference-statement.txt");
+				columnBindingReferenceStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/column-binding-reference-statement.txt");
 			}
 
 			if (associateBindingsTemplate == null) {
-				associateBindingsTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/associate-bindings.txt");
+				associateBindingsTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/associate-bindings.txt");
 			}
 
 			if (associateBindingStatementTemplate == null) {
-				associateBindingStatementTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/associate-binding-statement.txt");
+				associateBindingStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/associate-binding-statement.txt");
 			}
 
 			if (columnBindingVariableTemplate == null) {
-				columnBindingVariableTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/datasource/column-binding-variable.txt");
+				columnBindingVariableTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/datasource/column-binding-variable.txt");
 			}
 		}
 		catch (IOException ioException) {

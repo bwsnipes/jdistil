@@ -38,43 +38,43 @@ public class ProcessGenerator {
 		
 		try {
 			if (viewEntitiesTemplate == null) {
-				viewEntitiesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/view-entities.txt");
+				viewEntitiesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/process/view-entities.txt");
 			}
 			
 			if (viewEntitiesPagingTemplate == null) {
-				viewEntitiesPagingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/view-entities-paging.txt");
+				viewEntitiesPagingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/view-entities-paging.txt");
 			}
 			
 			if (selectEntitiesTemplate == null) {
-				selectEntitiesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/select-entities.txt");
+				selectEntitiesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/select-entities.txt");
 			}
 			
 			if (selectEntitiesPagingTemplate == null) {
-				selectEntitiesPagingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/select-entities-paging.txt");
+				selectEntitiesPagingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/select-entities-paging.txt");
 			}
 			
 			if (filterCriteriaDefinitionTemplate == null) {
-				filterCriteriaDefinitionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/filter-criteria-definition.txt");
+				filterCriteriaDefinitionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/filter-criteria-definition.txt");
 			}
 			
 			if (filterCriteriaDefinitionPagingTemplate == null) {
-				filterCriteriaDefinitionPagingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/filter-criteria-definition-paging.txt");
+				filterCriteriaDefinitionPagingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/filter-criteria-definition-paging.txt");
 			}
 			
 			if (filterCriteriaStatementTemplate == null) {
-				filterCriteriaStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/filter-criteria-statement.txt");
+				filterCriteriaStatementTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/filter-criteria-statement.txt");
 			}
 			
 			if (saveEntityTemplate == null) {
-				saveEntityTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/save-entity.txt");
+				saveEntityTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/save-entity.txt");
 			}
 			
 			if (editEntityTemplate == null) {
-				editEntityTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/edit-entity.txt");
+				editEntityTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/edit-entity.txt");
 			}
 			
 			if (deleteEntityTemplate == null) {
-				deleteEntityTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/delete-entity.txt");
+				deleteEntityTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/delete-entity.txt");
 			}
 		}
 		catch (IOException ioException) {

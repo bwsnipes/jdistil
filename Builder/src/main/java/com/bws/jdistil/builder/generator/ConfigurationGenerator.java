@@ -58,83 +58,83 @@ public class ConfigurationGenerator {
 		try {
 			// Load templates
 			if (configurationTemplate == null) {
-				configurationTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/configuration.txt");
+				configurationTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/configuration.txt");
 			}
 
 			if (constantTemplate == null) {
-				constantTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/constant.txt");
+				constantTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/constant.txt");
 			}
 
 			if (fieldTemplate == null) {
-				fieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/field.txt");
+				fieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/field.txt");
 			}
 
 			if (addFieldToFieldsTemplate == null) {
-				addFieldToFieldsTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-field-to-fields.txt");
+				addFieldToFieldsTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-field-to-fields.txt");
 			}
 
 			if (addNumberRuleTemplate == null) {
-				addNumberRuleTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-number-rule.txt");
+				addNumberRuleTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-number-rule.txt");
 			}
 
 			if (addMaxLengthRuleTemplate == null) {
-				addMaxLengthRuleTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-max-length-rule.txt");
+				addMaxLengthRuleTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-max-length-rule.txt");
 			}
 
 			if (addConverterRuleTemplate == null) {
-				addConverterRuleTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-converter-rule.txt");
+				addConverterRuleTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-converter-rule.txt");
 			}
 
 			if (addEmailRuleTemplate == null) {
-				addEmailRuleTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-email-rule.txt");
+				addEmailRuleTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-email-rule.txt");
 			}
 
 			if (addPhoneNumberRuleTemplate == null) {
-				addPhoneNumberRuleTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-phone-number-rule.txt");
+				addPhoneNumberRuleTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-phone-number-rule.txt");
 			}
 
 			if (addPostalCodeRuleTemplate == null) {
-				addPostalCodeRuleTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-postal-code-rule.txt");
+				addPostalCodeRuleTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-postal-code-rule.txt");
 			}
 
 			if (actionTemplate == null) {
-				actionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/action.txt");
+				actionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/action.txt");
 			}
 
 			if (addProcessorFactoryTemplate == null) {
-				addProcessorFactoryTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-processor-factory.txt");
+				addProcessorFactoryTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-processor-factory.txt");
 			}
 
 			if (addFieldToActionTemplate == null) {
-				addFieldToActionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-field-to-action.txt");
+				addFieldToActionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-field-to-action.txt");
 			}
 
 			if (addActionToActionsTemplate == null) {
-				addActionToActionsTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-action-to-actions.txt");
+				addActionToActionsTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-action-to-actions.txt");
 			}
 
 			if (pageTemplate == null) {
-				pageTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/page.txt");
+				pageTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/page.txt");
 			}
 
 			if (addPageToPagesTemplate == null) {
-				addPageToPagesTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-page-to-pages.txt");
+				addPageToPagesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-page-to-pages.txt");
 			}
 
 			if (objectBindingTemplate == null) {
-				objectBindingTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/object-binding.txt");
+				objectBindingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/object-binding.txt");
 			}
 
 			if (addFieldToBindingTemplate == null) {
-				addFieldToBindingTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-field-to-binding.txt");
+				addFieldToBindingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-field-to-binding.txt");
 			}
 
 			if (addCollectionFieldToBindingTemplate == null) {
-				addCollectionFieldToBindingTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-collection-field-to-binding.txt");
+				addCollectionFieldToBindingTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-collection-field-to-binding.txt");
 			}
 
 			if (addBindingToBindingsTemplate == null) {
-				addBindingToBindingsTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/configuration/add-binding-to-bindings.txt");
+				addBindingToBindingsTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/add-binding-to-bindings.txt");
 			}
 		}
 		catch (IOException ioException) {

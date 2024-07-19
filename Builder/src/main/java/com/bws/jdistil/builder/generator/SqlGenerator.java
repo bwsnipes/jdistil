@@ -38,35 +38,35 @@ public class SqlGenerator {
 
 		try {
 			if (createTableTemplate == null) {
-				createTableTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/create-table.txt");
+				createTableTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/create-table.txt");
 			}
 	
 			if (alterTableTemplate == null) {
-				alterTableTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/alter-table.txt");
+				alterTableTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/alter-table.txt");
 			}
 	
 			if (columnTemplate == null) {
-				columnTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/column.txt");
+				columnTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/column.txt");
 			}
 	
 			if (primaryKeyTemplate == null) {
-				primaryKeyTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/primary-key.txt");
+				primaryKeyTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/primary-key.txt");
 			}
 	
 			if (foreignKeyTemplate == null) {
-				foreignKeyTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/foreign-key.txt");
+				foreignKeyTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/foreign-key.txt");
 			}
 	
 			if (indexTemplate == null) {
-				indexTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/index.txt");
+				indexTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/index.txt");
 			}
 	
 			if (associateTableTemplate == null) {
-				associateTableTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/associate-table.txt");
+				associateTableTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/associate-table.txt");
 			}
 	
 			if (sequenceTemplate == null) {
-				sequenceTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/sql/sequence.txt");
+				sequenceTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/sql/sequence.txt");
 			}
 		}
 		catch (IOException ioException) {

@@ -69,171 +69,171 @@ public class JspGenerator {
 		try {
 			// Load templates
 			if (associateListFieldTemplate == null) {
-				associateListFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/associate-list-field.txt");
+				associateListFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/associate-list-field.txt");
 			}
 
 			if (associateDisplayFieldTemplate == null) {
-				associateDisplayFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/associate-display-field.txt");
+				associateDisplayFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/associate-display-field.txt");
 			}
 
 			if (associateDisplayListFieldTemplate == null) {
-				associateDisplayListFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/associate-display-list-field.txt");
+				associateDisplayListFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/associate-display-list-field.txt");
 			}
 
 			if (booleanEntityFieldTemplate == null) {
-				booleanEntityFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/boolean-entity-field.txt");
+				booleanEntityFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/boolean-entity-field.txt");
 			}
 
 			if (booleanListFieldTemplate == null) {
-				booleanListFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/boolean-list-field.txt");
+				booleanListFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/boolean-list-field.txt");
 			}
 
 			if (columnHeaderTemplate == null) {
-				columnHeaderTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/column-header.txt");
+				columnHeaderTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/column-header.txt");
 			}
 
 			if (selectColumnHeaderTemplate == null) {
-				selectColumnHeaderTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/select-column-header.txt");
+				selectColumnHeaderTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/select-column-header.txt");
 			}
 
 			if (columnTemplate == null) {
-				columnTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/column.txt");
+				columnTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/column.txt");
 			}
 
 			if (columnSelectTemplate == null) {
-				columnSelectTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/column-select.txt");
+				columnSelectTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/column-select.txt");
 			}
 
 			if (dependentMenuTemplate == null) {
-				dependentMenuTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/dependent-menu.txt");
+				dependentMenuTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/dependent-menu.txt");
 			}
 
 			if (dependentLinkTemplate == null) {
-				dependentLinkTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/dependent-link.txt");
+				dependentLinkTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/dependent-link.txt");
 			}
 
 			if (entitiesPageTemplate == null) {
-				entitiesPageTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/entities-page.txt");
+				entitiesPageTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/entities-page.txt");
 			}
 
 			if (selectEntitiesPageTemplate == null) {
-				selectEntitiesPageTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/select-entities-page.txt");
+				selectEntitiesPageTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/select-entities-page.txt");
 			}
 
 			if (entityPageTemplate == null) {
-				entityPageTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/entity-page.txt");
+				entityPageTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/entity-page.txt");
 			}
 
 			if (filterDataTemplate == null) {
-				filterDataTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/filter-data.txt");
+				filterDataTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/filter-data.txt");
 			}
 
 			if (headerLinkTemplate == null) {
-				headerLinkTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/header-link.txt");
+				headerLinkTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/header-link.txt");
 			}
 
 			if (hiddenFieldTemplate == null) {
-				hiddenFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/hidden-entity-field.txt");
+				hiddenFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/hidden-entity-field.txt");
 			}
 
 			if (lookupColumnTemplate == null) {
-				lookupColumnTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/lookup-column.txt");
+				lookupColumnTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/lookup-column.txt");
 			}
 
 			if (lookupEntityFieldTemplate == null) {
-				lookupEntityFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/lookup-entity-field.txt");
+				lookupEntityFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/lookup-entity-field.txt");
 			}
 
 			if (lookupFieldTemplate == null) {
-				lookupFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/lookup-field.txt");
+				lookupFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/lookup-field.txt");
 			}
 
 			if (lookupMultipleColumnTemplate == null) {
-				lookupMultipleColumnTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/lookup-multiple-column.txt");
+				lookupMultipleColumnTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/lookup-multiple-column.txt");
 			}
 
 			if (lookupMultipleEntityFieldTemplate == null) {
-				lookupMultipleEntityFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/lookup-multiple-entity-field.txt");
+				lookupMultipleEntityFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/lookup-multiple-entity-field.txt");
 			}
 
 			if (lookupMultipleFieldTemplate == null) {
-				lookupMultipleFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/lookup-multiple-field.txt");
+				lookupMultipleFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/lookup-multiple-field.txt");
 			}
 
 			if (nextPageBreadcrumbActionTemplate == null) {
-				nextPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/breadcrumb-action.txt");
+				nextPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/breadcrumb-action.txt");
 			}
 
 			if (pagingHeaderTemplate == null) {
-				pagingHeaderTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/paging-header.txt");
+				pagingHeaderTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/paging-header.txt");
 			}
 
 			if (previousPageBreadcrumbActionTemplate == null) {
-				previousPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/breadcrumb-action.txt");
+				previousPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/breadcrumb-action.txt");
 			}
 
 			if (selectPageBreadcrumbActionTemplate == null) {
-				selectPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/breadcrumb-action.txt");
+				selectPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/breadcrumb-action.txt");
 			}
 
 			if (textFieldTemplate == null) {
-				textFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/text-entity-field.txt");
+				textFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/text-entity-field.txt");
 			}
 
 			if (memoFieldTemplate == null) {
-				memoFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/memo-entity-field.txt");
+				memoFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/memo-entity-field.txt");
 			}
 
 			if (emailFieldTemplate == null) {
-				emailFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/email-entity-field.txt");
+				emailFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/email-entity-field.txt");
 			}
 
 			if (phoneNumberFieldTemplate == null) {
-				phoneNumberFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/phone-number-entity-field.txt");
+				phoneNumberFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/phone-number-entity-field.txt");
 			}
 
 			if (dateFieldTemplate == null) {
-				dateFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/date-entity-field.txt");
+				dateFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/date-entity-field.txt");
 			}
 
 			if (timeFieldTemplate == null) {
-				timeFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/time-entity-field.txt");
+				timeFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/time-entity-field.txt");
 			}
 
 			if (viewPageBreadcrumbActionTemplate == null) {
-				viewPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/breadcrumb-action.txt");
+				viewPageBreadcrumbActionTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/breadcrumb-action.txt");
 			}
 
 			if (textOperatorFieldTemplate == null) {
-				textOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/text-operator-field.txt");
+				textOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/text-operator-field.txt");
 			}
 
 			if (dateOperatorFieldTemplate == null) {
-				dateOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/date-operator-field.txt");
+				dateOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/date-operator-field.txt");
 			}
 
 			if (emailOperatorFieldTemplate == null) {
-				emailOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/email-operator-field.txt");
+				emailOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/email-operator-field.txt");
 			}
 
 			if (phoneNumberOperatorFieldTemplate == null) {
-				phoneNumberOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/phone-number-operator-field.txt");
+				phoneNumberOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/phone-number-operator-field.txt");
 			}
 
 			if (timeOperatorFieldTemplate == null) {
-				timeOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/time-operator-field.txt");
+				timeOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/time-operator-field.txt");
 			}
 
 			if (memoOperatorFieldTemplate == null) {
-				memoOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/memo-operator-field.txt");
+				memoOperatorFieldTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/memo-operator-field.txt");
 			}
 
 			if (homePageTemplate == null) {
-				homePageTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/home-page.txt");
+				homePageTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/home-page.txt");
 			}
 
 			if (headerPageTemplate == null) {
-				headerPageTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/jsp/header-page.txt");
+				headerPageTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/jsp/header-page.txt");
 			}
 		}
 		catch (IOException ioException) {

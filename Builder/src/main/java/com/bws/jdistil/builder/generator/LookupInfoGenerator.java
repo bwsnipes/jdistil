@@ -31,7 +31,7 @@ public class LookupInfoGenerator {
 
 		try {
 			if (insertCategoryTemplate == null) {
-				insertCategoryTemplate = resourceReader.readResource("/com/bws/jdistil/project/fragment/resources/lookup/insert-category.txt");
+				insertCategoryTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/lookup/insert-category.txt");
 			}
 		}
 		catch (IOException ioException) {
