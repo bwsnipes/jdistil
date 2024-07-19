@@ -166,8 +166,8 @@ public class DataSourceGenerator {
 			for (Attribute attribute : attributes) {
 
 				// Add line separator for correct spacing
-				attributeStatements.append("LINE_SEPARATOR");
-				propertyStatements.append("LINE_SEPARATOR");
+				attributeStatements.append(LINE_SEPARATOR);
+				propertyStatements.append(LINE_SEPARATOR);
 
 				// Initialize attribute and property statements
 				String attributeStatement = attributeStatementTemplate;

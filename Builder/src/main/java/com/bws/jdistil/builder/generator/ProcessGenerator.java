@@ -38,7 +38,7 @@ public class ProcessGenerator {
 		
 		try {
 			if (viewEntitiesTemplate == null) {
-				viewEntitiesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/process/view-entities.txt");
+				viewEntitiesTemplate = resourceReader.readResource("/com/bws/jdistil/builder/generator/template/process/view-entities.txt");
 			}
 			
 			if (viewEntitiesPagingTemplate == null) {
