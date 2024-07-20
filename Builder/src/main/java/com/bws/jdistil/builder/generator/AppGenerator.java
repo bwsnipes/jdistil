@@ -42,14 +42,6 @@ public class AppGenerator {
 
 	public void execute(Project project) throws GeneratorException {
 
-		// src/main/java
-		// src/main/resources
-		// src/main/resources/properties
-		// src/main/resources/sql
-		// src/main/webapp
-		// src/main/webapp/codes
-		// src/main/webapp/WEB-INF
-		
 		// Create all base application directories
 		createBaseDirectories(project);
 		createPackageNames(project);
@@ -175,6 +167,7 @@ public class AppGenerator {
 			String pomContent = resourceReader.readResource("/com/bws/jdistil/builder/generator/artifact/configuration/pom.txt");
 
 			// Update pom file content
+			pomContent = pomContent.replace("GROUP_ID", project.getBasePackageName());
 			pomContent = pomContent.replace("PROJECT_NAME", project.getName());
 
 			// Create pom file
@@ -197,7 +190,7 @@ public class AppGenerator {
 			viewHomeContent = viewHomeContent.replaceAll("BASE_PACKAGE_NAME", basePackageName);
 			
 			// Create view home file
-			Path viewHomePath = configurationPackagePath.resolve("ViewHome.java");
+			Path viewHomePath = basePackagePath.resolve("ViewHome.java");
 			Files.writeString(viewHomePath, viewHomeContent, StandardOpenOption.CREATE_NEW);
 			
 			

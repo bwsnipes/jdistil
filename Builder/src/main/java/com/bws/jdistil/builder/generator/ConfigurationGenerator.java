@@ -166,9 +166,6 @@ public class ConfigurationGenerator {
 			// Create fragment configuration package directories
 			Files.createDirectories(fragmentConfigurationPackagePath);
 			
-			// Get fragment configuration package name
-			String fragmentConfigurationPackageName = configurationPackageName.concat(".fragments");
-			
 			for (Fragment fragment : project.getFragments()) {
 
 				// Create fragment writers
@@ -205,7 +202,7 @@ public class ConfigurationGenerator {
 					}
 					
 					// Create fragment configuration file
-					createFragmentConfiguration(fragment, fragmentConfigurationPackageName, fragmentConfigurationPackagePath, fragmentWriters);
+					createFragmentConfiguration(fragment, basePackageName, configurationPackageName, fragmentConfigurationPackagePath, fragmentWriters);
 				}
 				finally {
 					
@@ -228,22 +225,22 @@ public class ConfigurationGenerator {
 		}
 	}
 
-	private void createFragmentConfiguration(Fragment fragment,	String fragmentConfigurationPackageName, 
+	private void createFragmentConfiguration(Fragment fragment,	String basePackageName, String configurationPackageName, 
 			Path fragmentConfigurationPackagePath, FragmentConfigurationWriters fragmentWriters) throws GeneratorException {
 		
 		try {
 			// Get fragment name
 			String fragmentName = fragment.getName();
 			
-			// Create fragment package name
-			String fragmentPackageName = fragmentConfigurationPackageName + "." + TextConverter.convertCommonToCamel(fragmentName, true);
+			// Create entity package name
+			String entityPackageName = basePackageName + "." + TextConverter.convertCommonToCamel(fragmentName, true);
 			
 			// Create fragment class name
 			String fragmentClassName = TextConverter.convertCommonToCamel(fragmentName, false);
 
 			// Create fragment configuration
-			String fragmentConfigurationContent = configurationTemplate.replaceAll("CONFIG-PACKAGE-NAME", fragmentConfigurationPackageName);
-			fragmentConfigurationContent = fragmentConfigurationContent.replaceAll("ENTITY-PACKAGE-NAME", fragmentPackageName);
+			String fragmentConfigurationContent = configurationTemplate.replaceAll("CONFIG-PACKAGE-NAME", configurationPackageName);
+			fragmentConfigurationContent = fragmentConfigurationContent.replaceAll("ENTITY-PACKAGE-NAME", entityPackageName);
 			fragmentConfigurationContent = fragmentConfigurationContent.replaceAll("ENTITY-NAME", fragmentClassName);
 
 			// Write registration statements
@@ -253,7 +250,7 @@ public class ConfigurationGenerator {
 			fragmentConfigurationContent = fragmentConfigurationContent.replaceAll("REGISTERED-OBJECT-BINDINGS", fragmentWriters.getObjectBindingStatements());
 			
 			// Create fragment configuration file
-			String fragmentConfigurationFileName = fragmentClassName + ".java";
+			String fragmentConfigurationFileName = fragmentClassName + "Configuration.java";
 			
 			// Create fragment configuration file
 			Path fragmentConfigurationPath = fragmentConfigurationPackagePath.resolve(fragmentConfigurationFileName);

@@ -1191,7 +1191,7 @@ public class JspGenerator {
 		// Create template variables
 		String pageTitle = TextConverter.convertCommonToCamel(entityName, false);
 		String dataObjectName = TextConverter.convertCommonToCamel(entityName, false);
-		String packageName = basePackageName + "." + dataObjectName;
+		String packageName = basePackageName + "." + TextConverter.convertCommonToCamel(entityName, true);
 		String constantEntityName = TextConverter.convertCommonToConstant(entityName);
 		String constantPluralEntityName = TextConverter.convertToPlural(constantEntityName).toUpperCase();
 		String pageName = constantEntityName;
