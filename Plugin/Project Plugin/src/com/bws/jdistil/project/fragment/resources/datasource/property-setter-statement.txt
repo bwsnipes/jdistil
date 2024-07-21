@@ -1,8 +1,0 @@
-  /**
-   * Sets the ATTRIBUTE-DESCRIPTION.
-   * @param ATTRIBUTE-NAME PROPERTY-NAME.
-   */
-  public void setPROPERTY-NAME(ATTRIBUTE-TYPE ATTRIBUTE-NAME) {
-    updateModifiedStatus(this.ATTRIBUTE-NAME, ATTRIBUTE-NAME);
-    this.ATTRIBUTE-NAME = ATTRIBUTE-NAME;
-  }

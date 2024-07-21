@@ -1,3 +1,0 @@
-insert into bws_field_group (group_id, name)
-	select coalesce(max(group_id), 0) + 1, 'FIELD-GROUP' from bws_field_group
-;

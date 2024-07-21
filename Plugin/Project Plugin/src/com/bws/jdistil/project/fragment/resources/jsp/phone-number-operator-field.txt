@@ -1,7 +1,0 @@
-				<tr>
-					<td><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
-					<td>
-            <core:operatorList fieldId="<%= FieldIds.OPERATOR-NAME %>" isTextMode="<%= TEXT-MODE %>" defaultValue="<%= Operators.DEFAULT-NAME %>" />
-            <core:phone fieldId="<%= FieldIds.FIELD-NAME %>" maxlength="MAX-LENGTH" />
-          </td>
-				</tr>

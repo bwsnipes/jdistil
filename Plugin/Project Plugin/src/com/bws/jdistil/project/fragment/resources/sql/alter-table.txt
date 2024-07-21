@@ -1,5 +1,0 @@
-alter table TABLE-NAME add column
-(
-COLUMN-DEFINITIONS
-)
-;

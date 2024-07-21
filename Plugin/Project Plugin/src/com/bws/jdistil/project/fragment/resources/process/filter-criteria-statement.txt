@@ -1,1 +1,0 @@
-	valueCriterionDefinitions.add(new ValueCriterionDefinition(FieldIds.FIELD-ID, DEFAULT-ID, Operators.OPERATOR-ID, FieldIds.FILTER-ID, null));

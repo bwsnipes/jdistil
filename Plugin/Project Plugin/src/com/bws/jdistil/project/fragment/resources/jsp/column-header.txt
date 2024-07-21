@@ -1,4 +1,0 @@
-          <core:td width="100">
-            <core:sortableColumnHeader actionId="<%= ActionIds.VIEW-ACTION-NAME %>" displayFieldId="<%= FieldIds.DISPLAY-FIELD-NAME %>" 
-            		sortFieldId="<%= FieldIds.SORT-FIELD-NAME %>" sortDirectionId="<%= FieldIds.SORT-DIRECTION-NAME %>" />
-          </core:td>

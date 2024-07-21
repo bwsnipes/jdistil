@@ -1,7 +1,0 @@
-  /**
-   * Returns the list of ATTRIBUTE-DESCRIPTION.
-   * @return List<ATTRIBUTE-TYPE> List of PROPERTY-NAME.
-   */
-  public List<ATTRIBUTE-TYPE> getPROPERTY-NAME() {
-    return Collections.unmodifiableList(ATTRIBUTE-NAME);
-  }

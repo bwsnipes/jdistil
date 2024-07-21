@@ -1,3 +1,0 @@
-          <core:td width="100">
-            <core:label fieldId="<%= FieldIds.FIELD-NAME %>" />
-          </core:td>

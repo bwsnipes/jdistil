@@ -1,5 +1,0 @@
-create table TABLE-NAME 
-(
-COLUMN-DEFINITIONS
-)
-;

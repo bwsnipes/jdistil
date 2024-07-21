@@ -1,3 +1,0 @@
-insert into bws_task (task_id, name)
-	select coalesce(max(task_id), 0) + 1, 'TASK-NAME' from bws_task
-;

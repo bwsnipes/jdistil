@@ -1,5 +1,0 @@
-          <core:td>
-            <core:displayAssociate fieldId="<%= FieldIds.ASSOCIATE-FIELD-ID %>" attributeName="<%= AttributeNames.ATTRIBUTE-NAME %>"
-               associateDataManagerClass="<%= MANAGER-CLASS-NAME.class %>" associateDisplayFieldId="<%= FieldIds.DISPLAY-FIELD-ID %>" />
-          </core:td>
-        

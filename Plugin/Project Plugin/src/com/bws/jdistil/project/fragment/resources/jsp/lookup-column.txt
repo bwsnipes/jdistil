@@ -1,3 +1,0 @@
-          <core:td>
-	          <codes:displayList fieldId="<%= FieldIds.FIELD-NAME %>" categoryId="<%= CategoryIds.CATEGORY-ID %>"/>
-          </core:td>

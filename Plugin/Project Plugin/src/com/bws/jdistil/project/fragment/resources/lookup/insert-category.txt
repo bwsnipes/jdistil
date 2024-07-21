@@ -1,5 +1,0 @@
-insert into bws_category
-   (category_id, name, is_deleted)
-values
-   (CATEGORY-ID, 'CATEGORY-NAME', '0')
-;

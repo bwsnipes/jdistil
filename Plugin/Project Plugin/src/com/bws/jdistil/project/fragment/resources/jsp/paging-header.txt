@@ -1,6 +1,0 @@
-			<p>
-				<label><core:description value="Page" />&nbsp;<core:currentPageNumber/>&nbsp;<core:description value="of" />&nbsp;<core:totalPages/></label>
-				<core:pageNavigation currentPageNumberFieldId="<%= FieldIds.CURRENT-PAGE-NUMBER-FIELD-NAME %>" selectedPageNumberFieldId="<%= FieldIds.SELECTED-PAGE-NUMBER-FIELD-NAME %>"
-				    previousPageActionId="<%= ActionIds.PREVIOUS-PAGE-ACTION-NAME %>" selectPageActionId="<%= ActionIds.SELECT-PAGE-ACTION-NAME %>" nextPageActionId="<%= ActionIds.NEXT-PAGE-ACTION-NAME %>" />
-				<label><core:totalItems/>&nbsp;<core:description value="Items" /></label>
-			</p>

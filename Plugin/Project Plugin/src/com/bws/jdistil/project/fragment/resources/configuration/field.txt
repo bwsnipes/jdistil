@@ -1,1 +1,0 @@
-	Field FIELD-NAME = new Field(FieldIds.FIELD-ID, Field.FIELD-TYPE, "FIELD-LABEL", FIELD-CONVERTER);

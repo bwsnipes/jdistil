@@ -1,3 +1,0 @@
-          <core:td>
-	          <codes:displayMultipleList fieldId="<%= FieldIds.FIELD-NAME %>" categoryId="<%= CategoryIds.CATEGORY-ID %>"/>
-          </core:td>

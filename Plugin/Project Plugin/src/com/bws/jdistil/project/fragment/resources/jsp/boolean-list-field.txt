@@ -1,4 +1,0 @@
-				<tr>
-					<td><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
-					<td><core:booleanList fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
-				</tr>

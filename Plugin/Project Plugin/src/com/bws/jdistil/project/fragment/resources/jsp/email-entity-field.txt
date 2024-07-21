@@ -1,4 +1,0 @@
-				<tr>
-					<td><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
-					<td><core:email fieldId="<%= FieldIds.FIELD-NAME %>" attributeName="<%= AttributeNames.ATTRIBUTE-NAME %>" maxlength="MAX-LENGTH" /></td>
-				</tr>

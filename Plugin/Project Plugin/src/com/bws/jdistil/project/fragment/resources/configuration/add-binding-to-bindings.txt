@@ -1,1 +1,0 @@
-    objectBindings.add(BINDING-NAME);

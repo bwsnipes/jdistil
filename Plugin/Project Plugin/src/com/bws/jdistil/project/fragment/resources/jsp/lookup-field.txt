@@ -1,4 +1,0 @@
-				<tr>
-					<td><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
-					<td><codes:list fieldId="<%= FieldIds.FIELD-NAME %>" categoryId="<%= CategoryIds.CATEGORY-ID %>" defaultValue="" /></td>
-				</tr>

@@ -1,6 +1,0 @@
-			<core:menuItem>
-         <core:link actionId="<%= ActionIds.ACTION-NAME %>" >
-            <core:pageDescription pageId="<%= PageIds.PAGE-NAME %>" />
-         </core:link>
-			</core:menuItem>
-         

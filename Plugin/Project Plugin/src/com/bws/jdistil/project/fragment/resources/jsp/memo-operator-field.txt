@@ -1,7 +1,0 @@
-				<tr>
-					<td valign="top"><core:label fieldId="<%= FieldIds.FIELD-NAME %>" /></td>
-					<td valign="top">
-            <core:operatorList fieldId="<%= FieldIds.OPERATOR-NAME %>" isTextMode="<%= TEXT-MODE %>" defaultValue="<%= Operators.DEFAULT-NAME %>" />
-            <core:memo fieldId="<%= FieldIds.FIELD-NAME %>" maxlength="MAX-LENGTH" rows="10" cols="50" />
-          </td>
-				</tr>

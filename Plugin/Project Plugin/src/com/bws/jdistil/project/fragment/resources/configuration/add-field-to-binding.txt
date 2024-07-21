@@ -1,1 +1,0 @@
-    BINDING-NAME.addFieldBinding(FieldIds.FIELD-ID, "PROPERTY-NAME");

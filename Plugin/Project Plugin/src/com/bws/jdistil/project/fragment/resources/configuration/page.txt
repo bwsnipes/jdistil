@@ -1,1 +1,0 @@
-    Page PAGE-NAME = new Page(PageIds.PAGE-ID, "/FILE-NAME.jsp", "DEFAULT-DESCRIPTION", true);    
