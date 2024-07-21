@@ -51,6 +51,12 @@ public class AppBuilderFrame extends JFrame {
 	
 	private AppGenerator appGenerator = new AppGenerator();
 	
+	private JMenuItem newMenuItem = null;
+	private JMenuItem openMenuItem = null;
+	private JMenuItem saveMenuItem = null;
+	private JMenuItem generateMenuItem = null;
+	private JMenuItem exitMenuItem = null;
+
 	private JTextField projectNameTextField = null;
 	private JTextField basePackageTextField = null;
 	private JTable fragmentsTable = null;
@@ -287,11 +293,11 @@ public class AppBuilderFrame extends JFrame {
 	private void buildMenuBar(JFrame frame) {
 		
 		// Create file menu items
-		JMenuItem newMenuItem = new JMenuItem("New Project...");
-		JMenuItem openMenuItem = new JMenuItem("Open Project...");
-		JMenuItem saveMenuItem = new JMenuItem("Save Project");
-		JMenuItem generateMenuItem = new JMenuItem("Generate Project");
-		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		newMenuItem = new JMenuItem("New Project...");
+		openMenuItem = new JMenuItem("Open Project...");
+		saveMenuItem = new JMenuItem("Save Project");
+		generateMenuItem = new JMenuItem("Generate Project");
+		exitMenuItem = new JMenuItem("Exit");
 		
 		// Create file menu
 		JMenu fileMenu = new JMenu("File");
@@ -398,8 +404,11 @@ public class AppBuilderFrame extends JFrame {
 		updateButton.setEnabled(totalRowsSelected == 1);
 		deleteButton.setEnabled(totalRowsSelected >= 1);
 		
+		boolean isMinimumDataAvailable = fragmentsTableModel.getRowCount() >= 2;
+		
 		// Update relationships button state based on number of available fragments
-		relationshipsButton.setEnabled(fragmentsTableModel.getRowCount() >= 2);
+		relationshipsButton.setEnabled(isMinimumDataAvailable);
+		generateMenuItem.setEnabled(isMinimumDataAvailable);
 	}
 	
 	private void updateReferenceData(String excludedFragmentName) {
@@ -545,6 +554,8 @@ public class AppBuilderFrame extends JFrame {
 			
 			try {
 				appGenerator.execute(workingProject);
+							
+			    JOptionPane.showMessageDialog(this, "Artifact generation complete.", "Generate Project", JOptionPane.INFORMATION_MESSAGE);
 			}
 			catch (Exception exception) {
 				
