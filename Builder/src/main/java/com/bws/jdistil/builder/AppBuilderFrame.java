@@ -720,7 +720,7 @@ private class FragmentTableModel extends AbstractTableModel {
     		value = fragment.getIsPaginationSupported() ? "Yes" : "No";
     		break;
 		case 3: 
-    		value = fragment.getPageSize().toString();
+    		value = fragment.getPageSize() == null ? "" : fragment.getPageSize().toString();
     		break;
     	}
     	
