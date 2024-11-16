@@ -427,7 +427,7 @@ public class FragmentDialog extends JDialog {
 			nameTextField.setText(fragment.getName());
 			parentComboBox.setSelectedItem(fragment.getParentName());
 			isPaginationCheckBox.setSelected(fragment.getIsPaginationSupported());
-			pageSizeTextField.setText(fragment.getPageSize().toString());
+			pageSizeTextField.setText(fragment.getPageSize() == null ? "" : fragment.getPageSize().toString());
 			
 			// Populate attribute table data
 			attributesTableModel.addRowData(fragment.getAttributes());
